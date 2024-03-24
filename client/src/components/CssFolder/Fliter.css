@@ -1,0 +1,147 @@
+.Fliterpanel {
+    width: 330px;
+}
+
+.Fliter_Container {
+    border: 1px solid #cccc;
+    border-radius: 8px;
+    height: auto;
+    padding: 30px 17px;
+    box-shadow: 0px 0px 8px 1px #cccccc8a;
+}
+
+.Fliter_Departure_Stop_label,
+.Fliter_Departure_Time_label,
+.Fliter_Airline_label {
+    font-weight: 900;
+    color: #55575b;
+    font-size: large;
+}
+
+.Stop_NonStop {
+    align-items: center;
+    display: grid;
+    grid-template-columns: 20px 80px;
+    height: 75px;
+    margin-top: 8px;
+}
+
+.checkbox_label {
+    font-weight: 900;
+    color: #55575b;
+    margin-left: 10px;
+}
+
+.checkbox{
+    padding: 8px 0 8px 30px;
+    font-size: 15.5px;
+    position: relative;
+}
+
+.checkbox::before{
+    content: "";
+    width: 20px;
+    height: 20px;
+    border-radius: 3px;
+    border: solid 2px #9b9b9b;
+    display: flex;
+    position: absolute;
+    top: 10px;
+    left: 0;
+}
+
+.checkbox::after {
+    content: "";
+    display: inline-block;
+    transform: rotate(45deg);
+    height: 13px;
+    width: 6.5px;
+    border-bottom: 2px solid #ffffff;
+    border-right: 2px solid #ffffff;
+    position: absolute;
+    left: 7px;
+    top: 13px;
+}
+.checkbox.activeItem::before {
+    background-color: #66bb6a;
+}
+.Fliter_Departure_Time_container,
+.Fliter_Airline_container {
+    margin-top: 20px;
+}
+
+.Fliter_Depature_Times {
+    display: grid;
+    grid-template-columns: repeat(4, 63px);
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 15px;
+}
+.Departure_Time.activeItem {
+    background-color: rgb(252 179 42 / 39%) !important;
+}
+.Departure_Time {
+    padding: 9px 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    height: 70px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.Departure_Time:hover {
+    background-color: #004cff1a;
+    transition: 0.3s ease-in-out;
+}
+
+.time {
+    font-size: 7px;
+    font-weight: 700;
+}
+
+.airlinelogosmall {
+    aspect-ratio: 3/2;
+    object-fit: contain;
+}
+
+.filterAirline {
+    display: inline-flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.check_box {
+    width: 100%;
+    height: 18px;
+    accent-color: #fcb32a;
+}
+
+.Airline {
+    align-items: center;
+    justify-content: space-between;
+    display: grid;
+    grid-template-columns: 30px 40px 134px 58px;
+    height: 40px;
+}
+.checkbox {
+    align-items: center;
+    justify-content: space-between;
+    display: grid;
+    grid-template-columns: 43px 134px 58px;
+    height: 40px;
+}
+.Airline_name {
+    color: #27273fab;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+}
+
+.Airline_avg_price {
+    color: #27273f87;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+}

@@ -1,0 +1,465 @@
+
+.split_Screen {
+    display: grid;
+    grid-template-columns: 53% 30%;
+    justify-content: space-between;
+    margin-top: 70px;
+}
+
+.borders {
+    border-left: 6px solid #ffc5c1 !important;
+}
+
+.Payment_tabs {
+    border: 1px solid #ecbf5d;
+    border-radius: 4px;
+    padding: 6px;
+    width: 40%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.Payment_method {
+    width: 45%;
+    align-items: center;
+    justify-content: space-around;
+    display: flex;
+}
+
+.Active_method {
+    background-image: linear-gradient(to right, #ee2149, #752265);
+    color: #fafafa;
+    padding: 6px;
+    border-radius: 4px;
+}
+
+.label_name,
+.cancel_points {
+    padding: 1.2rem 0;
+    color: var(--third-color);
+    font-size: 15px;
+    font-weight: 600;
+}
+.cancel_points {
+    font-size: medium;
+}
+
+.cancel_point_detail {
+    color: var(--light-color);
+    font-size: smaller;
+}
+.Upgrade_label {
+    color: #6e7491;
+}
+.card_info {
+    position: relative;
+    width: 100%;
+    border-radius: 5px;
+    border: 1px solid #7c8db0;
+    padding: 12px;
+    color: #6e7491;
+}
+
+.card_info::placeholder {
+    color: #7c8db0;
+}
+
+.card_info:focus-visible {
+    outline: -webkit-focus-ring-color auto 0px;
+}
+
+.Payment_info {
+    width: 70%;
+}
+
+.private_info {
+    display: grid;
+    grid-template-columns: repeat(2, 33.9%);
+    gap: 16px;
+}
+
+.offer_container,
+.Cancellation_condition {
+    background-color: #fff;
+    box-shadow: 0px 0px 8px 1px #cccccc8a;
+    border-radius: 10px;
+    padding: 1rem;
+    margin-top: 1.5rem;
+    overflow: auto;
+    height: 300px;
+}
+
+.Offer,
+.Bank_detail {
+    background-color: #fff;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 33%;
+}
+
+.Icon_container {
+    height: 36px;
+    display: flex;
+    width: 36px;
+    text-align: left;
+    align-items: center;
+    border-radius: 6px;
+    border: 1px solid #e2e2e7;
+}
+
+.Icon {
+    max-height: 32px;
+    width: auto;
+    max-width: 100%;
+    margin: auto;
+}
+
+.Back_to_Seat,
+.cancel {
+    border: 1px solid #b02258;
+    border-radius: 0.3rem;
+    color: #b02258;
+    padding: 10px;
+    width: 25%;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    margin-top: 40px;
+}
+
+.Confirm_And_Pay {
+    display: inline-block;
+    margin-left: 15px;
+    text-align: center;
+    text-decoration: none;
+    padding: 10px;
+    width: 30%;
+    border-radius: 5px;
+    background-image: linear-gradient(to right, #ee2149, #752265);
+    color: #fff;
+    margin-top: 40px;
+}
+
+.name.error {
+    border: 1.5px solid #ee2149;
+}
+
+.Confirm_And_Pay:hover {
+    background-image: linear-gradient(to right, #ee214ac4, #752264bc);
+    transition: background-color 0.3s ease-in-out;
+    cursor: pointer;
+}
+
+.disable {
+    display: none;
+}
+
+.QRcode {
+    width: 30%;
+}
+
+.Gpay_info {
+    margin-top: 8px;
+    color: var(--light-color);
+    font-size: smaller;
+}
+
+.warning {
+    padding: 0.68rem;
+    margin-bottom: 1rem;
+    width: 80%;
+}
+
+.warning_label {
+    font-size: 16px;
+    margin-top: -0.1rem !important;
+    color: #ee2149 !important;
+}
+
+.warning_message {
+    font-size: small !important;
+}
+
+@media only screen and (min-width: 320px) and (max-width: 480px) {
+    .screen_split {
+        margin-top: 60px;
+    }
+
+    .payment_label {
+        font-size: medium;
+        margin-bottom: 10px;
+    }
+
+    .Payment_tabs {
+        font-size: 12px;
+        width: 65%;
+    }
+
+    .label_name {
+        font-size: smaller;
+        padding: 0.7rem 0;
+    }
+
+    .Payment_info {
+        width: 100%;
+    }
+
+    .warning {
+        padding: 0.68rem;
+        margin-bottom: 1rem;
+        width: 100%;
+    }
+
+    .warning_label {
+        font-size: 13px;
+        margin-top: -0.1rem !important;
+    }
+
+    .warning_message {
+        font-size: 10.8px;
+        line-height: normal;
+    }
+
+    .warning_icon {
+        width: 15px;
+    }
+
+    .Back_to_Seat,
+    .Confirm_And_Pay {
+        width: fit-content;
+        font-size: small;
+        margin-top: 10px;
+    }
+
+    .Offer {
+        width: fit-content;
+        display: block;
+        margin-bottom: 0.5rem;
+    }
+
+    .cancel_points {
+        font-size: 12px;
+    }
+
+    .cancel_point_detail {
+        font-size: 11px;
+        text-align: justify;
+    }
+
+    .Bank_detail {
+        width: 65%;
+    }
+
+    .QRcode {
+        width: 50%;
+    }
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up)  */
+@media only screen and (min-width: 481px) and (max-width: 767px) {
+    .screen_split {
+        margin-top: 60px;
+    }
+
+    .payment_label {
+        font-size: medium;
+        margin-bottom: 10px;
+    }
+
+    .Payment_tabs {
+        font-size: 12px;
+    }
+
+    .label_name {
+        font-size: smaller;
+        padding: 0.7rem 0;
+    }
+
+    .Payment_info {
+        width: 100%;
+    }
+
+    .warning {
+        padding: 0.68rem;
+        margin-bottom: 1rem;
+        width: 100%;
+    }
+
+    .warning_label {
+        font-size: 13px;
+        margin: 1px;
+    }
+
+    .warning_message {
+        font-size: 12px;
+        line-height: normal;
+    }
+
+    .Back_to_Seat,
+    .Confirm_And_Pay {
+        width: fit-content;
+        font-size: small;
+        margin-top: 10px;
+    }
+
+    .Offer {
+        width: fit-content;
+        display: grid;
+        grid-template-columns: 28% 72%;
+        margin-bottom: 0.5rem;
+    }
+
+    .cancel_points {
+        font-size: x-small;
+    }
+
+    .cancel_point_detail {
+        font-size: xx-small;
+        text-align: justify;
+    }
+
+    .Bank_detail {
+        width: 35%;
+    }
+
+    .QRcode {
+        width: 35%;
+    }
+}
+
+/* Medium devices (landscape tablets, 768px and up)  */
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+    .Payment_tabs {
+        font-size: smaller;
+        width: 70%;
+        margin: 1rem 0 0 0;
+    }
+
+    .Payment_info {
+        width: 100%;
+    }
+
+    .warning {
+        padding: 0.68rem;
+        margin-bottom: 1rem;
+        width: 100%;
+    }
+
+    .warning_label {
+        font-size: 13px;
+        margin: 1px;
+        margin-bottom: 0;
+    }
+
+    .warning_message {
+        font-size: 10px;
+        line-height: normal;
+    }
+
+    .Offer {
+        width: fit-content;
+        display: block;
+        margin-bottom: 0.5rem;
+    }
+
+    .cancel_points {
+        font-size: small;
+    }
+
+    .cancel_point_detail {
+        font-size: x-small;
+        text-align: justify;
+    }
+
+    .QRcode {
+        width: 45%;
+    }
+
+    .Bank_detail {
+        width: 58%;
+    }
+
+    .Back_to_Seat,
+    .Confirm_And_Pay {
+        width: fit-content;
+        font-size: smaller;
+        margin-top: 25px;
+    }
+}
+
+/* Large devices (laptops/desktops, 992px and up)  */
+@media only screen and (min-width: 992px) and (max-width: 1200px) {
+    .Payment_tabs {
+        font-size: smaller;
+        width: 50%;
+        margin: 1rem 0 0 0;
+    }
+
+    .Offer {
+        width: fit-content;
+        display: block;
+    }
+
+    .cancel_points {
+        font-size: smaller;
+    }
+
+    .cancel_point_detail {
+        font-size: small;
+        text-align: justify;
+    }
+
+    .warning {
+        padding: 0.68rem;
+        margin-bottom: 1rem;
+        width: 80%;
+    }
+
+    .warning_label {
+        font-size: large;
+        margin: 1px;
+    }
+
+    .warning_message {
+        font-size: smaller;
+        line-height: normal;
+    }
+}
+
+/* Extra-large devices (large laptops and desktops, 1200px and up)  */
+@media only screen and (min-width: 1201px) {
+    .Offer {
+        width: fit-content;
+        display: block;
+    }
+
+    .cancel_points {
+        font-size: smaller;
+    }
+
+    .cancel_point_detail {
+        font-size: small;
+        text-align: justify;
+    }
+
+    .warning {
+        padding: 0.68rem;
+        margin-bottom: 1rem;
+        width: 80%;
+    }
+
+    .warning_label {
+        font-size: large;
+        margin: 1px;
+    }
+
+    .warning_message {
+        font-size: smaller;
+        line-height: normal;
+    }
+}

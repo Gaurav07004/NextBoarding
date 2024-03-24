@@ -1,0 +1,91 @@
+.flightpanel {
+    width: 650px;
+}
+.Airplane_Loader {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.AirplaneAnimation {
+    width: 60%;
+    height: auto;
+}
+.flightDeal{
+    border: 1px solid #cccc;
+    border-radius: 8px;
+    height: 500px;
+    overflow: auto;
+    padding: 12px;
+    box-shadow: 0px 0px 8px 1px #cccccc8a;
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+}
+::-webkit-scrollbar-track {
+    background: transparent;
+    border-radius: 8px;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #cccccc82;
+    border-radius: 8px;
+    height: 50px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #ccccccab;
+}
+.Departure_info{
+    width: fit-content;
+    display: flex;
+    align-items: center;
+    height: 85px;
+    padding: 11px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+    border-radius: 8px;
+    text-align: center;
+}
+.Departure_info:hover{
+    background-color: hsla(240, 60%, 89%, 0.57);
+}
+.airlinelogo{
+    width: 100px;
+    height: auto;
+}
+.airlineInfo{
+    width: 160px;
+}
+.duration{
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 600;
+    color: #27273fab;
+}
+
+.Departure_airline{
+    color: #7C8DB0;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+}
+.Departure_arrival_time {
+    width: 180px;
+    font-weight: 600;
+    color: #27273fab;
+}
+.stopInfo {
+    width: 86px;
+    font-weight: 600;
+    color: #27273fab;
+}
+.Departure_price {
+    width: 66px;
+    font-weight: 600;
+    color: #27273fab;
+}

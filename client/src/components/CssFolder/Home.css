@@ -1,0 +1,158 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+.MuiContainer-root.MuiContainer-maxWidthLg.css-1oqqzyl-MuiContainer-root {
+  max-width: 1300px !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+
+}
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+  border-radius: 8px;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cccccc82;
+  border-radius: 8px;
+  height: 50px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #ccccccab;
+}
+:root {
+  --primary-color: #55575B;
+  --secondary-color: #6e7491c4;
+  --third-color: #6E7491;
+  --light-color: #7C8DB0;
+};
+
+.banner {
+  padding: 12px;
+  background-color: #605dec;
+  color: #fff;
+  transition: transform 0.3s;
+  position: fixed;
+  width: 100%;
+  z-index: 1;
+}
+
+.banner-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  font-family: inherit;
+}
+
+.offer-banner {
+  font-size: 18px;
+}
+
+.cancel-offer {
+  font-size: 26px;
+  cursor: pointer;
+}
+
+.home-container.shifted {
+  transform: translateY(-4rem);
+}
+
+.background-image {
+  background-image: url(D:\Development\Web-development\ReactJs\testing\client\src\assets\worldMap.png);
+  width: 100%;
+  height: 100vh;
+  background-position: fixed;
+  background-size: cover;
+  transition: transform 0.3s;
+}
+
+.Text {
+  background-image: linear-gradient(to right, #fcb32a 40%, #ec2149 55%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  font-size: 82px;
+  text-align: center;
+  line-height: 90px;
+  padding: 170px 30px 49px 30px;
+  opacity: 0.8;
+  font-family: sans-serif;
+}
+
+@media only screen and (min-width: 320px) and (max-width: 480px) {
+  .background-image {
+    width: 100%;
+    height: 12rem;
+    margin-top: 5rem;
+  }
+
+    .Text {
+      font-size: 30px;
+        line-height: 2rem;
+        padding: 2rem;
+    }
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up)  */
+@media only screen and (min-width: 481px) and (max-width: 767px) {
+  .background-image {
+      width: 100%;
+      height: 22rem;
+      margin-top: 3.68rem;
+    }
+  
+    .Text {
+      font-size: 40px;
+      line-height: 2.8rem;
+      padding: 4rem;
+    }
+}
+
+/* Medium devices (landscape tablets, 768px and up)  */
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+  .background-image {
+      width: 100%;
+      height: 27rem;
+      margin-top: 3.68rem;
+    }
+  
+    .Text {
+      font-size: 50px;
+      line-height: 3.5rem;
+      padding: 7rem;
+    }
+}
+
+/* Large devices (laptops/desktops, 992px and up)  */
+@media only screen and (min-width: 992px) and (max-width: 1200px) {
+  .background-image {
+      width: 100%;
+      height: 36rem;
+      margin-top: 3.68rem;
+    }
+  
+    .Text {
+      font-size: 56px;
+      line-height: 3.8rem;
+      padding: 7rem;
+    }
+
+}
+
+/* Extra-large devices (large laptops and desktops, 1200px and up)  */
+@media only screen and (min-width: 1201px) {
+  .Hamburger {
+    display: none;
+  }
+}
+

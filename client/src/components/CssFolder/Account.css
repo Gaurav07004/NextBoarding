@@ -1,0 +1,139 @@
+.Sidebar {
+    width: 310px;
+    height: fit-content;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 20px 0 rgba(0, 0, 0, 0.1);
+    position: sticky;
+    top: 5.5rem;
+}
+.Account_info_section {
+    width: 75%;
+    height: auto;
+    padding: 25px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 2px 20px 0 rgba(0, 0, 0, 0.1);
+}
+
+.name {
+    position: relative;
+    width: 100%;
+    border-radius: 5px;
+    border: 1px solid #7c8db0;
+    padding: 12px;
+    color: #6e7491;
+}
+
+@media only screen and (min-width: 320px) and (max-width: 480px) {
+    .for_Moblie {
+        position: absolute;
+        top: 5rem;
+        width: -webkit-fill-available;
+        z-index: 1;
+    }
+    .Hamburger2_icon {
+        color: #e6214b;
+        font-size: xx-large;
+    }
+    .Sidebar {display: none;}
+    .Account_page {
+        padding: 5rem 1rem;
+    }
+    .Account_info_section {
+        width: 100%;
+    }
+    .label {font-size: larger;}
+    .label_2 {font-size: 12px;}
+    .user_id {margin-top: 2rem;}
+    .name {width: 100%;}
+    .account_data {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        padding: 0.75rem 0.5rem;
+        align-items: baseline;
+    }
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up)  */
+@media only screen and (min-width: 481px) and (max-width: 767px) {
+    .for_Moblie {
+        position: absolute;
+        top: 5rem;
+        width: -webkit-fill-available;
+        z-index: 1;
+    }
+    .Hamburger2_icon {
+        color: #e6214b;
+        font-size: xx-large;
+    }
+    .Sidebar {display: none;}
+    .Account_page {
+        padding: 5rem 1rem;
+    }
+    .Account_info_section {
+        width: 100%;
+    }
+    .label {font-size: larger;}
+    .label_2 {font-size: 12px;}
+    .user_id {margin-top: 2rem;}
+    .name {width: 100%;}
+}
+
+/* Medium devices (landscape tablets, 768px and up)  */
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+    .for_Moblie {
+        position: absolute;
+        top: 5rem;
+        width: -webkit-fill-available;
+        z-index: 10;
+    }
+    .Hamburger2_icon {
+        color: #e6214b;
+        font-size: xx-large;
+    }
+    .Sidebar {display: none;}
+    
+    .Account_page {
+        padding: 5rem 1rem;
+    }
+    .Account_info_section {
+        width: 100%;
+    }
+    .label {font-size: larger;}
+    .label_2 {font-size: 12px;}
+    .user_id {margin-top: 2rem;}
+    .name {width: 100%;}
+}
+
+/* Large devices (laptops/desktops, 992px and up)  */
+@media only screen and (min-width: 992px) and (max-width: 1200px) {
+    .for_Moblie {
+        position: absolute;
+        top: 5rem;
+        width: -webkit-fill-available;
+        z-index: 10;
+    }
+    .Hamburger2_icon {
+        color: #e6214b;
+        font-size: xx-large;
+    }
+    .Sidebar {display: none;}
+    
+    .Account_page {
+        padding: 5rem 1rem;
+    }
+    .Account_info_section {
+        width: 100%;
+    }
+    .label {font-size: larger;}
+    .label_2 {font-size: 12px;}
+    .user_id {margin-top: 2rem;}
+    .name {width: 100%;}
+}
+
+/* Extra-large devices (large laptops and desktops, 1200px and up)  */
+@media only screen and (min-width: 1201px) {
+    .Hamburger2_icon,.cross {display: none;}
+}

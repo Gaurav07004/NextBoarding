@@ -1,0 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito+Sans:opsz@6..12&family=Playfair+Display:wght@400;600;700&display=swap");
+@import "keep-react/css";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;

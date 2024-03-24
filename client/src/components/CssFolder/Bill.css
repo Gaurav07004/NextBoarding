@@ -1,0 +1,63 @@
+.billpanel {
+    /* width: 240px; */
+    margin-top: 63px;
+}
+.FlightBill {
+    border: 1px solid #cccc;
+    border-radius: 8px;
+    padding: 5px;
+    height: auto;
+    overflow: auto;
+    box-shadow: 0px 0px 8px 1px #cccccc8a;
+}
+.airline_logo{
+    width: 90px;
+    height: auto;
+}
+.FlightInfo{
+    width: 136px;
+}
+.FlightTime{
+    padding: 10px;
+    text-align: center;
+}
+hr {
+    margin: 0;
+}
+.departure_info {
+    display: flex;
+    gap: 0.2rem;
+    align-items: center;
+    padding: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+    border-radius: 20px;
+    text-align: center;
+    margin: 7px 0;
+
+}
+.departure_airline{
+    color:#27273fab;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 600;
+}
+.flight_number{
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 400;
+    color: #7C8DB0;
+}
+.departure_airline_bill {
+    color: #27273fab;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 700;
+    margin-top: 15px;
+}
+.Amount{
+    display: grid;
+    padding: 10px;
+    grid-template-columns: 160px 70px;
+    text-align: end;
+}

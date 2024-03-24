@@ -1,0 +1,142 @@
+/* .Screean_Container {
+    background-image: url(D:\Development\Web-development\ReactJs\flyease\src\assets\Black_Gradient.webp);
+} */
+
+.Booking_Status_Container {
+    display: grid;
+    /* grid-template-columns: repeat(4, 280px); */
+    grid-template-columns: 300px 300px 210px 250px;
+    grid-gap: 0;
+    margin-top: 85px;
+}
+
+.Departure_Booking_Status {
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+}
+
+.DepartureDate_BookingSection {
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+    border-left: none !important;
+}
+
+.Arrival_Booking_Section,
+.DepartureDate_BookingSection {
+    border-left: none !important;
+}
+
+.Departure_Booking_Status,
+.Arrival_Booking_Status,
+.TravellersClass_BookingSection,
+.DepartureDate_BookingSection {
+    padding: 10px 10px 10px 20px;
+    border: 1px solid rgb(190 188 188 / 55%);
+    width: 100%;
+    height: 70px;
+}
+
+.Departure_Booking_Status:hover,
+.Arrival_Booking_Status:hover,
+.DepartureDate_BookingSection:hover,
+.TravellersClass_BookingSection:hover {
+    background-color: rgb(75 169 252 / 11%);
+    border: 1px solid rgb(147 147 147 / 55%);
+    transition: background-color 0.3s ease-in-out;
+}
+
+.Departure_City,
+.Arrival_City {
+    border: none;
+    background: transparent;
+    color: #55575b;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.Departure_AirportName,
+.Arrival_AirportName {
+    color: #676565;
+    cursor: pointer;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    width: 165px;
+    display: inline-block;
+}
+.Airport_Info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.Label{
+    font-weight: bold;
+    color: #b02258;
+    text-transform: uppercase;
+    font-size: small;
+}
+
+.date,.count{
+    color: #55575b;
+    font-weight: 600;
+    margin-left: 4px;
+}
+
+.month,
+.year,.travellers {
+    color: #55575b;
+    font-weight: 400;
+    cursor: pointer;
+    margin-left: 4px;
+}
+
+.day,.travellerClass{
+    color: #676565;
+    cursor: pointer;
+}
+
+.splitScreen {
+    display: flex;
+    justify-content: space-between;
+}
+
+.Adjustments{
+    margin-top: 100px ;
+}
+.passenger_info {text-decoration: none;}
+
+.button_next:hover {
+    background-image: linear-gradient(to right, #ee214ac4, #752264bc);
+    transition: background-color 0.3s ease-in-out;
+    cursor: pointer;
+}
+
+.button_save {
+    position: absolute;
+    top: 70%;
+    right: 0;
+    width: 180px;
+    height: 45px;
+    padding: 10px;
+    text-align: center;
+    border: 1px solid #b02258;
+    border-radius: 0.3rem;
+    color: #b02258;
+}
+.button_next {
+    position: absolute;
+    top: 70%;
+    right: 0;
+    background-image: linear-gradient(to right, #ee2149, #752265);
+    width: 180px;
+    height: 45px;
+    padding: 10px;
+    text-align: center;
+    border-radius: 0.3rem;
+    color: #fff;
+
+}
+.component_layout{
+    position: relative;
+}

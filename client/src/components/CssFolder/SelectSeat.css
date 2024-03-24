@@ -1,0 +1,1189 @@
+.Screen_Container {
+    margin-top: 65px;
+}
+
+/* .plane_seat_container {
+    display: flex;
+    flex-wrap: wrap;
+} */
+
+.Plane_container {
+    position: relative;
+    width: 50%;
+}
+
+.PlaneImage {
+    margin-left: -120%;
+    width: 2189px;
+    height: auto;
+}
+
+.Business_Seat_container,
+.Premium_Seat_container,
+.Economy_Seat_container_1,
+.Economy_Seat_container_2,
+.Economy_Seat_container_3 {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.9rem;
+    left: 32.8%;
+}
+
+.Business_Seat_container {
+    top: 18.3%;
+}
+
+.Business_seat1 {
+    width: 35.2px;
+    height: 44px;
+    border-radius: 4px;
+    background-image: linear-gradient(#5cd6c0, #22c3a6);
+}
+
+.Premium_Seat_container {
+    bottom: 18%;
+}
+
+.Business_seat2 {
+    width: 35.5px;
+    height: 40.5px;
+    border-radius: 4px;
+    background-image: linear-gradient(#5cd6c0, #22c3a6);
+}
+
+.Economy_Seat_container_1 {
+    top: 31.8%;
+}
+
+.Economy_Seat_container_2 {
+    top: 46.4%;
+}
+
+.Economy_Seat_container_3 {
+    top: 55.8%;
+}
+
+.Economy_seat {
+    width: 21.5px;
+    height: 30px;
+    border-radius: 4px;
+    background-image: linear-gradient(#605dec, #2a26d9);
+}
+
+.row_count {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.row_value {
+    text-align: center;
+    color: var(--light-color);
+    width: 12px;
+    font-size: 12px;
+}
+
+.selectedBusinessSeat,
+.selectedEconomySeat,
+.selectedPremiumSeat {
+    background-image: linear-gradient(#eb568c, #ed5e76d6);
+}
+
+.disabledSeat {
+    /* background-image: linear-gradient(#b0a6aa, #7e7576d6); */
+    background-image: linear-gradient(#d6d5ef, #8396bdb3);
+}
+
+.selectedBusinessSeat::after,
+.selectedEconomySeat::after,
+.selectedPremiumSeat::after {
+    content: "";
+    display: inline;
+    transform: rotate(45deg);
+    border-bottom: 2px solid #fff;
+    border-right: 2px solid #fff;
+    position: absolute;
+}
+
+.selectedBusinessSeat::after {
+    height: 22px;
+    width: 8px;
+    margin: 10px 15px;
+}
+
+.selectedEconomySeat::after {
+    height: 11px;
+    width: 5px;
+    margin: 9px 0 0 8.2px;
+}
+
+.selectedPremiumSeat::after {
+    height: 20px;
+    width: 8px;
+    margin: 8px 0 0 14px;
+}
+
+.Seat_container {
+    width: 50%;
+    /* height: 660px; */
+    background: rgba(255, 255, 255, 0.5);
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
+    border: 1px solid #aba6a6d3;
+    /* z-index: 1; */
+    position: fixed;
+    top: 65px;
+    right: 0;
+}
+
+.booked_container {
+    display: flex;
+    background-color: #27273f;
+    height: 85px;
+}
+
+.Departure_Arrival_status_container,
+.Arrival_status_container,
+.Date_status_container {
+    width: 226px;
+    border-right: 1px solid #ccc;
+    padding: 24px;
+    color: #fafafa;
+}
+
+.Departure_Arrival_status_container {
+    width: 310px;
+    font-size: x-large;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.departure_airport_name {
+    font-weight: 800;
+    line-height: normal;
+    text-transform: uppercase;
+}
+
+.departure_airport_city {
+    color: var(--light-color);
+    font-size: small;
+}
+
+.Economy_Seats_container,
+.Business_Seats_container {
+    padding: 1rem 1.5rem 0.5rem 1.5rem;
+}
+
+.seats_info {
+    display: grid;
+    grid-template-columns: repeat(2, 50%);
+    height: 100%;
+}
+
+.economy_info {
+    padding: 5px 30px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+    flex-direction: column;
+    align-items: flex-start;
+    /* line-height: 20px; */
+}
+
+.business_info {
+    padding: 5px 30px;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    gap: 0.8rem;
+    align-items: flex-start;
+    /* line-height: 20px; */
+}
+
+.className {
+    color: var(--secondary-color);
+    font-size: large;
+    font-weight: 600;
+}
+
+.economy_detail,
+.business_detail {
+    color: var(--primary-color);
+    font-size: small;
+}
+
+.economy_bar_line {
+    border-top: 4px solid #605dec82;
+    border-radius: 10px;
+    width: 12%;
+}
+
+.business_bar_line {
+    border-top: 4px solid #5cd6c0;
+    border-radius: 10px;
+    width: 12%;
+}
+
+.economy_info_list,
+.business_info_list {
+    display: grid;
+    grid-template-columns: 20% 80%;
+    justify-content: center;
+    align-items: center;
+    gap: 0.8rem;
+    margin-left: 15px;
+}
+
+.economy_info_list_value,
+.business_info_list_value {
+    color: var(--primary-color);
+    font-size: 12.5px;
+}
+
+.economy_info_icon {
+    color: #605dec;
+    width: 12px;
+    height: 12px;
+}
+
+.business_info_icon {
+    color: #5cd6c0;
+    width: 18px;
+    height: 18px;
+}
+
+.className.selected_economy {
+    background: rgba(0, 0, 255, 0.614);
+    color: #fafafa;
+    width: 40%;
+    text-align: center;
+    border-radius: 40px;
+}
+
+.className.selected_business {
+    background: #5cd6c0;
+    color: #fafafa;
+    width: 60%;
+    text-align: center;
+    border-radius: 40px;
+}
+
+.upgrade_seat_container {
+    position: absolute;
+    top: 15%;
+    right: 32%;
+    background-color: #fff;
+    border-radius: 8px;
+    width: 33.5%;
+    padding: 40px;
+    box-shadow: 0px 0px 5px 1px #ccc;
+}
+
+.upgrade_seat_label {
+    font-size: x-large;
+    font-weight: 700;
+    color: #6e7491;
+    margin-bottom: 1rem;
+}
+
+.upgrade_seat_info {
+    color: var(--light-color);
+    font-size: medium;
+    margin-bottom: 2rem;
+}
+
+.cancel_button {
+    border: 1px solid #605dec;
+    padding: 10px;
+    width: 20%;
+    border-radius: 5px;
+    float: right;
+    color: #605dec;
+}
+
+.Upgrade {
+    margin-left: 15px;
+    padding: 10px;
+    width: 40%;
+    border-radius: 5px;
+    float: right;
+    background-image: linear-gradient(to right, #ee2149, #752265);
+    color: #fff;
+}
+
+.cancel_button:hover {
+    background-color: #cccccc55;
+}
+
+.Upgrade:hover,
+.Payment_button:hover {
+    background-image: linear-gradient(to right, #ee214ac4, #752264bc);
+}
+
+.overlay_seat {
+    position: fixed;
+    top: 0%;
+    left: 0%;
+    right: 0%;
+    bottom: 0%;
+    height: 100rem;
+    background-color: rgb(4 0 182 / 15%);
+}
+
+.Seat-size {
+    width: 90%;
+}
+
+.processed_next {
+    display: grid;
+    grid-template-columns: repeat(3, 35%);
+    border-top: 1px solid #aba6a6d3;
+    padding: 1rem 2rem;
+}
+
+.user_related_label {
+    color: var(--primary-color);
+    font-size: small;
+    margin-bottom: 0.3rem;
+}
+
+.Payment_button {
+    margin-left: 15px;
+    text-align: center;
+    text-decoration: none;
+    padding: 10px;
+    width: 80%;
+    border-radius: 5px;
+    float: right;
+    background-image: linear-gradient(to right, #ee2149, #752265);
+    color: #fff;
+}
+
+.Seat_number,
+.passenger_name {
+    color: var(--light-color);
+}
+
+.Upgrade_label h3 {
+    font-size: larger;
+}
+
+.Cancel {
+    margin-right: 10px;
+}
+
+.Cancel span {
+    padding: 10px 20px !important;
+    font-size: small;
+}
+
+.upgrade span {
+    padding: 10px 40px !important;
+    font-size: small;
+}
+
+@media only screen and (min-width: 320px) and (max-width: 480px) {
+    .PlaneImage_Ipad,
+        .PlaneImage {
+            display: none;
+        }
+
+    .PlaneImage_Mobile {
+        width: 359px;
+        height: auto;
+    }
+
+    .Business_Seat_container,
+    .Economy_Seat_container_1,
+    .Economy_Seat_container_2,
+    .Economy_Seat_container_3,
+    .Premium_Seat_container {
+        left: 72%;
+        gap: 0.5rem;
+    }
+
+    .Premium_Seat_container {
+        bottom: 18%;
+    }
+
+    .Business_seat1,
+    .Business_seat2 {
+        width: 18px;
+        height: 26px;
+    }
+
+    .Business_seat2 {
+        height: 25px;
+    }
+
+    .Economy_seat {
+        width: 10px;
+        height: 18px;
+    }
+
+    .row_value {
+        width: 6px;
+        font-size: 7px;
+    }
+
+    .selectedBusinessSeat::after,
+    .selectedEconomySeat::after,
+    .selectedPremiumSeat::after {
+        content: "";
+        display: inline;
+        transform: rotate(45deg);
+        border-bottom: 2px solid #fff;
+        border-right: 2px solid #fff;
+        position: absolute;
+    }
+
+    .selectedBusinessSeat::after {
+        height: 10px;
+        width: 5px;
+        margin: 7px;
+    }
+
+    .selectedEconomySeat::after {
+        height: 6.5px;
+        width: 3px;
+        margin: 6px 3.59px;
+    }
+
+    .Upgrade_label h3 {
+        font-size: medium;
+    }
+
+    .upgrade_seat_info {
+        font-size: smaller;
+    }
+
+    .Cancel span {
+        padding: 6px 20px !important;
+        font-size: small;
+    }
+
+    .upgrade span {
+        padding: 6px 40px !important;
+        font-size: small;
+    }
+
+    .Seat_container {
+        position: initial;
+        width: 100%;
+        margin-top: 30px;
+    }
+
+    .booked_container {
+        height: auto;
+        flex-direction: column;
+    }
+
+    .Departure_Arrival_status_container,
+    .Date_status_container {
+        padding: 14px 20px;
+        width: 100%;
+        background-color: #27273f;
+        border-bottom: 1px solid #ccc;
+    }
+
+    .Economy_Seats_container,
+    .Business_Seats_container {
+        padding: 14px 20px;
+        width: 100%;
+    }
+
+    .flight_times_mobile,
+    .passengers_info_N_seat {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .departure_airport_name,
+    .departure_airport_city,
+    .className {
+        font-size: small;
+    }
+
+    .Seat-size {
+        width: 100%;
+    }
+
+    .economy_info,
+    .business_info {
+        padding: 0;
+    }
+
+    .economy_detail,
+    .business_detail {
+        font-size: 11px;
+    }
+
+    .economy_bar_line,
+    .business_bar_line {
+        width: 25%;
+    }
+
+    .economy_info_icon,
+    .business_info_icon {
+        width: 13px;
+        height: auto;
+    }
+
+    .economy_info_list_value,
+    .business_info_list_value {
+        font-size: 10px;
+    }
+
+    .economy_info_list,
+    .business_info_list {
+        margin: 4px;
+        display: grid;
+        grid-template-columns: 1rem 7rem;
+    }
+
+    .user_related_label {
+        font-size: 14px;
+    }
+
+    .passenger_name,
+    .Seat_number {
+        font-size: smaller;
+    }
+
+    .Payment_button {
+        font-size: small;
+        width: 100%;
+        margin: 0;
+        height: max-content;
+        padding: 13px;
+    }
+
+    .processed_next {
+        display: flex;
+        flex-direction: column;
+        padding: 0;
+    }
+
+    .passengers_info_N_seat {
+        border-bottom: 1px solid #383838b4;
+        padding: 14px 20px;
+    }
+
+    .Payment_button_container {
+        padding: 14px 20px;
+    }
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up)  */
+@media only screen and (min-width: 481px) and (max-width: 767px) {
+    .PlaneImage,
+        .PlaneImage_Mobile {
+            display: none;
+        }
+    
+        .PlaneImage_Ipad {
+            width: 640px;
+            height: auto;
+        }
+    
+        .Business_Seat_container,
+        .Economy_Seat_container_1,
+        .Economy_Seat_container_2,
+        .Economy_Seat_container_3,
+        .Premium_Seat_container {
+            left: 85%;
+            gap: 0.5rem;
+        }
+    
+        .Premium_Seat_container {
+            bottom: 18%;
+        }
+    
+        .Business_seat1,
+        .Business_seat2 {
+            width: 17px;
+            height: 25px;
+        }
+    
+        .Business_seat2 {
+            height: 22.5px;
+        }
+    
+        .Economy_seat {
+            width: 9.5px;
+            height: 16.5px;
+        }
+    
+        .row_value {
+            width: 6px;
+            font-size: 7px;
+        }
+    
+        .selectedBusinessSeat::after,
+        .selectedEconomySeat::after,
+        .selectedPremiumSeat::after {
+            content: "";
+            display: inline;
+            transform: rotate(45deg);
+            border-bottom: 2px solid #fff;
+            border-right: 2px solid #fff;
+            position: absolute;
+        }
+    
+        .selectedBusinessSeat::after {
+            height: 10px;
+            width: 5px;
+            margin: 7px;
+        }
+    
+        .selectedEconomySeat::after {
+            height: 6.5px;
+            width: 3px;
+            margin: 6px 3.59px;
+        }
+    
+        .Upgrade_label h3 {
+            font-size: medium;
+        }
+    
+        .upgrade_seat_info {
+            font-size: smaller;
+        }
+    
+        .Cancel span {
+            padding: 6px 20px !important;
+            font-size: small;
+        }
+    
+        .upgrade span {
+            padding: 6px 50px !important;
+            font-size: small;
+        }
+    
+        .Seat_container {
+            position: initial;
+            width: 100%;
+            margin-top: 30px;
+        }
+    
+        .booked_container {
+            height: auto;
+            flex-direction: column;
+        }
+    
+        .Departure_Arrival_status_container,
+        .Date_status_container {
+            padding: 14px 20px;
+            width: 100%;
+            background-color: #27273f;
+            border-bottom: 1px solid #ccc;
+        }
+    
+        .Economy_Seats_container,
+        .Business_Seats_container {
+            padding: 14px 20px;
+            width: 100%;
+        }
+    
+        .flight_times_mobile,
+        .passengers_info_N_seat {
+            display: flex;
+            justify-content: space-between;
+        }
+    
+        .departure_airport_name,
+        .departure_airport_city,
+        .className {
+            font-size: medium;
+        }
+    
+        .Seat-size {
+            width: 100%;
+        }
+    
+        .economy_info,
+        .business_info {
+            padding: 0;
+        }
+    
+        .economy_detail,
+        .business_detail {
+            font-size: 13px;
+        }
+    
+        .economy_bar_line,
+        .business_bar_line {
+            width: 25%;
+        }
+    
+        .economy_info_icon,
+        .business_info_icon {
+            width: 13px;
+            height: auto;
+        }
+    
+        .economy_info_list_value,
+        .business_info_list_value {
+            font-size: 11px;
+        }
+    
+        .economy_info_list,
+        .business_info_list {
+            margin: 4px;
+            display: grid;
+            grid-template-columns: 1rem 14rem;
+        }
+    
+        .user_related_label {
+            font-size: 14px;
+        }
+    
+        .passenger_name,
+        .Seat_number {
+            font-size: smaller;
+        }
+    
+        .Payment_button {
+            font-size: small;
+            width: 100%;
+            margin: 0;
+            height: max-content;
+            padding: 13px;
+        }
+    
+        .processed_next {
+            grid-template-columns: 60% 40%;
+            padding: 0;
+        }
+
+        .passengers_info_N_seat {
+            padding: 14px 20px;
+        }
+
+        .Payment_button_container {
+            padding: 14px 20px;
+        }
+
+        .direction {
+            font-size: x-large;
+            margin-left: 22px;
+        }
+}
+
+/* Medium devices (landscape tablets, 768px and up)  */
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+        .PlaneImage_Mobile,.PlaneImage {
+            display: none;
+        }
+    
+        .PlaneImage_Ipad {
+            width: 768px;
+            height: auto;
+        }
+    
+        .Business_Seat_container,
+        .Economy_Seat_container_1,
+        .Economy_Seat_container_2,
+        .Economy_Seat_container_3,
+        .Premium_Seat_container {
+            left: 85.3%;
+            gap: 0.5rem;
+        }
+    
+        .Premium_Seat_container {
+            bottom: 18%;
+        }
+    
+        .Business_seat1,
+        .Business_seat2 {
+            width: 22px;
+            height: 30px;
+        }
+    
+        .Business_seat2 {
+            height: 29px;
+        }
+    
+        .Economy_seat {
+            width: 12.5px;
+            height: 21px;
+        }
+    
+        .row_value {
+            width: 6px;
+            font-size: 8px;
+        }
+    
+        .selectedBusinessSeat::after,
+        .selectedEconomySeat::after,
+        .selectedPremiumSeat::after {
+            content: "";
+            display: inline;
+            transform: rotate(45deg);
+            border-bottom: 2px solid #fff;
+            border-right: 2px solid #fff;
+            position: absolute;
+        }
+    
+        .selectedBusinessSeat::after {
+            height: 12px;
+            width: 5px;
+            margin: 8.5px;
+        }
+    
+        .selectedEconomySeat::after {
+            height: 7.5px;
+            width: 3px;
+            margin: 7px 4.59px;
+        }
+    
+        .Upgrade_label h3 {
+            font-size: medium;
+        }
+    
+        .upgrade_seat_info {
+            font-size: smaller;
+        }
+    
+        .Cancel span {
+            padding: 12px 20px !important;
+            font-size: small;
+        }
+    
+        .upgrade span {
+            padding: 12px 63px !important;
+            font-size: small;
+        }
+    
+        .Seat_container {
+            position: initial;
+            width: 100%;
+            margin-top: 30px;
+        }
+    
+        .booked_container {
+            height: auto;
+            flex-direction: column;
+        }
+    
+        .Departure_Arrival_status_container,
+        .Date_status_container {
+            padding: 14px 20px;
+            width: 100%;
+            background-color: #27273f;
+            border-bottom: 1px solid #ccc;
+        }
+    
+        .Economy_Seats_container,
+        .Business_Seats_container {
+            padding: 14px 20px;
+            width: 100%;
+        }
+    
+        .flight_times_mobile,
+        .passengers_info_N_seat {
+            display: flex;
+            justify-content: space-between;
+        }
+    
+        .departure_airport_name,
+        .departure_airport_city,
+        .className {
+            font-size: 20px;
+        }
+
+        .direction {
+            font-size: xx-large;
+            margin-left: 27px;
+        }
+    
+        .Seat-size {
+            width: 100%;
+        }
+    
+        .economy_info,
+        .business_info {
+            padding: 0;
+        }
+    
+        .economy_detail,
+        .business_detail {
+            font-size: medium;
+        }
+    
+        .economy_bar_line,
+        .business_bar_line {
+            width: 25%;
+        }
+    
+        .economy_info_icon,
+        .business_info_icon {
+            width: 13px;
+            height: auto;
+        }
+    
+        .economy_info_list_value,
+        .business_info_list_value {
+            font-size: smaller;
+        }
+    
+        .economy_info_list,
+        .business_info_list {
+            margin: 4px;
+            display: grid;
+            grid-template-columns: 1rem 20rem;
+        }
+    
+        .user_related_label {
+            font-size: 14px;
+        }
+    
+        .passenger_name,
+        .Seat_number {
+            font-size: smaller;
+        }
+    
+        .Payment_button {
+            font-size: small;
+            width: 100%;
+            margin: 0;
+            height: max-content;
+            padding: 13px;
+        }
+    
+        .processed_next {
+            grid-template-columns: repeat(2, 45%);
+            padding: 0;
+            gap: 4rem;
+        }
+    
+        .passengers_info_N_seat {
+            padding: 14px 20px;
+        }
+    
+        .Payment_button_container {
+            padding: 14px 20px;
+        }
+}
+
+/* Large devices (laptops/desktops, 992px and up)  */
+@media only screen and (min-width: 992px) and (max-width: 1200px) {
+    .PlaneImage_Mobile,
+        .PlaneImage_Ipad {
+            display: none;
+        }
+        .PlaneImage {
+            width: 102rem;
+        }
+
+        .Business_Seat_container,
+        .Economy_Seat_container_1,
+        .Economy_Seat_container_2,
+        .Economy_Seat_container_3,
+        .Premium_Seat_container {
+            left: 26.88%;
+            gap: 0.5rem;
+        }
+    
+        .Premium_Seat_container {
+            bottom: 18%;
+        }
+        .Business_seat1,
+        .Business_seat2 {
+            width: 23.5px;
+            height: 36.5px;
+        }
+
+        .Business_seat2 {
+            height: 33px;
+        }
+
+        .Economy_seat {
+            width: 13.5px;
+            height: 25px;
+        }
+
+        .selectedBusinessSeat::after,
+        .selectedEconomySeat::after,
+        .selectedPremiumSeat::after {
+            content: "";
+            display: inline;
+            transform: rotate(45deg);
+            border-bottom: 2px solid #fff;
+            border-right: 2px solid #fff;
+            position: absolute;
+        }
+
+        .selectedBusinessSeat::after {
+            height: 15px;
+            width: 6px;
+            margin: 9px;
+        }
+
+        .selectedEconomySeat::after {
+            height: 9px;
+            width: 4px;
+            margin: 8px 5px;
+        }
+        .Upgrade_label h3 {
+            font-size: large;
+        }
+
+        .upgrade_seat_info {
+            font-size: medium;
+        }
+
+        .Cancel span {
+            padding: 12px 20px !important;
+            font-size: 14px;
+        }
+
+        .upgrade span {
+            padding: 12px 63px !important;
+            font-size: 14px;
+        }
+
+        .booked_container {
+            height: auto;
+            flex-direction: column;
+        }
+
+        .Departure_Arrival_status_container {
+            padding: 14px 20px;
+            width: 100%;
+            background-color: #27273f;
+            border-bottom: 1px solid #ccc;
+        }
+
+        .Date_status_container {
+            padding: 14px 20px;
+            width: 100%;
+            background-color: #27273f;
+            border-bottom: 1px solid #ccc;
+        }
+
+        .Economy_Seats_container,
+        .Business_Seats_container {
+            padding: 14px 20px;
+            width: 100%;
+        }
+
+        .flight_times_mobile,
+        .passengers_info_N_seat {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .departure_airport_name,
+        .departure_airport_city,
+        .className {
+            font-size: 19px;
+        }
+
+        .direction {
+            font-size: x-large;
+            margin-left: 27px;
+        }
+
+        .economy_info,
+        .business_info {
+            padding: 0;
+        }
+
+        .economy_bar_line,
+        .business_bar_line {
+            width: 25%;
+        }
+
+        .economy_info_icon,
+        .business_info_icon {
+            width: 13px;
+            height: auto;
+        }
+
+        .economy_info_list,
+        .business_info_list {
+            margin: 4px;
+            display: grid;
+            grid-template-columns: 1rem 20rem;
+        }
+
+        .user_related_label {
+            font-size: 14px;
+        }
+
+        .passenger_name,
+        .Seat_number {
+            font-size: smaller;
+        }
+
+        .Payment_button {
+            font-size: small;
+            width: 100%;
+            margin: 0;
+            height: max-content;
+            padding: 13px;
+        }
+
+        .processed_next {
+            grid-template-columns: 65% 35%;
+            padding: 0;
+        }
+
+        .passengers_info_N_seat {
+            padding: 14px 20px;
+        }
+
+        .Payment_button_container {
+            padding: 14px 20px;
+        }
+
+        .Seat-size {
+            width: 100%;
+        }
+
+        .economy_info_list_value,
+        .business_info_list_value {
+            font-size: x-small;
+        }
+}
+
+/* Extra-large devices (large laptops and desktops, 1200px and up)  */
+@media only screen and (min-width: 1201px) {
+    .PlaneImage_Mobile,.PlaneImage_Ipad {
+        display: none;
+    }
+
+    .flight_times_mobile {
+        display: flex;
+        flex-direction: row;
+    }
+
+    .processed_next {
+        grid-template-columns: 55% 45%;
+        padding: 0;
+    }
+
+    .passengers_info_N_seat {
+        padding: 14px 20px;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .Payment_button_container {
+        padding: 14px 20px;
+    }
+    .economy_info_list,
+    .business_info_list {
+        margin: 4px;
+        display: grid;
+        grid-template-columns: 1rem 20rem;
+    }
+
+    .Seat-size {
+        width: 77%;
+    }
+}

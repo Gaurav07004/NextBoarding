@@ -1,0 +1,20 @@
+.input-with-icon {
+    position: relative;
+}
+
+.input-with-icon .icon1 {
+    position: absolute;
+    top: 25%;
+    right: 10px;
+    font-size: x-large;
+    color: #7c8db0;
+    font-weight: lighter;
+}
+.input-with-icon .icon2 {
+    position: absolute;
+    top: 74%;
+    right: 10px;
+    font-size: x-large;
+    color: #7c8db0;
+    font-weight: lighter;
+}

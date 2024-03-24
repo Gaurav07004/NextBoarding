@@ -1,0 +1,205 @@
+{
+    "FareDetail": [
+        {
+            "FareName": "Armed Forces Fares",
+            "FareDetail": "Applicable for serving and retired personnel of Armed Forces and Paramilitary Forces, their recognised dependants like spouses and children, and war widows. It is mandatory to show a valid ID or dependant card at the airport, without which boarding might be denied."
+        },
+        {
+            "FareName": "Student Fares",
+            "FareDetail": "Only students above 12 years of age are eligible for special fares and/or additional baggage allowances. Carrying valid student ID cards and student visas (where applicable) is mandatory, else the passenger may be denied boarding or asked to pay for extra baggage."
+        },
+        {
+            "FareName": "Senior Citizen Fares",
+            "FareDetail": "Only senior citizens above the age of 60 years can avail this special fare. It is mandatory to produce proof of Date of Birth at the airport, without which prevailing fares will be charged."
+        },
+        {
+            "FareName": "Doctors & Nurses Fares",
+            "FareDetail": "Applicable only for medical personnel. It is mandatory to show a valid ID at the airport, without which boarding may be denied."
+        }
+    ],
+
+    "Offer": [
+        {
+            "Icon": "https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,h_64/rng/md/ads/production/3a937ddacd3adb70c4543c4895213123",
+            "OfferName": "EXTRA 20% off (AU Debit Card)",
+            "OfferDetail": "Pay using AU Credit Card & get an additional 20% off on payment above ₹7000"
+        },
+        {
+            "Icon": "https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,h_64/rng/md/ads/production/4abdba6754dfedb04324150e316a4004",
+            "OfferName": "EXTRA 15% off (Kotak)",
+            "OfferDetail": "Pay using Kotak Bank Debit Cards & get an additional 20% off on payment above ₹5000"
+        },
+        {
+            "Icon": "https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,h_64/rng/md/ads/production/f93b449b1330633c28b1fada16523d39",
+            "OfferName": "EXTRA 4% Cashback",
+            "OfferDetail": "Pay using Axis Bank ACE Credit Card & get an additional 4% cashbackon payment above ₹4000."
+        },
+        {
+            "Icon": "https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,h_64/rng/md/ads/production/f488939a1e1dd8ad97283b0dc0e1c8d3",
+            "OfferName": "EXTRA 15% off (Paytm HDFC Credit Card)",
+            "OfferDetail": "Pay using Paytm HDFC Bank Credit Card & get an additional 15% off on payment above ₹3500."
+        }
+    ],
+    "Cancellation_condition": [
+        {
+            "OfferName": "1. Refund Eligibility Window",
+            "OfferDetail": "The cancellation policy allows for free refunds if the user decides to cancel or change their flight up to 30 days before the scheduled departure date."
+        },
+        {
+            "OfferName": "2. Refund Process",
+            "OfferDetail": "To initiate a cancellation and claim a refund, users should follow the provided guidelines and procedures. This may involve contacting FlyEase's customer support or using an online portal for cancellations."
+        },
+        {
+            "OfferName": "3. Satisfaction Guarantee Details",
+            "OfferDetail": "Reiterate the satisfaction guarantee associated with all flights booked through FlyEase, underscoring the commitment to customer happiness."
+        },
+        {
+            "OfferName": "4. Exceptions or Special Cases",
+            "OfferDetail": "If there are conditions under which refunds may be offered outside the standard policy, communicate those details to users."
+        }
+    ],
+    "Flight_Data": [
+        [
+            {
+                "airline_iata": "AI",
+                "airline_icao": "AIC",
+                "flight_number": 2345,
+                "flight_iata": "AI2345",
+                "flight_icao": "AIC2345",
+                "dep_iata": "DEL",
+                "dep_time": "11:00",
+                "arr_iata": "MAA",
+                "arr_time": "13:30",
+                "duration": 150,
+                "days": ["mon", "wed", "fri"],
+                "updated": "2024-03-09T12:00:00.000Z"
+            },
+            {
+                "airline_iata": "6E",
+                "airline_icao": "IGO",
+                "flight_number": 6789,
+                "flight_iata": "6E6789",
+                "flight_icao": "IGO6789",
+                "dep_iata": "MAA",
+                "dep_time": "14:45",
+                "arr_iata": "DEL",
+                "arr_time": "17:15",
+                "duration": 150,
+                "days": ["tue", "thu", "sat"],
+                "updated": "2024-03-09T12:00:00.000Z"
+            },
+            {
+                "airline_iata": "SG",
+                "airline_icao": "SEJ",
+                "flight_number": 1122,
+                "flight_iata": "SG1122",
+                "flight_icao": "SEJ1122",
+                "dep_iata": "BOM",
+                "dep_time": "09:30",
+                "arr_iata": "HYD",
+                "arr_time": "11:45",
+                "duration": 135,
+                "days": ["sun"],
+                "updated": "2024-03-09T12:00:00.000Z"
+            },
+            {
+                "airline_iata": "G8",
+                "airline_icao": "GOW",
+                "flight_number": 7890,
+                "flight_iata": "G87890",
+                "flight_icao": "GOW7890",
+                "dep_iata": "HYD",
+                "dep_time": "13:00",
+                "arr_iata": "COK",
+                "arr_time": "15:15",
+                "duration": 135,
+                "days": ["mon", "wed", "fri"],
+                "updated": "2024-03-09T12:00:00.000Z"
+            },
+            {
+                "airline_iata": "IX",
+                "airline_icao": "AXB",
+                "flight_number": 4567,
+                "flight_iata": "IX4567",
+                "flight_icao": "AXB4567",
+                "dep_iata": "BOM",
+                "dep_time": "18:30",
+                "arr_iata": "BLR",
+                "arr_time": "21:00",
+                "duration": 150,
+                "days": ["tue", "thu", "sat"],
+                "updated": "2024-03-09T12:00:00.000Z"
+            },
+            {
+                "airline_iata": "AI",
+                "airline_icao": "AIC",
+                "flight_number": 3456,
+                "flight_iata": "AI3456",
+                "flight_icao": "AIC3456",
+                "dep_iata": "BLR",
+                "dep_time": "08:00",
+                "arr_iata": "DEL",
+                "arr_time": "10:15",
+                "duration": 135,
+                "days": ["tue", "thu", "sat"],
+                "updated": "2024-03-09T12:00:00.000Z"
+            },
+            {
+                "airline_iata": "6E",
+                "airline_icao": "IGO",
+                "flight_number": 8901,
+                "flight_iata": "6E8901",
+                "flight_icao": "IGO8901",
+                "dep_iata": "MAA",
+                "dep_time": "17:30",
+                "arr_iata": "HYD",
+                "arr_time": "19:15",
+                "duration": 105,
+                "days": ["mon", "wed", "fri"],
+                "updated": "2024-03-09T12:00:00.000Z"
+            },
+            {
+                "airline_iata": "SG",
+                "airline_icao": "SEJ",
+                "flight_number": 2345,
+                "flight_iata": "SG2345",
+                "flight_icao": "SEJ2345",
+                "dep_iata": "DEL",
+                "dep_time": "14:00",
+                "arr_iata": "COK",
+                "arr_time": "16:15",
+                "duration": 135,
+                "days": ["tue", "thu", "sat"],
+                "updated": "2024-03-09T12:00:00.000Z"
+            },
+            {
+                "airline_iata": "G8",
+                "airline_icao": "GOW",
+                "flight_number": 5678,
+                "flight_iata": "G85678",
+                "flight_icao": "GOW5678",
+                "dep_iata": "COK",
+                "dep_time": "07:30",
+                "arr_iata": "HYD",
+                "arr_time": "09:45",
+                "duration": 135,
+                "days": ["mon", "wed", "fri"],
+                "updated": "2024-03-09T12:00:00.000Z"
+            },
+            {
+                "airline_iata": "IX",
+                "airline_icao": "AXB",
+                "flight_number": 9012,
+                "flight_iata": "IX9012",
+                "flight_icao": "AXB9012",
+                "dep_iata": "BOM",
+                "dep_time": "20:30",
+                "arr_iata": "DEL",
+                "arr_time": "22:45",
+                "duration": 135,
+                "days": ["tue", "thu", "sat"],
+                "updated": "2024-03-09T12:00:00.000Z"
+            }
+        ]
+    ]
+}

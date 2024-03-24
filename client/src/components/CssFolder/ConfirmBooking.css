@@ -1,0 +1,156 @@
+.bg-success-25 {
+    --tw-bg-opacity: 1;
+    background-color: rgb(204 255 231);
+}
+
+.Alert_Value {
+    margin: 0;
+    font-size: smaller;
+}
+
+.Flight_summary_label {
+    color: var(--third-color);
+    font-size: 22px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+.airline_logo_container {
+    width: 130px;
+}
+
+.seat_detail {
+    font-size: 14px;
+}
+
+.Second_Container {
+    padding-top: 6rem;
+    margin-bottom: 2rem;
+}
+
+.Credit_card {
+    padding: 1.2rem;
+    width: 90%;
+    height: auto;
+    border-radius: 16px;
+    background: var(--Pink-Gradient, linear-gradient(180deg, #EB568C 0%, #ED5E76 100%));
+    box-shadow: 4px 4px 16px 0px rgba(255, 255, 255, 0.20) inset, -4px -4px 16px 0px rgba(0, 0, 0, 0.10) inset;
+    color: #fff;
+}
+
+.Visa_Icon {
+    width: 60px;
+    height: auto;
+    color: #fff;
+}
+
+.flex_info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.Gpayment {
+    border-radius: 16px;
+    width: 260px;
+    height: 188px;
+    box-shadow: 0px 0px 8px 1px #cccccc8a;
+}
+.Payment_Method {
+    padding-top: 3rem;
+}
+.Success_label {
+    font-size: 16px;
+    margin-top: -0.1rem !important;
+    color: #0a7013 !important;
+}
+
+.Success_message {
+    font-size: small !important;
+    color: #0a7013 !important;
+}
+
+@media only screen and (min-width: 320px) and (max-width: 480px) {
+    .screen_split {
+        margin-top: 60px;
+    }
+
+    .user_container {
+        padding-top: 0 !important;
+    }
+
+    .label_name {
+        font-size: smaller;
+        margin-bottom: 0.5rem;
+    }
+
+    .warning {
+        margin-bottom: 0;
+    }
+
+    .seat_detail {
+        margin-bottom: 0.5rem;
+    }
+    .second_container {
+        display: block;
+    }
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up)  */
+@media only screen and (min-width: 481px) and (max-width: 767px) {
+    .screen_split {
+            margin-top: 60px;
+        }
+    
+        .user_container {
+            padding-top: 0 !important;
+        }
+    
+        .label_name {
+            font-size: smaller;
+            margin-bottom: 0.5rem;
+        }
+    
+        .warning {
+            margin-bottom: 0;
+        }
+    
+        .seat_detail {
+            margin-bottom: 0.5rem;
+        }
+        .second_container {
+            display: block;
+        }
+}
+
+/* Medium devices (landscape tablets, 768px and up)  */
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+    .warning {
+        margin-bottom: 1rem;
+    }
+    .second_container {
+        display: block;
+    }
+}
+
+/* Large devices (laptops/desktops, 992px and up)  */
+@media only screen and (min-width: 992px) and (max-width: 1200px) {
+    .warning {
+        margin-bottom: 1rem;
+    }
+
+    .second_container {
+        display: block;
+    }
+}
+
+/* Extra-large devices (large laptops and desktops, 1200px and up)  */
+@media only screen and (min-width: 1201px) {
+    .warning {
+        margin-bottom: 1rem;
+    }
+    
+    .second_container {
+        display: block;
+    }
+}

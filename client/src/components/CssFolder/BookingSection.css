@@ -1,0 +1,1428 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.Booking_Section {
+  background-color: #fff;
+  height: 300px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 20px 2px #e1e1e1;
+  padding: 20px;
+  position: relative;
+  /* margin-bottom: 150px; */
+  font-family: inherit;
+}
+
+.BookingInfo span {
+  float: right;
+}
+
+.BookingContainer {
+  display: grid;
+  grid-template-columns: 400px 400px 190px 269px;
+  grid-gap: 0;
+  margin-top: 35px;
+  margin-bottom: 25px;
+}
+
+.DepartureOptionsContainer,
+.ArrivalOptionsContainer {
+  position: absolute;
+  z-index: 1;
+  border-radius: 8px;
+  background-color: #fff;
+  box-shadow: 0px 0px 10px 1px #ccc;
+  width: 100%;
+  height: 250px;
+  transition: opacity 300ms, transform 300ms;
+}
+
+.DepartureBookingSection {
+  border-top-left-radius: 8px;
+  border-bottom-left-radius: 8px;
+}
+
+.TravellersClassBookingSection {
+  border-top-right-radius: 8px;
+  border-bottom-right-radius: 8px;
+  border-left: none !important;
+}
+
+.ArrivalBookingSection,
+.DepartureDateBookingSection {
+  border-left: none !important;
+}
+
+.DepartureBookingSection,
+.ArrivalBookingSection,
+.TravellersClassBookingSection,
+.DepartureDateBookingSection {
+  padding: 10px 10px 10px 20px;
+  border: 1px solid rgb(190 188 188 / 55%);
+  width: 100%;
+  height: 120px;
+}
+
+.ArrivalBookingSection {
+  padding: 10px 10px 10px 30px;
+  border: 1px solid rgb(190 188 188 / 55%);
+  width: 100%;
+  height: 120px;
+}
+
+.DepartureBookingSection:hover,
+.ArrivalBookingSection:hover,
+.DepartureDateBookingSection:hover,
+.TravellersClassBookingSection:hover {
+  background-color: #edc9e254;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.ArrivalLabelDetail {
+  margin-left: 20px !important;
+}
+
+.DepartureCity,
+.ArrivalCity {
+  border: none;
+  background: transparent;
+  font-size: xx-large;
+  color: #55575b;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.DepartureInput,
+.ArrivalInput {
+  width: 100%;
+  border: none;
+  background: transparent;
+  font-size: larger;
+  color: #55575b;
+  font-weight: 600;
+  cursor: pointer;
+  margin-bottom: 12px;
+  padding-left: 30px;
+  box-shadow: 0 2px 0px 0 rgba(0, 0, 0, 0.1);
+}
+
+.DepartureInput::placeholder,
+.ArrivalInput::placeholder {
+  color: #bdbfc2;
+}
+
+.DepartureInput:focus,
+.ArrivalInput:focus {
+  outline: none;
+  border: none;
+}
+
+.DepartureSuggestions,
+.ArrivalSuggestions {
+  padding: 0px 15px 15px 15px;
+  width: 100%;
+  height: 200px;
+  overflow: auto;
+  color: #6e6e6f;
+}
+
+.DepartureSuggestions p,
+.ArrivalSuggestions p {
+  margin-bottom: 5px;
+  font-weight: 700;
+  font-size: 13px;
+  color: #4f535585;
+}
+
+.AirportDetail {
+  transition: background-color 0.3s ease-in-out;
+  padding-left: 5px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.AirportDetail:hover {
+  background-color: rgb(249 237 245);
+  border-radius: 8px;
+}
+
+.City {
+  display: block;
+  width: 100%;
+  color: #1b1b1c;
+  font-weight: 700;
+}
+
+.AirportName {
+  font-size: smaller;
+  margin-bottom: 10px;
+}
+
+.Airporticao {
+  font-size: smaller;
+  margin-bottom: 10px;
+  display: none;
+  width: 100%;
+}
+
+.DepartureAirportName,
+.ArrivalAirportName {
+  width: 100%;
+  font-size: medium;
+  color: #676565;
+  cursor: pointer;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  width: 249px;
+  display: inline-block;
+}
+
+#SearchIcon {
+  position: absolute;
+  transform: translateY(50%);
+  color: #716e6e;
+  cursor: pointer;
+}
+
+.SearchField {
+  padding: 10px 15px 0px 15px;
+}
+
+.AirportDetailContainer {
+  display: flex;
+  align-items: center;
+}
+
+.AiplaneIcon {
+  font-size: larger;
+  color: black;
+}
+
+.AirportInfo {
+  width: 100%;
+  padding: 6px 6px 6px 12px;
+}
+
+.SelectedAirportInfo {
+  margin: 0;
+  cursor: pointer;
+}
+
+.ErrorIcon {
+  font-size: larger;
+}
+
+.ErrorMessage {
+  display: flex;
+  background-color: #ffd3d4;
+  box-shadow: 0 2px 7px 0 rgba(0, 0, 0, 0.3);
+  border-radius: 6px;
+  justify-content: space-evenly;
+  align-items: center;
+  color: #eb2026;
+  margin-right: 0px;
+  margin-left: -18px;
+}
+
+.ErrorMessage::after {
+  content: " ";
+  top: 81%;
+  left: 20%;
+  border: solid transparent;
+  height: 0;
+  width: 0;
+  position: absolute;
+  pointer-events: none;
+  border-color: rgba(136, 183, 213, 0);
+  border-bottom-color: #ffd3d4;
+  border-width: 8px;
+  margin-left: -24px;
+}
+
+.ErrorMessage p {
+  margin-bottom: 0rem;
+}
+
+.DateSection {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.DepartureDateIcon {
+  margin: 0 0 0 7px;
+  color: #008cff;
+}
+
+.DepartureDate {
+  display: flex;
+  align-items: baseline;
+  width: 100%;
+}
+
+.CalendarSection {
+  position: absolute;
+  top: 65%;
+  left: 0;
+  z-index: 1;
+  padding: 5px;
+  background-color: white;
+  border-radius: 14px;
+  box-shadow: 0px 0px 10px 1px #ccc;
+}
+
+
+.react-calendar {
+  border-radius: 14px;
+  border: 0px solid #a0a09670 !important;
+}
+
+.react-calendar__month-view__weekdays__weekday abbr {
+  text-decoration: none !important;
+  cursor: pointer !important;
+  color: #55575b;
+}
+
+.react-calendar__month-view__days__day abbr {
+  text-decoration: none !important;
+  cursor: pointer !important;
+  color: #55575b;
+}
+
+.react-calendar__navigation__label span {
+  color: #1b1b1c;
+  font-weight: bold;
+  font-size: large;
+}
+
+.react-calendar__tile:disabled {
+  background-color: #ffff;
+}
+
+.react-calendar__navigation__arrow,
+.react-calendar__navigation__prev2-button,
+.react-calendar__navigation__prev-button,
+.react-calendar__navigation__next-button,
+.react-calendar__navigation__next2-button {
+  color: #008cff;
+  border-radius: 9px;
+  margin: 2px !important;
+}
+
+.react-calendar__tile {
+  padding: 15px 6.6667px !important;
+}
+
+.react-calendar__tile--now {
+  background: #ffff76;
+  color: #000;
+}
+
+.react-calendar__tile,
+.react-calendar__tile--active,
+.react-calendar__tile--range,
+.react-calendar__tile--rangeStart,
+.react-calendar__tile--rangeEnd,
+.react-calendar__tile--rangeBothEnds,
+.react-calendar__month-view__days__day {
+  border-radius: 50px !important;
+}
+
+.react-calendar__tile:enabled:focus {
+  background-color: #9ed9bd;
+}
+
+.react-calendar__tile--active {
+  background: #9ed9bd;
+}
+
+.Date,
+.Count {
+  font-size: xx-large;
+  color: #55575b;
+  font-weight: 600;
+  cursor: pointer;
+  margin-right: 7px;
+}
+
+.Month,
+.Year,
+.Travellers {
+  font-size: x-large;
+  color: #55575b;
+  font-weight: 400;
+  cursor: pointer;
+}
+
+.Day,
+.TravellerClass {
+  font-size: medium;
+  color: #676565;
+  cursor: pointer;
+  white-space: nowrap;
+  overflow: hidden;
+  display: inline-block;
+}
+
+.DepartureDateBookingSection,
+.DepartureBookingSection,
+.ArrivalBookingSection,
+.TravellersClassBookingSection {
+  position: relative;
+}
+
+.DepartureBookingSection.clicked,
+.ArrivalBookingSection.clicked,
+.DepartureDateBookingSection.clicked,
+.TravellersClassBookingSection.clicked,
+.DateSection.clicked {
+  color: #b02258;
+}
+
+.sectionLabel {
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: small;
+}
+
+.airport_iata {
+  float: inline-end;
+  font-weight: 400;
+  color: #676565;
+}
+
+.NoOfCount.Selected,
+.TypeOfClass.Selected {
+  background-image: linear-gradient(to right, #ee2149, #752265) !important;
+  color: #ffffff !important;
+  border-radius: 4px !important;
+  font-weight: 600;
+}
+
+.TravellersClassBookingContainer {
+  position: absolute;
+  top: 65%;
+  right: 15px;
+  z-index: 1;
+  background-color: white;
+  box-shadow: 0px 0px 10px 1px #ccc;
+  width: 700px;
+  height: 450px;
+  padding: 15px 35px;
+  color: #6e6e6f;
+  border-radius: 8px;
+}
+
+.PassengerYear {
+  margin: 0;
+  font-size: smaller;
+  font-weight: 700;
+}
+
+.TravelDay {
+  margin: -3px 0 10px 0;
+  font-size: small;
+  font-weight: 500;
+}
+
+.NoOfTravellers,
+.Classes {
+  padding: 5px;
+  list-style: none;
+  width: max-content;
+  background-color: #ffffff;
+  border-radius: 4px;
+  box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.2);
+}
+
+.NoOfCount {
+  display: inline-flex;
+  width: 40px;
+  height: 40px;
+  justify-content: center;
+  align-items: center;
+  transition: background-color 0.3s ease-in-out;
+  margin-left: 3px;
+}
+
+.NoOfCount:hover,
+.TypeOfClass:hover {
+  color: #000;
+  background-color: #8bbaff87;
+  border-radius: 4px;
+  font-weight: 600;
+}
+
+.CountOfAdults {
+  margin-bottom: 30px;
+}
+
+.CountOfChildInfant {
+  display: flex;
+  margin-bottom: 30px;
+}
+
+.CountOfChild {
+  width: 100%;
+}
+
+.CountOfInfant {
+  width: 100%;
+  margin-left: 10px;
+}
+
+.TravelClass {
+  margin: -3px 0 10px 0;
+  font-size: smaller;
+  font-weight: 700;
+}
+
+.TypeOfClass {
+  list-style: none;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 150px;
+  height: 40px;
+  margin: 3px;
+  transition: background-color 0.3s ease-in-out;
+}
+
+.ApplyButton {
+  float: right;
+  margin-right: 20px;
+  border: none;
+  padding: 10px;
+  width: 100px;
+  border-radius: 8px;
+  background-color: #b12157;
+  color: #fff;
+}
+
+.ApplyButton:hover {
+  background-color: #b12156e8;
+  transition: background-color 0.3s ease-in-out;
+  cursor: pointer;
+}
+
+.Fare-Container,
+.Trending-Search-Container {
+  display: flex;
+  width: max-content;
+  justify-content: center;
+  align-items: center;
+}
+
+.Select-A-Fare-Type,
+.Trending-Search {
+  margin: 0;
+  font-size: smaller;
+  line-height: 16px;
+  font-weight: 600;
+  letter-spacing: 0.2px;
+  padding: 5px;
+}
+
+.SpecialNewFares,
+.Trending-Option {
+  margin: 0;
+  display: flex;
+  border-radius: 8px;
+  padding: 0;
+  position: relative;
+}
+
+.FareTypes {
+  border-radius: 8px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #ab376a;
+  color: #fff;
+  transition: background-color 0.3s ease-in-out;
+  font-size: smaller;
+  line-height: 16px;
+  padding: 8px 8px 8px 30px;
+  position: relative;
+  transition: 0.3s ease-in-out;
+  margin: 0 2px;
+}
+
+.Trending-Flight {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #752265;
+  transition: background-color 0.3s ease-in-out;
+  padding: 8px 10px;
+  border-radius: 4px;
+  margin-left: 10px;
+  color: #fff;
+}
+
+.FareTypes::before {
+  content: "";
+  width: 15px;
+  height: 15px;
+  border-radius: 100%;
+  border: solid 1px #fcb32a;
+  display: flex;
+  flex-shrink: 0;
+  position: absolute;
+  left: 8px;
+}
+
+.FareTypes.activeItem::before {
+  background-color: #fcb32a;
+}
+
+.FareTypes.activeItem {
+  background-color: #752265;
+  border-radius: 8px;
+}
+
+.FareTypes.activeItem::after {
+  content: "";
+  display: inline-block;
+  transform: rotate(45deg);
+  height: 8px;
+  width: 4px;
+  border-bottom: 2px solid #000;
+  border-right: 2px solid #080808;
+  position: absolute;
+  left: 13.5px;
+  top: 18.8px;
+}
+
+.Trending-Flight p {
+  margin: 0;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.makeFlex {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.GoArrow {
+  margin: 0 5px -2px 5px;
+  color: #fcb32a;
+}
+
+.SpecialNewFaresDetail {
+  position: absolute;
+  top: 48px;
+  left: 0;
+  width: 241px;
+  padding: 10px;
+  box-shadow: 0 2px 7px 0 rgba(0, 0, 0, 0.3);
+  z-index: 3;
+  background-color: #752265;
+  color: #ffffff;
+  display: none;
+  border-radius: 4px;
+}
+
+.FareTypes:hover .SpecialNewFaresDetail {
+  display: block;
+}
+
+.SpecialNewFaresDetail::after {
+  bottom: 100%;
+  left: 40px;
+  border: solid transparent;
+  content: " ";
+  height: 0;
+  width: 0;
+  position: absolute;
+  pointer-events: none;
+  border-color: rgba(36, 153, 149, 0);
+  border-bottom-color: #752265;
+  border-width: 10px;
+  margin-left: -10px;
+}
+
+.FareName {
+  margin-bottom: 5px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.FareDetail {
+  font-size: 13px;
+  margin: 0;
+}
+
+.SearchBtn {
+  border-radius: 50px;
+  width: 10rem;
+  margin: 3rem auto;
+  font-weight: 700;
+  background-image: linear-gradient(to right, #ee2149, #752265);
+}
+
+.Search {
+  text-decoration: none;
+  color: #ffff;
+  padding: 2px;
+}
+
+.GoArrowSwitch {
+  position: absolute;
+  top: 42px;
+  left: -18px;
+  width: 38px;
+  height: 38px;
+  background-color: #fff;
+  color: #fcb32a;
+  border-radius: 100px;
+  padding: 10px;
+  box-shadow: 0px 0px 3px 3px #efefef;
+}
+
+@media only screen and (min-width: 320px) and (max-width: 480px) {
+  .Booking_Section {
+    width: 100%;
+    height: auto;
+    border-radius: 0;
+    box-shadow: 0px 0px 20px 2px #e1e1e1;
+    padding: 20px;
+    position: relative;
+  }
+
+  .BookingInfo {
+    float: left;
+    font-size: smaller;
+  }
+
+  .BookingContainer {
+    display: block;
+    margin-top: 35px;
+    margin-bottom: 25px;
+  }
+
+  .DepartureBookingSection,
+  .ArrivalBookingSection,
+  .TravellersClassBookingSection,
+  .DepartureDateBookingSection {
+    padding: 10px 10px 10px 15px !important;
+    border: 1px solid rgb(190 188 188 / 55%) !important;
+    width: 100%;
+    border-radius: 0;
+    height: auto;
+  }
+
+  .sectionLabel,
+  .TravelDay {
+    font-size: x-small;
+  }
+
+  .DepartureCity,
+  .ArrivalCity {
+    font-size: large;
+  }
+
+  .DepartureAirportName,
+  .ArrivalAirportName {
+    font-size: small;
+  }
+
+  .Date,
+  .Count {
+    font-size: x-large;
+  }
+
+  .Month,
+  .Year,
+  .Travellers {
+    font-size: large;
+  }
+
+  .Day,
+  .TravellerClass,
+  .PassengerYear {
+    font-size: smaller;
+  }
+
+  .GoArrowSwitch {
+    top: -15px;
+    left: 141px;
+    transform: rotate(90deg);
+    width: 32px;
+    height: 32px;
+    padding: 7px;
+  }
+
+  .DepartureOptionsContainer,
+  .ArrivalOptionsContainer {
+    top: 5.5rem;
+    left: 0;
+  }
+
+  .DepartureInput,
+  .ArrivalInput {
+    font-size: medium;
+  }
+
+  #SearchIcon {
+    transform: translateY(35%);
+  }
+
+  .react-calendar {
+    width: 100%;
+  }
+
+  .react-calendar__navigation__label span {
+    font-size: smaller;
+  }
+
+  .TravellersClassBookingContainer {
+    top: 65%;
+    left: 0;
+    width: 100%;
+    height: fit-content;
+    padding: 18px;
+  }
+
+  .NoOfCount {
+    width: 30px;
+    height: 30px;
+  }
+
+  .CountOfChildInfant {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .CountOfInfant {
+    margin: 0;
+  }
+
+  .TypeOfClass {
+    width: 47%;
+  }
+
+  .NoOfTravellers,
+  .Classes {
+    width: 100%;
+  }
+
+  .ApplyButton {
+    margin-right: 0px;
+    border-radius: 20px;
+  }
+
+  .Select-A-Fare-Type-mobile {
+    margin-bottom: 10px;
+    font-size: small;
+    line-height: 16px;
+    font-weight: 600;
+    letter-spacing: 0.2px;
+    padding: 5px;
+  }
+
+  .Select-A-Fare-Type {
+    display: none;
+  }
+
+  .Trending-Search-Container {
+    display: none;
+  }
+
+  .Fare-Container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    justify-content: flex-start;
+    align-items: flex-start;
+  }
+
+  .FareTypes {
+    font-size: 8.98px;
+    line-height: 15px;
+    padding: 6px;
+  }
+
+  .FareTypes::before,
+  .FareTypes.activeItem::before,
+  .FareTypes.activeItem::after {
+    display: none;
+  }
+
+  .FareTypes.activeItem {
+    background-color: #752265;
+    border-radius: 8px;
+  }
+
+  .FareName {
+    font-size: small;
+  }
+
+  .FareDetail {
+    font-size: x-small;
+  }
+
+  .SpecialNewFaresDetail {
+    top: 48px;
+    left: -46px;
+    width: 9rem;
+  }
+
+  .SpecialNewFaresDetail::after {
+    left: 67px;
+  }
+    .Calendar_Section {
+      width: 80%;
+      top: 60%;
+      left: 9%;
+    }
+  
+    .react-calendar {
+      width: 100%;
+      height: auto;
+    }
+  
+    .react-calendar__month-view__weekdays__weekday abbr {
+      font-size: smaller;
+    }
+  
+    .react-calendar__month-view__days__day abbr {
+      font-size: 12px;
+    }
+  
+    .react-calendar__navigation__label span,
+    .react-calendar__navigation {
+      font-size: small;
+    }
+  
+    .react-calendar__tile,
+    .react-calendar__tile--active,
+    .react-calendar__tile--range,
+    .react-calendar__tile--rangeStart,
+    .react-calendar__tile--rangeEnd,
+    .react-calendar__tile--rangeBothEnds,
+    .react-calendar__month-view__days__day {
+      border-radius: 20px !important;
+      padding: 12px !important;
+    }
+  
+    .react-calendar__navigation {
+      height: 30px;
+    }
+  
+    .react-calendar__navigation button {
+      min-width: 35px;
+      height: 30px;
+      background: none;
+    }
+
+    .SearchBtn {
+      border-radius: 50px;
+      width: 7rem;
+      padding: 6px;
+      font-size: smaller;
+      margin: 3rem auto;
+      font-weight: 700;
+      background-image: linear-gradient(to right, #ee2149, #752265);
+    }
+    
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up)  */
+@media only screen and (min-width: 481px) and (max-width: 767px) {
+  .Booking_Section {
+    width: 100%;
+    height: auto;
+    border-radius: 0;
+    box-shadow: 0px 0px 20px 2px #e1e1e1;
+    padding: 20px;
+    position: relative;
+  }
+
+  .BookingInfo {
+    float: left;
+    font-size: smaller;
+  }
+
+  .BookingContainer {
+    display: block;
+    margin-top: 35px;
+    margin-bottom: 25px;
+  }
+
+  .DepartureBookingSection,
+  .ArrivalBookingSection,
+  .TravellersClassBookingSection,
+  .DepartureDateBookingSection {
+    padding: 10px 10px 10px 15px !important;
+    border: 1px solid rgb(190 188 188 / 55%) !important;
+    width: 100%;
+    border-radius: 0;
+    height: auto;
+  }
+
+  .sectionLabel,
+  .TravelDay {
+    font-size: small;
+  }
+
+  .DepartureCity,
+  .ArrivalCity {
+    font-size: x-large;
+  }
+
+  .DepartureAirportName,
+  .ArrivalAirportName {
+    font-size: smaller;
+  }
+
+  .Date,
+  .Count {
+    font-size: x-large;
+  }
+
+  .Month,
+  .Year,
+  .Travellers {
+    font-size: large;
+  }
+
+  .Day,
+  .TravellerClass,
+  .PassengerYear {
+    font-size: smaller;
+  }
+
+  .GoArrowSwitch {
+    top: -15px;
+    left: 50%;
+    transform: rotate(90deg);
+    width: 32px;
+    height: 32px;
+    padding: 7px;
+  }
+
+  .DepartureOptionsContainer,
+  .ArrivalOptionsContainer {
+    top: 5.5rem;
+    left: 0;
+    width: 60%;
+  }
+
+  .DepartureInput,
+  .ArrivalInput {
+    font-size: medium;
+  }
+
+  #SearchIcon {
+    transform: translateY(35%);
+  }
+
+  .CalendarSection {
+    width: 60%;
+  }
+
+  .react-calendar {
+    width: 100%;
+  }
+
+  .react-calendar__navigation__label span {
+    font-size: smaller;
+  }
+
+  .TravellersClassBookingContainer {
+    top: 65%;
+    left: 0;
+    width: 100%;
+    height: fit-content;
+    padding: 18px;
+  }
+
+  .NoOfCount {
+    width: 30px;
+    height: 30px;
+  }
+
+  .CountOfChildInfant {
+    gap: 1rem;
+  }
+
+  .CountOfInfant {
+    margin: 0;
+  }
+
+  .TypeOfClass {
+    width: 47%;
+  }
+
+  .NoOfTravellers {
+    width: fit-content;
+  }
+
+  .Classes {
+    width: 50%;
+  }
+
+  .ApplyButton {
+    margin-right: 0px;
+    border-radius: 20px;
+  }
+
+  .Select-A-Fare-Type-mobile {
+    margin-bottom: 10px;
+    font-size: small;
+    line-height: 16px;
+    font-weight: 600;
+    letter-spacing: 0.2px;
+    padding: 5px;
+  }
+
+  .Select-A-Fare-Type {
+    display: none;
+  }
+
+  .Trending-Search-Container {
+    display: none;
+  }
+
+  .Fare-Container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    justify-content: flex-start;
+    align-items: flex-start;
+  }
+
+  .FareTypes.activeItem {
+    background-color: #752265;
+    border-radius: 8px;
+  }
+
+  .FareName {
+    font-size: small;
+  }
+
+  .FareDetail {
+    font-size: x-small;
+  }
+
+  .SpecialNewFares {
+    font-size: smaller;
+  }
+
+  .SpecialNewFaresDetail {
+    top: 48px;
+    left: -46px;
+    width: 14rem;
+  }
+
+  .SpecialNewFaresDetail::after {
+    left: 67px;
+  }
+}
+
+/* Medium devices (landscape tablets, 768px and up)  */
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+  .Booking_Section {
+    width: 100%;
+    height: auto;
+    border-radius: 0;
+    box-shadow: 0px 0px 20px 2px #e1e1e1;
+    padding: 20px;
+    position: relative;
+  }
+
+  .BookingInfo {
+    float: left;
+    font-size: large;
+  }
+
+  .BookingContainer {
+    display: block;
+    margin-top: 35px;
+    margin-bottom: 25px;
+  }
+
+  .DepartureBookingSection,
+  .ArrivalBookingSection,
+  .TravellersClassBookingSection,
+  .DepartureDateBookingSection {
+    padding: 10px 10px 10px 15px !important;
+    border: 1px solid rgb(190 188 188 / 55%) !important;
+    width: 100%;
+    border-radius: 0;
+    height: auto;
+  }
+
+  .sectionLabel,
+  .TravelDay {
+    font-size: medium;
+  }
+
+  .DepartureCity,
+  .ArrivalCity {
+    font-size: xx-large;
+  }
+
+  .DepartureAirportName,
+  .ArrivalAirportName {
+    font-size: larger;
+    text-overflow: unset;
+    white-space: normal;
+    overflow: unset;
+    width: 100%;
+    display: inline-block;
+  }
+
+  .Departure-Date-Icon {
+    margin-left: 6px;
+  }
+
+  .Date,
+  .Count {
+    font-size: xx-large;
+  }
+
+  .Month,
+  .Year,
+  .Travellers {
+    font-size: x-large;
+  }
+
+  .Day,
+  .TravellerClass,
+  .PassengerYear {
+    font-size: larger;
+  }
+
+  .GoArrowSwitch {
+    top: -22px;
+    left: 50%;
+    transform: rotate(90deg);
+    width: 6%;
+    height: auto;
+    padding: 12px;
+  }
+
+  .DepartureOptionsContainer,
+  .ArrivalOptionsContainer {
+    top: 5.5rem;
+    left: 0;
+    width: 60%;
+  }
+
+  .DepartureInput,
+  .ArrivalInput {
+    font-size: medium;
+  }
+
+  #SearchIcon {
+    transform: translateY(35%);
+  }
+
+  .CalendarSection {
+    width: 60%;
+  }
+
+  .react-calendar {
+    width: 100%;
+  }
+
+  .react-calendar__navigation__label span {
+    font-size: smaller;
+  }
+
+  .TravellersClassBookingContainer {
+    top: 65%;
+    left: 0;
+    width: 100%;
+    height: fit-content;
+    padding: 18px;
+  }
+
+  .NoOfCount {
+    width: 30px;
+    height: 30px;
+  }
+
+  .CountOfChildInfant {
+    gap: 1rem;
+  }
+
+  .CountOfInfant {
+    margin: 0;
+  }
+
+  .TypeOfClass {
+    width: 47%;
+  }
+
+  .NoOfTravellers {
+    width: fit-content;
+  }
+
+  .Classes {
+    width: 50%;
+  }
+
+  .ApplyButton {
+    margin-right: 0px;
+    border-radius: 20px;
+  }
+
+  .Select-A-Fare-Type-mobile {
+    margin-bottom: 10px;
+    font-size: large;
+    line-height: 16px;
+    font-weight: 600;
+    letter-spacing: 0.2px;
+    padding: 5px;
+  }
+
+  .Select-A-Fare-Type {
+    display: none;
+  }
+
+  .Trending-Search-Container {
+    display: none;
+  }
+
+  .Fare-Container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    justify-content: flex-start;
+    align-items: flex-start;
+  }
+
+  .FareTypes.activeItem {
+    background-color: #752265;
+    border-radius: 8px;
+  }
+
+  .FareTypes::before {
+    width: 20px;
+    height: 20px;
+  }
+
+  .FareTypes.activeItem::after {
+    height: 13px;
+    width: 6px;
+    left: 14.5px;
+    top: 19.8px;
+  }
+
+  .FareTypes {
+    padding: 13px 13px 13px 43px;
+  }
+
+  .FareName {
+    font-size: medium;
+  }
+
+  .FareDetail {
+    font-size: small;
+  }
+
+  .SpecialNewFares {
+    font-size: larger;
+  }
+
+  .SpecialNewFaresDetail {
+    top: 64px;
+    left: -46px;
+    width: 14rem;
+  }
+
+  .SpecialNewFaresDetail::after {
+    left: 67px;
+  }
+}
+
+/* Large devices (laptops/desktops, 992px and up)  */
+@media only screen and (min-width: 992px) and (max-width: 1200px) {
+  .Booking_Section {
+    width: 100%;
+    height: auto;
+    border-radius: 0;
+    box-shadow: 0px 0px 20px 2px #e1e1e1;
+    padding: 20px;
+    position: relative;
+  }
+
+  .BookingContainer {
+    display: grid;
+    grid-template-columns: 300px 300px 170px 212px;
+    margin-top: 35px;
+    margin-bottom: 25px;
+  }
+
+  .Departure-Date-Icon {
+    margin-left: 6px;
+  }
+
+  .DepartureInput,
+  .ArrivalInput {
+    font-size: medium;
+  }
+
+  #SearchIcon {
+    transform: translateY(35%);
+  }
+
+  .react-calendar__navigation__label span {
+    font-size: smaller;
+  }
+
+  .Select-A-Fare-Type {
+    display: none;
+  }
+
+  .Select-A-Fare-Type-mobile,
+  .Trending-Search {
+    font-size: medium;
+    line-height: 16px;
+    font-weight: 600;
+    letter-spacing: 0.2px;
+    padding: 5px;
+  }
+
+  .Fare-Container,
+  .Trending-Search-Container {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+  }
+
+  .FareTypes.activeItem {
+    background-color: #752265;
+    border-radius: 8px;
+  }
+
+  .FareName {
+    font-size: medium;
+  }
+
+  .FareDetail {
+    font-size: small;
+  }
+
+  .makeFlex {
+    align-items: baseline;
+  }
+}
+
+/* Extra-large devices (large laptops and desktops, 1200px and up)  */
+@media only screen and (min-width: 1201px) {
+  .Select-A-Fare-Type-mobile {
+    display: none;
+  }
+}

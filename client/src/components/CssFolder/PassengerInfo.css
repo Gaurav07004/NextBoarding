@@ -1,0 +1,572 @@
+.screen_split {
+    display: grid;
+    grid-template-columns: 57% 28%;
+    justify-content: space-between;
+    margin-top: 70px;
+}
+
+.Line hr {
+    margin: 20px auto;
+}
+
+.user_related_info,
+.class_name {
+    color: var(--light-color);
+}
+
+.Passenger_no,
+.Passenger_bag_count {
+    color: var(--secondary-color);
+    font-weight: 600;
+    letter-spacing: 0.4px;
+    margin-top: 1rem;
+}
+
+.Passenger_bag_count::selection {
+    background-color: transparent;
+}
+
+.passenger_info_form {
+    margin-top: 20px;
+}
+
+.Name_info {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+    margin-bottom: 20px;
+}
+
+.Another_info_about_Emergency {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 25px;
+    margin-bottom: 20px;
+}
+
+.check_bag_info {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 16px;
+    margin-bottom: 20px;
+}
+
+.name,
+.otherInfo,
+.DOB_container {
+    position: relative;
+    width: 100%;
+    border-radius: 5px;
+    border: 1px solid #7c8db0;
+    padding: 12px;
+    color: #6e7491;
+}
+
+.name::placeholder,
+.otherInfo::placeholder,
+.DOB_container {
+    color: #7c8db0;
+}
+
+.name:focus-visible,
+.otherInfo:focus-visible {
+    outline: -webkit-focus-ring-color auto 0px;
+}
+
+.same_info_as_passenger1 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 25%;
+    height: 60px;
+}
+
+.Check_bags_count {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 30%;
+}
+
+.Bags {
+    margin-top: 100px;
+}
+
+.passenger_info {
+    text-decoration: none;
+}
+
+.button_next:hover {
+    background-image: linear-gradient(to right, #ee214ac4, #752264bc);
+    transition: background-color 0.3s ease-in-out;
+    cursor: pointer;
+}
+
+.button_save_and_close {
+    width: 180px;
+    height: 45px;
+    padding: 10px;
+    text-align: center;
+    border: 1px solid #b02258;
+    border-radius: 0.3rem;
+    color: #b02258;
+}
+
+.button_next_to_seat {
+    background-image: linear-gradient(to right, #ee2149, #752265);
+    width: 180px;
+    height: 45px;
+    padding: 10px;
+    text-align: center;
+    border-radius: 0.3rem;
+    color: #fff;
+}
+
+.Calendar_Section {
+    position: absolute;
+    width: 360px;
+    top: 55%;
+    left: 10%;
+    z-index: 1;
+    padding: 5px;
+    background-color: white;
+    border-radius: 14px;
+    box-shadow: 0px 0px 10px 1px #ccc;
+}
+
+.DepartureDate {
+    display: flex;
+    align-items: baseline;
+    width: 100%;
+}
+
+.react-calendar {
+    border-radius: 14px;
+    border: 0px solid #a0a09670 !important;
+}
+
+.react-calendar__month-view__weekdays__weekday abbr {
+    text-decoration: none !important;
+    cursor: pointer !important;
+    color: #55575b;
+}
+
+.react-calendar__month-view__days__day abbr {
+    text-decoration: none !important;
+    cursor: pointer !important;
+    color: #55575b;
+}
+
+.react-calendar__navigation__label span {
+    color: #1b1b1c;
+    font-weight: bold;
+    font-size: large;
+}
+
+.react-calendar__tile:disabled {
+    background-color: #ffff;
+}
+
+.react-calendar__navigation__arrow,
+.react-calendar__navigation__prev2-button,
+.react-calendar__navigation__prev-button,
+.react-calendar__navigation__next-button,
+.react-calendar__navigation__next2-button {
+    color: #008cff;
+    border-radius: 9px;
+    margin: 2px !important;
+}
+
+.react-calendar__navigation button:disabled {
+    background-color: #f0f0f0;
+}
+
+.react-calendar__navigation button {
+    min-width: 44px;
+    background: none;
+}
+
+.react-calendar__tile {
+    padding: 15px 6.6667px !important;
+}
+
+.react-calendar__tile--now {
+    background: #ffff76;
+    color: #000;
+}
+
+.react-calendar__tile,
+.react-calendar__tile--active,
+.react-calendar__tile--range,
+.react-calendar__tile--rangeStart,
+.react-calendar__tile--rangeEnd,
+.react-calendar__tile--rangeBothEnds,
+.react-calendar__month-view__days__day {
+    border-radius: 50px !important;
+}
+
+.react-calendar__tile:enabled:focus {
+    background-color: #9ed9bd;
+}
+
+.react-calendar__tile--active {
+    background: #9ed9bd;
+}
+
+.react-calendar__navigation {
+    display: flex;
+    height: 44px;
+    margin-bottom: 1em;
+}
+
+.react-calendar__month-view__weekdays {
+    text-align: center;
+    text-transform: uppercase;
+    font: inherit;
+    font-size: 0.75em;
+    font-weight: bold;
+}
+
+.user_container {
+    padding-top: 1.25rem !important;
+    padding: 0.5rem;
+}
+
+.second_container {
+    display: grid;
+    grid-template-rows: repeat(2, 40%);
+}
+
+
+@media only screen and (min-width: 320px) and (max-width: 480px) {
+    .screen_split {
+        display: block;
+        padding: 6px;
+    }
+
+    .Name_info,
+    .Another_info_about_Emergency {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+    }
+
+    .user_container {
+        width: 100%;
+    }
+
+    .user_related_info,
+    .minus,
+    .plus {
+        font-size: small;
+    }
+
+    .Passenger_info_label,
+    .Passenger_no,
+    .Passenger_bag_count {
+        font-size: 15px;
+        margin-bottom: 5px;
+        margin-top: 0;
+    }
+
+    .name,
+    .DOB_container,
+    .otherInfo {
+        padding: 4px !important;
+    }
+
+    .name::placeholder,
+    .otherInfo::placeholder {
+        color: #7c8db0;
+        font-size: small;
+    }
+
+    .DOB_container {
+        font-size: small;
+    }
+
+    .DOB_container span {
+        margin-top: 2px;
+    }
+
+    .Check_bags_count {
+        width: 50%;
+    }
+
+    /* .button_save_and_close {
+        width: 38%;
+        font-size: smaller;
+        padding: 11px;
+        height: auto;
+    } */
+
+    .class_name {
+        font-size: 15.5px;
+    }
+
+    .Calendar_Section {
+        width: 80%;
+        top: 60%;
+        left: 9%;
+    }
+
+    .react-calendar {
+        width: 100%;
+        height: auto;
+    }
+
+    .react-calendar__month-view__weekdays__weekday abbr {
+        font-size: smaller;
+    }
+
+    .react-calendar__month-view__days__day abbr {
+        font-size: 12px;
+    }
+
+    .react-calendar__navigation__label span,.react-calendar__navigation {
+        font-size: small;
+    }
+
+    .react-calendar__tile,
+    .react-calendar__tile--active,
+    .react-calendar__tile--range,
+    .react-calendar__tile--rangeStart,
+    .react-calendar__tile--rangeEnd,
+    .react-calendar__tile--rangeBothEnds,
+    .react-calendar__month-view__days__day {
+        border-radius: 20px !important;
+        padding: 6px !important;
+    }
+
+    .react-calendar__navigation {
+        height: 30px;
+    }
+
+    .react-calendar__navigation button {
+        min-width: 35px;
+        height: 30px;
+        background: none;
+    }
+    .button_next_to_seat,.button_save_and_close {
+        width: 40%;
+        height: auto;
+        padding: 10px;
+        font-size: small;
+    }
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up)  */
+@media only screen and (min-width: 481px) and (max-width: 767px) {
+    .screen_split {
+        display: block;
+        padding: 6px;
+    }
+
+    .Name_info,
+    .Another_info_about_Emergency {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+    }
+
+    .user_container {
+        width: 100%;
+    }
+
+    .user_related_info,
+    .minus,
+    .plus {
+        font-size: smaller;
+    }
+
+    .Passenger_info_label,
+    .Passenger_no,
+    .Passenger_bag_count {
+        font-size: medium;
+        margin-bottom: 5px;
+        margin-top: 0;
+    }
+
+    .name,
+    .DOB_container,
+    .otherInfo {
+        padding: 8px !important;
+    }
+
+    .name::placeholder,
+    .otherInfo::placeholder {
+        color: #7c8db0;
+        font-size: smaller;
+    }
+
+    .DOB_container {
+        font-size: small;
+    }
+
+    .DOB_container span {
+        margin-top: 2px;
+    }
+
+    .Check_bags_count {
+        width: 32%;
+    }
+
+    .button_next_to_seat,
+    .button_save_and_close {
+        width: 25%;
+        height: auto;
+        padding: 10px;
+        font-size: small;
+    }
+
+    .second_container {
+        display: grid;
+        grid-template-columns: repeat(2, 45%);
+        justify-content: space-between;
+    }
+}
+
+/* Medium devices (landscape tablets, 768px and up)  */
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+    .screen_split {
+        justify-content: flex-start;
+        gap: 3rem;
+        padding: 15px;
+        grid-template-columns: 57% 36%;
+    }
+
+    .user_container {
+        width: 100%;
+    }
+
+    .user_related_info,
+    .minus,
+    .plus {
+        font-size: smaller;
+    }
+
+    .Passenger_info_label,
+    .Passenger_no,
+    .Passenger_bag_count {
+        font-size: medium;
+        margin-bottom: 5px;
+        margin-top: 0;
+    }
+
+    .name,
+    .DOB_container,
+    .otherInfo {
+        padding: 4px 8px !important;
+    }
+
+    .name::placeholder,
+    .otherInfo::placeholder {
+        color: #7c8db0;
+        font-size: smaller;
+    }
+
+    .DOB_container {
+        font-size: small;
+    }
+
+    .DOB_container span {
+        margin-top: 2px;
+    }
+
+    .Check_bags_count {
+        width: 32%;
+    }
+
+    .button_next_to_seat,
+    .button_save_and_close {
+        width: 30%;
+        height: auto;
+        padding: 10px;
+        font-size: small;
+    }
+
+    .class_name {
+        font-size: smaller;
+    }
+
+    .second_container {
+        display: grid;
+        grid-template-rows: repeat(2, 50%);
+        justify-content: space-between;
+    }
+}
+
+/* Large devices (laptops/desktops, 992px and up)  */
+@media only screen and (min-width: 992px) and (max-width: 1200px) {
+    .screen_split {
+        justify-content: flex-start;
+        gap: 3rem;
+        padding: 15px;
+        grid-template-columns: 57% 36%;
+    }
+
+    .user_container {
+        width: 100%;
+    }
+
+    .user_related_info,
+    .minus,
+    .plus {
+        font-size: smaller;
+    }
+
+    .Passenger_info_label,
+    .Passenger_no,
+    .Passenger_bag_count {
+        font-size: medium;
+        margin-bottom: 5px;
+        margin-top: 0;
+    }
+
+    .name,
+    .DOB_container,
+    .otherInfo {
+        padding: 6px !important;
+    }
+
+    .name::placeholder,
+    .otherInfo::placeholder {
+        color: #7c8db0;
+        font-size: smaller;
+    }
+
+    .DOB_container {
+        font-size: small;
+    }
+
+    .DOB_container span {
+        margin-top: 2px;
+    }
+
+    .Check_bags_count {
+        width: 32%;
+    }
+
+    .button_next_to_seat,
+    .button_save_and_close {
+        width: 30%;
+        height: auto;
+        padding: 10px;
+        font-size: small;
+    }
+
+    .class_name {
+        font-size: smaller;
+    }
+
+    .second_container {
+        display: grid;
+        grid-template-rows: repeat(2, 45%);
+        justify-content: space-between;
+    }
+}
+
+/* Extra-large devices (large laptops and desktops, 1200px and up)  */
+@media only screen and (min-width: 1201px) {
+    .Hamburger {
+        display: none;
+    }
+}

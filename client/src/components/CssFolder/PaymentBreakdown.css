@@ -1,0 +1,103 @@
+.Price_breakdown_container {
+    /* border: 1px solid #cccc;
+    border-radius: 8px; */
+    background-color: #fff;
+    box-shadow: 0px 0px 8px 1px #cccccc8a;
+    border-radius: 10px;
+    padding: 1rem;
+    height: auto;
+}
+
+.AmountTile {
+    text-align: start;
+}
+
+.AmountInfo {
+    text-align: end;
+}
+
+.bill_label {
+    color: var(--light-color);
+    font-size: 16px;
+    font-style: normal;
+    margin: 15px 0;
+}
+
+.Amount_value,
+.Total_Amount_value {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.Total_Amount_value {
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+}
+
+@media only screen and (min-width: 320px) and (max-width: 480px) {
+    .Flight_summary_label {
+            font-size: medium;
+            margin-bottom: 0.5rem;
+        }
+    
+        .bill_label {
+            font-size: smaller;
+        }
+    
+        .Bags {
+            margin-top: 50px;
+        }
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up)  */
+@media only screen and (min-width: 481px) and (max-width: 767px) {
+    .Flight_summary_label {
+            font-size: medium;
+        }
+    
+        .bill_label {
+            font-size: smaller;
+        }
+    
+        .Bags {
+            margin-top: 50px;
+        }
+}
+
+/* Medium devices (landscape tablets, 768px and up)  */
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+    .Flight_summary_label {
+        font-size: medium;
+    }
+
+    .bill_label {
+        font-size: smaller;
+    }
+
+    .Bags {
+        margin-top: 50px;
+    }
+}
+
+/* Large devices (laptops/desktops, 992px and up)  */
+@media only screen and (min-width: 992px) and (max-width: 1200px) {
+    .Flight_summary_label {
+        font-size: medium;
+    }
+
+    .bill_label {
+        font-size: smaller;
+    }
+
+    .Bags {
+        margin-top: 50px;
+    }
+}
+
+/* Extra-large devices (large laptops and desktops, 1200px and up)  */
+@media only screen and (min-width: 1201px) {
+    .Hamburger {
+        display: none;
+    }
+}
