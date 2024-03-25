@@ -1,5 +1,4 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-//import FareTypeData from "../../../components/JsonFolder/FareTypeData.json";
 
 const initialState = {
     showProfileModal: false,
@@ -109,7 +108,7 @@ const initialState = {
     showSidebar: false,
     forgetEmail: {
         email: "",
-        password: ""
+        password: "",
     },
     OTP: {
         OTP_1: "",
@@ -119,7 +118,9 @@ const initialState = {
         OTP_5: "",
         OTP_6: "",
         Totalcount: "",
-    }
+    },
+    token: null,
+    totalAmount: "",
 };
 export const fetch_API = createAsyncThunk("fetch_API", async (input) => {
     try {
@@ -138,7 +139,6 @@ export const fetch_API = createAsyncThunk("fetch_API", async (input) => {
         throw error;
     }
 });
-
 
 export const fetchAirlineData = createAsyncThunk("fetchAirlineData", async ({ input_1, input_2, selected_Date }) => {
     try {
@@ -216,6 +216,17 @@ export const Passenger_seat = createAsyncThunk("Passengers_seat", async (selectS
         throw error;
     }
 });
+
+// export const UserAuthentication = createAsyncThunk("booking/UserAuthentication", async (_, thunkAPI) => {
+//     try {
+//         const state = thunkAPI.getState();
+//         const data = await userAuthentication(state.booking.token);
+//         return data;
+//     } catch (error) {
+//         return thunkAPI.rejectWithValue(error.message);
+//     }
+// });
+
 
 const bookingSlice = createSlice({
     name: "booking",
@@ -420,9 +431,15 @@ const bookingSlice = createSlice({
                     OTP_5,
                     OTP_6,
                     Totalcount,
-                }
-        };
-},
+                },
+            };
+        },
+        setToken: (state, action) => {
+            state.token = action.payload;
+        },
+        setTotalAmount: (state, action) => {
+            state.totalAmount = action.payload;
+        },
     },
     extraReducers: (builder) => {
         builder.addCase(fetch_API.fulfilled, (state, action) => {
@@ -525,7 +542,9 @@ export const {
     setSelectedProfileLabel,
     setShowSidebar,
     setForgetEmail,
-    setOTP
+    setOTP,
+    setToken,
+    setTotalAmount,
 } = bookingSlice.actions;
 
 export default bookingSlice.reducer;

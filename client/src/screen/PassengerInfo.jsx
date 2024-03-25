@@ -3,7 +3,7 @@ import "../components/CssFolder/PassengerInfo.css";
 import Container from "@mui/material/Container";
 import { useDispatch, useSelector } from "react-redux";
 import { FaPlus, FaMinus } from "react-icons/fa6";
-import bags from "D:/Development/Web-development/ReactJs/flyease/client/src/assets/bags.png";
+import bags from "D:/Development/Web-development/ReactJs/NextBoarding/client/src/assets/bags.png";
 import { Calendar } from "react-calendar";
 import { NavLink } from "react-router-dom";
 import { TailSpin } from "react-loader-spinner";
@@ -15,11 +15,11 @@ const PaymentBreakdown = React.lazy(() => import("../components/JsxFolder/Paymen
 const Footer = React.lazy(() => import("../components/JsxFolder/Footer.jsx"));
 
 function PassengerInfo() {
-    const state = useSelector((state) => state);
+const state = useSelector((state) => state);
     const dispatch = useDispatch();
 
     const passengerCount = state.booking.selectedNoOfTravellers.Totalcount;
-    const [isDateSelected, setIsDateSelected] = useState(false);
+    //const [isDateSelected, setIsDateSelected] = useState(false);
 
     useEffect(() => {
         dispatch(setLoading(true));
@@ -41,7 +41,7 @@ function PassengerInfo() {
             firstName: "",
             middleName: "",
             lastName: "",
-            dob: "",
+            Gender: "",
             email: "",
             phoneNumber: "",
             address: "",
@@ -56,6 +56,7 @@ function PassengerInfo() {
             ...updatedPassengerForms[passengerIndex],
             [name]: value,
         };
+        dispatch(setPassengerForm(updatedPassengerForms)); // Update the state after modifying the passenger form
     };
 
     console.log("passengers", state.booking.passengerForm.length);
@@ -122,18 +123,20 @@ function PassengerInfo() {
                                     <div key={index}>
                                         <p className="Passenger_no mb-4">Passenger {passengerForm.passengerNumber}</p>
                                         <div className="Name_info">
-                                            {["firstName", "middleName", "lastName", "email", "phoneNumber"].map((field) => (
+                                            {["firstName", "middleName", "lastName", "email", "phoneNumber", "Gender", ].map((field) => (
                                                 <input
                                                     key={field}
                                                     type={field === "email" ? "email" : "text"}
                                                     name={field}
+                                                    autoComplete="off"
                                                     value={state.booking.passengerForm[index][field]}
                                                     onChange={(e) => handleChange(e, index)}
                                                     className="name"
+                                                    required
                                                     placeholder={fieldPlaceholders[field] || `${field.charAt(0).toUpperCase()}${field.slice(1)}*`}
                                                 />
                                             ))}
-                                            <div className="DOB_container" onClick={() => dispatch(setCalendar(!state.booking.showCalendar))}>
+                                            {/* <div className="DOB_container" onClick={() => dispatch(setCalendar(!state.booking.showCalendar))}>
                                                 <span>
                                                     {isDateSelected ? format(state.booking.dateOfBirth, "dd/MM/yyyy") : "Date of Birth*"}
                                                 </span>
@@ -149,7 +152,7 @@ function PassengerInfo() {
                                                         }}
                                                     />
                                                 </article>
-                                            )}
+                                            )} */}
                                         </div>
                                         <div className="Another_info">
                                             {["address"].map((field) => (
@@ -157,7 +160,9 @@ function PassengerInfo() {
                                                     key={field}
                                                     type="text"
                                                     name={field}
+                                                    required
                                                     value={state.booking.passengerForm[index][field]}
+                                                    autoComplete="off"
                                                     onChange={(e) => handleChange(e, index)}
                                                     className="otherInfo"
                                                     placeholder={`${field === "address" ? "Residential address" : fieldPlaceholders[field] || `${field.charAt(0).toUpperCase()}${field.slice(1)}*`}`}
@@ -174,6 +179,8 @@ function PassengerInfo() {
                                             key={field}
                                             type={field === "email" ? "email" : "text"}
                                             name={field}
+                                            autoComplete="off"
+                                            required
                                             value={state.booking.passengerEmergency[field]}
                                             onChange={handleEmergencyChange}
                                             className="otherInfo"

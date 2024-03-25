@@ -13,8 +13,8 @@ const Fliter = () => {
 
         departureAirlineResult.forEach((airline) => {
             const matchingLogo = departureLogoResult.find((airlinelogo) => airlinelogo.logo_url && airlinelogo.iata === airline.airline_iata);
-
-            if (matchingLogo && !uniqueAirlines.some((unique) => unique.name === matchingLogo.name)) {
+            console.log("departureLogoResult", departureLogoResult); // Corrected the log statement
+            if (matchingLogo) {
                 uniqueAirlines.push({
                     name: matchingLogo.name,
                     logo_url: matchingLogo.logo_url,
@@ -66,9 +66,9 @@ const Fliter = () => {
                 <div className="Fliter_Departure_Stop_container">
                     <label className="Fliter_Departure_Stop_label">Stops From {departureAirport?.city || "Mumbai"}</label>
                     <div className="Stop_NonStop">
-                        <input type="checkbox" className= "check_box" checked={selectedFliter === "Stop"} onChange={() => fliter_stops("Stop")} />
+                        <input type="checkbox" className="check_box" checked={selectedFliter === "Stop"} onChange={() => fliter_stops("Stop")} />
                         <div className="checkbox_label">Stop</div>
-                        <input type="checkbox" className= "check_box" checked={selectedFliter === "Non Stop"} onChange={() => fliter_stops("Non Stop")} />
+                        <input type="checkbox" className="check_box" checked={selectedFliter === "Non Stop"} onChange={() => fliter_stops("Non Stop")} />
                         <div className="checkbox_label">Non Stop</div>
                     </div>
                 </div>

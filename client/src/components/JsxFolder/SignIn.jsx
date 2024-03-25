@@ -9,7 +9,7 @@ import { CiLock, CiMail, CiUnlock } from "react-icons/ci";
 import { Button, Modal, Typography } from "keep-react";
 import { EnvelopeSimple, Check } from "phosphor-react";
 import "../CssFolder/SignIn.css";
-import { setConditionCheck, setShowPasswordModal, setShowPassword, setLoading, setPassengerLogin, setForgetEmail, setOTP } from "../../redux/slices/booking/bookingslices.jsx";
+import { setConditionCheck, setShowPasswordModal, setShowPassword, setLoading, setPassengerLogin, setForgetEmail, setOTP, setToken  } from "../../redux/slices/booking/bookingslices.jsx";
 import { NavLink, useNavigate } from "react-router-dom";
 import Countdown from "react-countdown";
 
@@ -121,11 +121,27 @@ function SignUp() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            await handleRequest("http://localhost:5000/api/auth/login", "POST", {email: state.booking.passengerLogin.email, password: state.booking.passengerLogin.password});
+        // Send login request
+        const response = await handleRequest("http://localhost:5000/api/auth/login", "POST", {
+            email: state.booking.passengerLogin.email,
+            password: state.booking.passengerLogin.password
+        });
+        
+        // Check if login was successful
+        if (response.token) {
+            // If successful, dispatch action to set token in Redux state
+            dispatch(setToken(response.token));
+            // Alert user about successful login
             alert("Login Successfully!");
+            // Navigate user to another page (e.g., home page)
             navigate("/");
+            // Log success message to console
             console.log("Login Successfully!");
-        } catch (error) {
+        } else {
+            // If login failed (no token in response), handle error
+            throw new Error("Login failed. Please check your credentials.");
+        }
+    } catch (error) {
             console.error(error.message);
         }
     };

@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import signUp from "D:/Development/Web-development/ReactJs/flyease/client/src/assets/signUp_1.png";
+import signUp from "D:/Development/Web-development/ReactJs/NextBoarding/client/src/assets/signUp_1.png";
 import Container from "@mui/material/Container";
 import { useDispatch, useSelector } from "react-redux";
 import { FcGoogle } from "react-icons/fc";

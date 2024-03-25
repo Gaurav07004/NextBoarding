@@ -1,11 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit";
 import bookingReducer from "./slices/booking/bookingslices.jsx";
-//import FetchAPIReducer from "./slices/FetchAPI/APIslices.jsx";
+import tokenMiddleware from './slices/booking/tokenMiddleware.jsx';
 
 export const store = configureStore({
     reducer: {
         booking: bookingReducer,
-        // API: FetchAPIReducer,
     },
+    middleware: getDefaultMiddleware =>
+    getDefaultMiddleware().concat(tokenMiddleware),
 });
 

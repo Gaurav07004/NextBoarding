@@ -1,6 +1,6 @@
 import { Link as ScrollLink } from "react-scroll";
-import signUp from "D:/Development/Web-development/ReactJs/flyease/client/src/assets/signUp_1.png";
-import NewLogo from "D:/Development/Web-development/ReactJs/flyease/client/src/assets/NewLogo.png";
+import signUp from "D:/Development/Web-development/ReactJs/NextBoarding/client/src/assets/signUp_1.png";
+import NewLogo from "D:/Development/Web-development/ReactJs/NextBoarding/client/src/assets/NewLogo.png";
 import "../CssFolder/Navbar.css";
 import { NavLink } from "react-router-dom";
 import { Avatar } from "keep-react"

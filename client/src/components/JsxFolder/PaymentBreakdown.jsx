@@ -1,9 +1,11 @@
 //import Container from "@mui/material/Container";
+import { setTotalAmount } from "../../redux/slices/booking/bookingslices";
 import "../CssFolder/PaymentBreakdown.css";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 
 function PaymentBreakdown() {
     const state = useSelector((state) => state);
+    const dispatch = useDispatch();
     const Baggage_fees = () => {
         const total_bags = state.booking.selectedBags.count;
         const passengerCount = state.booking.selectedNoOfTravellers.Totalcount;
@@ -61,11 +63,23 @@ function PaymentBreakdown() {
     };
 
     const calculateTotalAmount = () => {
+    // Calculate subtotal
         const subtotal = calculateSubtotal();
+
+        // Calculate taxes
         const taxes = getTaxes();
 
-        return subtotal + taxes;
+        // Calculate total amount
+        const TotalAmount = subtotal + taxes;
+
+        // Dispatch an action to update the state with the total amount
+        dispatch(setTotalAmount(TotalAmount));
+
+        // Return the total amount
+        return TotalAmount;
     };
+
+    console.log("TotalAmount", state.booking.totalAmount)
 
     return (
         <section className="price_container pt-3">

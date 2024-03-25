@@ -1,7 +1,7 @@
 import Container from "@mui/material/Container";
 import { NavLink, Link } from "react-router-dom";
 import { FaFacebookSquare, FaInstagram, FaHeart, FaTwitter } from "react-icons/fa";
-import NewLogo from "D:/Development/Web-development/ReactJs/flyease/client/src/assets/NewLogo.png";
+import NewLogo from "D:/Development/Web-development/ReactJs/NextBoarding/client/src/assets/NewLogo.png";
 import { PiCopyrightLight } from "react-icons/pi";
 import "../CssFolder/Footer.css";
 

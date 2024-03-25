@@ -1,5 +1,6 @@
 import { useSelector } from "react-redux";
 import "../CssFolder/Bill.css";
+import { Divider } from 'keep-react'
 
 const Bills = () => {
     const { departureFlight, departureAirline, flightDetail } = useSelector((state) => state.booking);
@@ -16,15 +17,15 @@ const Bills = () => {
                             <div className="flight_number">{departureFlight.flight_number}</div>
                         </div>
                     </div>
-                    <hr />
+                    <Divider size="lg" />
                     <div className="FlightTime">
-                        <div className="duration">{flightDetail.duration}</div>
                         <div className="duration">
                             {flightDetail?.departure || ""} - {flightDetail?.arrival || ""}
                         </div>
-                        <div className="flight_number">{flightDetail?.stop}</div>
+                        <div className="duration">{flightDetail.time}</div>
+                        <div className="flight_number"> {(flightDetail?.stop)}</div>
                     </div>
-                    <hr />
+                    <Divider size="lg" />
                 <div className="Amount">
                     <div className="AmountInfo">
                         <div className="departure_airline_bill">Subtotal</div>
