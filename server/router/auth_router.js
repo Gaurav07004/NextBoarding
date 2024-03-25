@@ -5,12 +5,17 @@ const signupSchema = require("../validators/auth-validators.js");
 const validate = require("../middlewares/validate-middleware.js");
 const authMiddleware = require("../middlewares/auth-middleware.js");
 
+// Public Routes
 router.get("/", auth.home);
 router.post("/register", validate(signupSchema), auth.registration); 
 router.post("/login", auth.login);
-router.get("/user", authMiddleware, auth.user);
 router.post("/forget-password", auth.emailController);
 router.post("/verify-otp", auth.OTP);
+
+// Protected Routes (Require Authentication)
+router.use(authMiddleware); // Apply authentication middleware for all routes below
+router.get("/user", auth.user);
 router.post("/changePassword", auth.changePassword);
+router.post("/RouteData", auth.storeRouteData);
 
 module.exports = router;

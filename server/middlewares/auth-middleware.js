@@ -5,23 +5,30 @@ const authMiddleware = async (req, res, next) => {
     const token = req.header("Authorization");
 
     if (!token) {
-        return res.status(401).json({ message: "unathorized HTTP, Token not provided" });
+        return res.status(401).json({ message: "Unauthorized, Token not provided" });
     }
-    const jwtToken = token.replace("Bearer", "").trim();
-    console.log("Token form auth middleware", jwtToken);
+    
     try {
-        const isVerified = jwt.verify(jwtToken, process.env.JWT_SEC_KEY);
-        const userData = await User.findOne({email: isVerified.email}).select({
-            password: 0,
-        });
-        console.log(userData);
+        // Verify and decode the JWT token
+        const jwtToken = token.replace("Bearer ", "").trim();
+        const decodedToken = jwt.verify(jwtToken, process.env.JWT_SEC_KEY);
+
+        // Extract user ID from the decoded token
+        const userId = decodedToken.userId;
+
+        const userData = await User.findById(userId).select({ password: 0 });
+
+        if (!userData) {
+            return res.status(401).json({ message: "Unauthorized, User not found" });
+        }
+
         req.user = userData;
-        req.token = token;
-        req.userID = userData._id;
-        
+        req.token = jwtToken;
+        req.userId = userId;
+
         next();
     } catch (error) {
-        return res.status(401).json({ message: "unathorized, Invalid Token" });
+        return res.status(401).json({ message: "Unauthorized, Invalid Token" });
     }
 };
 
