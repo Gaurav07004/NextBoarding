@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 
 const passengerSchema = new mongoose.Schema({
+
     first_Name: { type: String, required: true },
     middle_Name: { type: String, required: true },
     last_Name: { type: String, required: true },
@@ -8,6 +9,7 @@ const passengerSchema = new mongoose.Schema({
     phone_Number: { type: String, required: true },
     gender: { type: String, required: true },
     residential_Address: { type: String, required: true },
+    seat: {type: String, required: true},
 });
 
 const emergencyContactSchema = new mongoose.Schema({
