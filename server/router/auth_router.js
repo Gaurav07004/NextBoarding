@@ -17,5 +17,6 @@ router.use(authMiddleware); // Apply authentication middleware for all routes be
 router.get("/user", auth.user);
 router.post("/changePassword", auth.changePassword);
 router.post("/RouteData", auth.storeRouteData);
+router.post("/PassengerData", auth.storePassengerData);
 
 module.exports = router;

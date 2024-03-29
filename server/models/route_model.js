@@ -38,6 +38,30 @@ const routeSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    airline_Name: {
+        type: String,
+        required: true
+    },
+    flight_Number: {
+        type: String,
+        required: true
+    },
+    departure_Time: {
+        type: String,
+        required: true
+    },
+    arrival_Time: {
+        type: String,
+        required: true
+    },
+    total_duration: {
+        type: String,
+        required: true
+    },
+    stop: {
+        type: String,
+        required: true
+    },
 });
 
 const RouteData = mongoose.model('RouteData', routeSchema);

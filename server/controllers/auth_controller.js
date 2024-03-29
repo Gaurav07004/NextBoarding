@@ -2,6 +2,7 @@ const User = require("../models/user_model.js");
 const bcrypt = require("bcrypt");
 const nodemailer = require("nodemailer");
 const RouteData = require("../models/route_model.js");
+const PassengerData = require("../models/passenger_model.js");
 
 const home = async (req, res) => {
     try {
@@ -172,10 +173,10 @@ const storeRouteData = async (req, res) => {
     try {
         const user_Id = req.user._id;
 
-        const { departure_City, departure_Airport, arrival_City, arrival_Airport, travel_Date, traveller_Number, traveller_Class, fare_Type } = req.body;
+        const { departure_City, departure_Airport, arrival_City, arrival_Airport, travel_Date, traveller_Number, traveller_Class, fare_Type, airline_Name, flight_Number, departure_Time, arrival_Time, total_duration, stop } = req.body;
 
         const newRoute = new RouteData({
-            user_Id, 
+            user_Id,
             departure_City,
             departure_Airport,
             arrival_City,
@@ -184,6 +185,12 @@ const storeRouteData = async (req, res) => {
             traveller_Number,
             traveller_Class,
             fare_Type,
+            airline_Name,
+            flight_Number,
+            departure_Time,
+            arrival_Time,
+            total_duration,
+            stop,
         });
 
         await newRoute.save();
@@ -195,4 +202,27 @@ const storeRouteData = async (req, res) => {
     }
 };
 
-module.exports = { home, registration, login, user, emailController, OTP, changePassword, storeRouteData };
+const storePassengerData = async (req, res) => {
+    try {
+
+        const user_Id = req.user._id;
+        const { passengers, emergencyContacts, checked_Bags } = req.body;
+
+        const newBooking = new PassengerData({
+            user_Id,
+            passengers,
+            emergencyContacts,
+            checked_Bags,
+        });
+
+        await newBooking.save();
+
+        res.status(201).json({ message: "Booking data stored successfully" });
+    } catch (error) {
+        console.error("Error storing booking data:", error.message);
+        res.status(500).json({ error: error.message });
+    }
+};
+
+
+module.exports = { home, registration, login, user, emailController, OTP, changePassword, storeRouteData, storePassengerData };
