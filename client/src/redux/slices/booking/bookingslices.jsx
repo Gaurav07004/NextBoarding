@@ -18,7 +18,6 @@ const initialState = {
     showError: false,
     showCalendar: false,
     currentDate: new Date(),
-    dateOfBirth: new Date(),
     travellersClassOption: false,
     departureClicked: false,
     arrivalClicked: false,
@@ -52,14 +51,12 @@ const initialState = {
         count: 1,
     },
     passengerForm: [],
-    passengerEmergency: [
-        {
+    passengerEmergency: {
             firstName: "",
-            middleName: "",
-            email: "",
+            lastName: "",
             phoneNumber: "",
-        },
-    ],
+            email: ""
+    },
     passengerDetailButton: false,
     selectSeat: {
         Business: [],
@@ -283,9 +280,6 @@ const bookingSlice = createSlice({
         setCurrentDate: (state, action) => {
             state.currentDate = action.payload;
         },
-        setDob: (state, action) => {
-            state.dateOfBirth = action.payload;
-        },
         setTravellersClassOption: (state, action) => {
             state.travellersClassOption = action.payload;
         },
@@ -499,7 +493,6 @@ export const {
     setError,
     setCalendar,
     setCurrentDate,
-    setDob,
     setTravellersClassOption,
     setDepartureClicked,
     setArrivalClicked,

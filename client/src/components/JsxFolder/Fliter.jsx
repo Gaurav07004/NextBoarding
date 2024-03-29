@@ -9,21 +9,22 @@ const Fliter = () => {
     const dispatch = useDispatch();
 
     const getUniqueAirlines = () => {
-        const uniqueAirlines = [];
+    const uniqueAirlines = [];
 
-        departureAirlineResult.forEach((airline) => {
-            const matchingLogo = departureLogoResult.find((airlinelogo) => airlinelogo.logo_url && airlinelogo.iata === airline.airline_iata);
-            console.log("departureLogoResult", departureLogoResult); // Corrected the log statement
-            if (matchingLogo) {
-                uniqueAirlines.push({
-                    name: matchingLogo.name,
-                    logo_url: matchingLogo.logo_url,
-                });
-            }
-        });
+    departureAirlineResult.forEach((airline) => {
+        const matchingLogo = departureLogoResult.find((airlinelogo) => airlinelogo.logo_url && airlinelogo.iata === airline.airline_iata);
+        console.log("departureLogoResult", departureLogoResult); // Corrected the log statement
+        if (matchingLogo && !uniqueAirlines.some((unique) => unique.logo_url === matchingLogo.logo_url)) {
+            uniqueAirlines.push({
+                name: matchingLogo.name,
+                logo_url: matchingLogo.logo_url,
+            });
+        }
+    });
 
-        return uniqueAirlines;
-    };
+    return uniqueAirlines;
+};
+
 
     const uniqueAirlines_data = getUniqueAirlines();
     const price = () => {

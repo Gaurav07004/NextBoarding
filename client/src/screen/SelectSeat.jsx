@@ -201,28 +201,43 @@ const SelectSeat = () => {
     };
 
     const handleSelectSeat = (seatId, seatClass) => {
-        const selectedSeats = [...state.booking.selectSeat[seatClass]];
+        const selectedSeats = state.booking.selectSeat;
         const otherClass = seatClass === "Business" ? "Economy" : "Business";
 
-        if (selectedSeats.length >= state.booking.selectedNoOfTravellers.Totalcount && !selectedSeats.includes(seatId)) {
+        // Calculate the total number of selected seats from both classes
+        const totalSelectedSeats = selectedSeats[seatClass].length + selectedSeats[otherClass].length;
+
+        // Check if selecting the seat would exceed the total number of allowed seats
+        if (totalSelectedSeats >= state.booking.selectedNoOfTravellers.Totalcount && !selectedSeats[seatClass].includes(seatId)) {
             alert(`You can only select up to ${state.booking.selectedNoOfTravellers.Totalcount} seats.`);
             return;
         }
 
-        const updatedSelectSeat = {
-            ...state.booking.selectSeat,
-            [otherClass]: [],
-            [seatClass]: selectedSeats.includes(seatId) ? selectedSeats.filter((selectedSeat) => selectedSeat !== seatId) : [...selectedSeats, seatId],
-            business_seat: seatClass === "Business" && !selectedSeats.includes(seatId),
-            economy_seat: seatClass === "Economy" && !selectedSeats.includes(seatId),
-        };
-        dispatch(setSelectedUpgradeClass(seatClass));
+        // Check if the selected seat is already present in the selected seats of the same class
+        if (selectedSeats[seatClass].includes(seatId)) {
+            // If the selected seat is already present, remove it
+            const updatedSelectSeat = {
+                ...selectedSeats,
+                [seatClass]: selectedSeats[seatClass].filter((selectedSeat) => selectedSeat !== seatId),
+            };
+            dispatch(setSelectSeat(updatedSelectSeat));
+        } else {
+            // Add the selected seat to the corresponding class
+            const updatedSelectSeat = {
+                ...selectedSeats,
+                [seatClass]: [...selectedSeats[seatClass], seatId],
+            };
 
-        dispatch(setSelectSeat(updatedSelectSeat));
-        if (state.booking.selectedTravelClass !== "Business" && seatClass === "Business") {
-            dispatch(setShowModel(true));
+            dispatch(setSelectedUpgradeClass(seatClass));
+            dispatch(setSelectSeat(updatedSelectSeat));
+
+            // If the selected travel class is not Business and the selected seat class is Business, show the upgrade modal
+            if (state.booking.selectedTravelClass !== "Business" && seatClass === "Business") {
+                dispatch(setShowModel(true));
+            }
         }
     };
+
     console.log(state.booking.selectSeat);
     console.log(state.booking.showModel);
     const handleCanelButton = () => {
@@ -368,7 +383,7 @@ const SelectSeat = () => {
                                     <Modal.Body className="space-y-3">
                                         <div className="flex items-center gap-2">
                                             <Modal.Icon className="rounded-md bg-amber-100">
-                                                <CloudArrowUp  size={28} color="#fbbf24" />
+                                                <CloudArrowUp size={28} color="#fbbf24" />
                                             </Modal.Icon>
                                             <Typography variant="h3" className="text-body-1 font-medium text-metal-900">
                                                 Upgrade Seat

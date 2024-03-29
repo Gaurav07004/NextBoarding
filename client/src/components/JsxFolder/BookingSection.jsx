@@ -238,62 +238,62 @@ function BookingPortal() {
             </div>
         );
     };
-    const handleSubmit = async (e) => {
-        e.preventDefault();
+    // const handleSubmit = async (e) => {
+    //     e.preventDefault();
 
-        try {
-            // const token = localStorage.getItem("token");
-            const token = state.booking.token;
-            if (!token) {
-                throw new Error("No token found. Please log in.");
-            }
+    //     try {
+    //         // const token = localStorage.getItem("token");
+    //         const token = state.booking.token;
+    //         if (!token) {
+    //             throw new Error("No token found. Please log in.");
+    //         }
 
-            const response = await fetch("http://localhost:5000/api/auth/RouteData", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    Authorization: `Bearer ${token}`, // Include token in Authorization header
-                },
-                body: JSON.stringify({
-                    departure_City: state.booking.departureAirport.city,
-                    departure_Airport: state.booking.departureAirport.name,
-                    arrival_City: state.booking.arrivalAirport.city,
-                    arrival_Airport: state.booking.arrivalAirport.name,
-                    travel_Date: state.booking.currentDate,
-                    traveller_Number: state.booking.selectedNoOfTravellers.Totalcount,
-                    traveller_Class: state.booking.selectedTravelClass,
-                    fare_Type: state.booking.selectedFares,
-                }),
-            });
+    //         const response = await fetch("http://localhost:5000/api/auth/RouteData", {
+    //             method: "POST",
+    //             headers: {
+    //                 "Content-Type": "application/json",
+    //                 Authorization: `Bearer ${token}`, // Include token in Authorization header
+    //             },
+    //             body: JSON.stringify({
+    //                 departure_City: state.booking.departureAirport.city,
+    //                 departure_Airport: state.booking.departureAirport.name,
+    //                 arrival_City: state.booking.arrivalAirport.city,
+    //                 arrival_Airport: state.booking.arrivalAirport.name,
+    //                 travel_Date: state.booking.currentDate,
+    //                 traveller_Number: state.booking.selectedNoOfTravellers.Totalcount,
+    //                 traveller_Class: state.booking.selectedTravelClass,
+    //                 fare_Type: state.booking.selectedFares,
+    //             }),
+    //         });
 
-            if (!response.ok) {
-                const errorData = await response.json();
-                throw new Error(errorData.error || "Something went wrong");
-            }
+    //         if (!response.ok) {
+    //             const errorData = await response.json();
+    //             throw new Error(errorData.error || "Something went wrong");
+    //         }
 
-            console.log("Data stored successfully");
-        } catch (error) {
-            console.error("Error:", error.message);
-            // Display error message in the UI
-        }
+    //         console.log("Data stored successfully");
+    //     } catch (error) {
+    //         console.error("Error:", error.message);
+    //         // Display error message in the UI
+    //     }
 
-        // Log the data being sent in the request
-        console.log("Form data:", {
-            departure_City: state.booking.departureAirport.city,
-            departure_Airport: state.booking.departureAirport.name,
-            arrival_City: state.booking.arrivalAirport.city,
-            arrival_Airport: state.booking.arrivalAirport.name,
-            travel_Date: state.booking.currentDate,
-            traveller_Number: state.booking.selectedNoOfTravellers.Totalcount,
-            traveller_Class: state.booking.selectedTravelClass,
-            fare_Type: state.booking.selectedFares,
-        });
-    };
+    //     // Log the data being sent in the request
+    //     console.log("Form data:", {
+    //         departure_City: state.booking.departureAirport.city,
+    //         departure_Airport: state.booking.departureAirport.name,
+    //         arrival_City: state.booking.arrivalAirport.city,
+    //         arrival_Airport: state.booking.arrivalAirport.name,
+    //         travel_Date: state.booking.currentDate,
+    //         traveller_Number: state.booking.selectedNoOfTravellers.Totalcount,
+    //         traveller_Class: state.booking.selectedTravelClass,
+    //         fare_Type: state.booking.selectedFares,
+    //     });
+    // };
 
     return (
         <Container fluid>
             <main>
-                <form >
+                {/* <form > */}
                     <section className="Booking_Section">
                         <div className="BookingInfo">
                             <span>Book International and Domestic Flights</span>
@@ -474,12 +474,12 @@ function BookingPortal() {
                             </div>
                         </section>
                     </section>
-                        <NavLink className="Search p-0" to="/Search">
+                        <NavLink className="Search p-0" to="/SelectSeat">
                             <Button type="submit" className="SearchBtn">
                                 SEARCH
                             </Button>
                         </NavLink>
-                </form>
+                {/* </form> */}
             </main>
         </Container>
     );

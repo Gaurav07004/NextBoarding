@@ -89,6 +89,8 @@ function Payment() {
         );
     };
 
+    console.log("card", state.booking.cardDetail)
+
     const handleSubmit = () => {
         const newErrors = {};
         const { cardDetail } = state.booking;
@@ -128,6 +130,8 @@ function Payment() {
         ccv: "CCV",
     };
     
+    
+
     const cancel_model = () => {
         return (
             <section>

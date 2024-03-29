@@ -1,12 +1,10 @@
 import React, { Suspense, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { NavLink } from "react-router-dom";
 import "../components/CssFolder/Search.css";
 import { format } from "date-fns";
-//import load from "../assets/load1.png"
 import Container from "@mui/material/Container";
 import { TailSpin } from "react-loader-spinner";
-import { setPassengerInfoButton, setSaveInfoButton, setLoading } from "../redux/slices/booking/bookingslices.jsx";
+import { setLoading } from "../redux/slices/booking/bookingslices.jsx";
 
 const Navbar = React.lazy(() => import("../components/JsxFolder/Navbar.jsx"));
 const Flight = React.lazy(() => import("../components/JsxFolder/Flight.jsx"));
@@ -18,10 +16,6 @@ function Search() {
     const dispatch = useDispatch();
     const state = useSelector((state) => state);
 
-    const handleButtonClick = () => {
-        dispatch(setPassengerInfoButton(!state.booking.passengerInfoButton));
-        dispatch(setSaveInfoButton(!state.booking.saveInfoButton));
-    };
     useEffect(() => {
         dispatch(setLoading(true));
 
@@ -31,6 +25,7 @@ function Search() {
 
         return () => clearTimeout(loadingTimeout);
     }, [dispatch]);
+
     return (
         <>
             <Suspense fallback={<div>Loading...</div>}>
@@ -79,7 +74,9 @@ function Search() {
                             </label>
                             <div className="CountOfTravellers">
                                 <span className="count">
-                                    {(state.booking.selectedTravelDetails.selectedNoOfTravellers?.Adult ?? 1) + (state.booking.selectedTravelDetails.selectedNoOfTravellers?.Child ?? 0) + (state.booking.selectedTravelDetails.selectedNoOfTravellers?.Infant ?? 0)}
+                                    {(state.booking.selectedTravelDetails.selectedNoOfTravellers?.Adult ?? 1) +
+                                        (state.booking.selectedTravelDetails.selectedNoOfTravellers?.Child ?? 0) +
+                                        (state.booking.selectedTravelDetails.selectedNoOfTravellers?.Infant ?? 0)}
                                 </span>
                                 <span className="travellers"> Travellers, </span>
                                 <span className="travellerClass">{state.booking.selectedTravelClass}</span>
@@ -99,22 +96,6 @@ function Search() {
                                     <Flight />
                                     <Bill />
                                 </div>
-                                {!state.booking.passengerInfoButton && (
-                                    <div className="button_save">
-                                        <button className="Save_and_close" onClick={handleButtonClick}>
-                                            Save and close
-                                        </button>
-                                    </div>
-                                )}
-                                {state.booking.passengerInfoButton && (
-                                    <div className="button_next">
-                                        <button className="Save_and_close" onClick={handleButtonClick}>
-                                            <NavLink className="passenger_info text-white" to="/PassengerInfo">
-                                                Passenger information
-                                            </NavLink>
-                                        </button>
-                                    </div>
-                                )}
                             </div>
                         </Suspense>
                     )}

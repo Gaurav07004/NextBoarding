@@ -104,39 +104,5 @@
 .Adjustments{
     margin-top: 100px ;
 }
-.passenger_info {text-decoration: none;}
 
-.button_next:hover {
-    background-image: linear-gradient(to right, #ee214ac4, #752264bc);
-    transition: background-color 0.3s ease-in-out;
-    cursor: pointer;
-}
 
-.button_save {
-    position: absolute;
-    top: 70%;
-    right: 0;
-    width: 180px;
-    height: 45px;
-    padding: 10px;
-    text-align: center;
-    border: 1px solid #b02258;
-    border-radius: 0.3rem;
-    color: #b02258;
-}
-.button_next {
-    position: absolute;
-    top: 70%;
-    right: 0;
-    background-image: linear-gradient(to right, #ee2149, #752265);
-    width: 185px;
-    height: 45px;
-    padding: 10px;
-    text-align: center;
-    border-radius: 0.3rem;
-    color: #fff;
-
-}
-.component_layout{
-    position: relative;
-}
