@@ -474,7 +474,7 @@ function BookingPortal() {
                             </div>
                         </section>
                     </section>
-                        <NavLink className="Search p-0" to="/SelectSeat">
+                        <NavLink className="Search p-0" to="/Search">
                             <Button type="submit" className="SearchBtn">
                                 SEARCH
                             </Button>

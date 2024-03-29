@@ -64,6 +64,7 @@ const initialState = {
         business_seat: false,
         economy_seat: false,
     },
+    passengerData: [],
     showModel: false,
     paymentMethod: "Credit Card",
     offerContainer: false,
@@ -354,6 +355,9 @@ const bookingSlice = createSlice({
         setSelectSeat: (state, action) => {
             state.selectSeat = action.payload;
         },
+        setPassengerData: (state, action) => {
+            state.passengerData.push(action.payload);
+        },
         setShowModel: (state, action) => {
             state.showModel = action.payload;
         },
@@ -515,6 +519,7 @@ export const {
     setPassengerEmergency,
     setPassengerForm,
     setSelectSeat,
+    setPassengerData,
     setPassengerDetailButton,
     setShowModel,
     setPaymentMethod,

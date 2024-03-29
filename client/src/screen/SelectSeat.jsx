@@ -13,14 +13,15 @@ import { FaCircle, FaCheck } from "react-icons/fa";
 import { FaArrowRightLong } from "react-icons/fa6";
 import "../components/CssFolder/SelectSeat.css";
 import { TailSpin } from "react-loader-spinner";
-import { setSelectSeat, setLoading, setShowModel, setSelectedUpgradeClass } from "../redux/slices/booking/bookingslices.jsx";
-import { NavLink } from "react-router-dom";
+import { setSelectSeat, setLoading, setShowModel, setSelectedUpgradeClass  } from "../redux/slices/booking/bookingslices.jsx";
+import { useNavigate } from "react-router-dom";
 
 const Navbar = React.lazy(() => import("../components/JsxFolder/Navbar.jsx"));
 
 const SelectSeat = () => {
     const dispatch = useDispatch();
     const state = useSelector((state) => state);
+    const navigate = useNavigate();
     useEffect(() => {
         dispatch(setLoading(true));
 
@@ -36,12 +37,13 @@ const SelectSeat = () => {
 
     const Business_seatCount2 = 4;
     const Business_Numrows2 = 4;
-
+    
     const Economy_seatCount = 6;
     const Economy_Numrows_container_1 = 8;
     const Economy_Numrows_container_2 = 5;
     const Economy_Numrows_container_3 = 10;
-
+    
+    const capitalizeFirstLetter = (str) => str.charAt(0).toUpperCase() + str.slice(1);
     const passengerCount = state.booking.selectedNoOfTravellers.Totalcount;
 
     const disabledSeats = [
@@ -115,7 +117,6 @@ const SelectSeat = () => {
 
         if (passengerForm && passengerForm.length !== 0) {
             firstName = passengerForm[0]?.firstName || "--";
-            // lastName = passengerForm[0]?.lastName || "--";
             morePassengers = passengerForm.length > 1 ? ` & more ${passengerForm.length - 1} passenger` : "";
 
             return `${firstName}${" "}${morePassengers}`;
@@ -124,17 +125,13 @@ const SelectSeat = () => {
         }
     };
 
-    // useEffect(() => {
-    //     dispatch(Passenger_seat(state.booking.selectSeat));
-    // }, [dispatch, state.booking.selectSeat]);
-
     const Passenger_seat = () => {
         const getSeatInfo = (seatType) => {
             const selectedSeat = state.booking.selectSeat?.[seatType];
 
             if (selectedSeat && selectedSeat.length !== 0) {
-                const seat = selectedSeat[0] || "--";
-                const morePassengers = selectedSeat.length > 1 ? ` & more ${selectedSeat.length - 1} passenger` : "";
+                const seat = selectedSeat.join(", "); // Join multiple seats with comma
+                const morePassengers = selectedSeat.length > 1 ? ` & more ${selectedSeat.length - 1} passengers` : "";
                 return `${seat}${morePassengers}`;
             }
 
@@ -144,10 +141,22 @@ const SelectSeat = () => {
         const businessSeatInfo = getSeatInfo("Business");
         const economySeatInfo = getSeatInfo("Economy");
 
-        return businessSeatInfo || economySeatInfo || "--";
+        if (businessSeatInfo && economySeatInfo) {
+            // Display both Business and Economy seat information if both are available
+            return `${businessSeatInfo}, ${economySeatInfo}`;
+        } else if (businessSeatInfo) {
+            // Display only Business seat information if available
+            return businessSeatInfo;
+        } else if (economySeatInfo) {
+            // Display only Economy seat information if available
+            return economySeatInfo;
+        } else {
+            // If no seat information is available for both classes
+            return "--";
+        }
     };
 
-    const capitalizeFirstLetter = (str) => str.charAt(0).toUpperCase() + str.slice(1);
+
 
     const renderSeats = (rowNumber, seatCount, className, seatClass, seatIdPrefix) => {
         const seats = [];
@@ -238,8 +247,9 @@ const SelectSeat = () => {
         }
     };
 
-    console.log(state.booking.selectSeat);
-    console.log(state.booking.showModel);
+    // console.log(state.booking.selectSeat);
+    // console.log(state.booking.showModel);
+
     const handleCanelButton = () => {
         const updatedSelectSeat = {
             ...state.booking.selectSeat,
@@ -256,9 +266,113 @@ const SelectSeat = () => {
         dispatch(setShowModel(false));
     };
 
-    // business_seat: seatClass === "Business" && !selectedSeats.includes(seatId),
+    const handleSubmit = async (e) => {
+        e.preventDefault();
 
-    console.log(state.booking.selectSeat);
+        try {
+            const token = state.booking.token;
+            if (!token) {
+                throw new Error("No token found. Please log in.");
+            }
+
+            const travellerData = state.booking.passengerForm.map((passenger, index) => {
+            let seat = null;
+
+            // Check if there are available Business seats for the current passenger index
+            if (state.booking.selectSeat.Business.length > index) {
+                seat = state.booking.selectSeat.Business[index];
+            } 
+            // If no Business seats are available for the current passenger, assign from Economy seats
+            else {
+                // Calculate the number of Business seats already assigned
+                const numBusinessSeatsAssigned = state.booking.selectSeat.Business.length;
+                // Calculate the number of Economy seats to assign after assigning Business seats
+                const numEconomySeatsToAssign = index - numBusinessSeatsAssigned;
+                // Assign Economy seats based on the index
+                if (state.booking.selectSeat.Economy.length > numEconomySeatsToAssign) {
+                    seat = state.booking.selectSeat.Economy[numEconomySeatsToAssign];
+                }
+            }
+
+            return {
+                first_Name: passenger.firstName,
+                middle_Name: passenger.middleName,
+                last_Name: passenger.lastName,
+                email_Address: passenger.email,
+                phone_Number: passenger.phoneNumber,
+                gender: passenger.gender,
+                residential_Address: passenger.address,
+                seat: seat
+            };
+        });
+
+            const emergencyContacts = {
+                emergency_FirstName: state.booking.passengerEmergency.firstName,
+                emergency_LastName: state.booking.passengerEmergency.lastName,
+                emergency_EmailAddress: state.booking.passengerEmergency.email,
+                emergency_PhoneNumber: state.booking.passengerEmergency.phoneNumber,
+            };
+
+            const response = await fetch("http://localhost:5000/api/auth/PassengerData", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`,
+                },
+                body: JSON.stringify({
+                    passengers: travellerData,
+                    emergencyContacts: emergencyContacts,
+                    checked_Bags: state.booking.selectedBags.count,
+                }),
+            });
+
+            if (!response.ok) {
+                const errorData = await response.json();
+                throw new Error(errorData.error || "Something went wrong");
+            }
+            navigate("/Payment");
+            console.log("Data stored successfully");
+            // console.log(passengerData,
+            //             emergencyContacts,
+            //             state.booking.selectedBags.count,)
+        } catch (error) {
+            console.error("Error:", error.message);
+        }
+    };
+
+    // const TravellerData = () => {
+    //     const PassengerData = [];
+    //     const selectedSeats = state.booking.selectSeat;
+    //     const passengerTable = state.booking.passengerForm.map(passenger => ({
+    //         first_Name: passenger.firstName,
+    //         middle_Name: passenger.middleName,
+    //         last_Name: passenger.lastName,
+    //         email_Address: passenger.email,
+    //         phone_Number: passenger.phoneNumber,
+    //         gender: passenger.gender,
+    //         residential_Address: passenger.address,
+    //     }));
+    //     const BusinessClass = selectedSeats?.Business.map(seat => seat);
+    //     const EconomyClass = selectedSeats?.Economy.map(seat => seat);
+
+    //     for (let i = 0; i < passengerCount; i++) {
+    //         if (BusinessClass.length < passengerCount) {
+    //             PassengerData.push({ traveller: passengerTable, seats: BusinessClass });
+    //         } else {
+    //             PassengerData.push({ traveller: passengerTable, seats: EconomyClass });
+    //         }
+    //     }
+
+    //     dispatch(setPassengerData(PassengerData));
+
+    //     // You need to decide what to return here. 
+    //     // For now, I'm just returning PassengerData.
+    //     return PassengerData;
+    // };
+
+
+
+    // console.log(BusinessClass);
     return (
         <>
             <Suspense fallback={<div>Loading...</div>}>
@@ -272,6 +386,8 @@ const SelectSeat = () => {
                         </div>
                     ) : (
                         <main className="plane_seat_container">
+                            {/* <section>{TravellerData()}</section> */}
+                            <form onSubmit={handleSubmit}>
                             <section className="Plane_container">
                                 <section className="PlaneImage">
                                     <img src={PlaneImage} alt="PlaneImage" />
@@ -372,9 +488,9 @@ const SelectSeat = () => {
                                         </div>
                                     </div>
                                     <div className="Payment_button_container">
-                                        <NavLink className="Payment_button text-white" to="/Payment">
+                                        <Button type="submit" className="Payment_button text-white">
                                             Payment method
-                                        </NavLink>
+                                        </Button>
                                     </div>
                                 </section>
                             </section>
@@ -408,6 +524,7 @@ const SelectSeat = () => {
                                     </Modal.Body>
                                 </Modal>
                             </section>
+                            </form>
                         </main>
                     )}
                 </Container>
