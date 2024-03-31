@@ -3,6 +3,8 @@ const bcrypt = require("bcrypt");
 const nodemailer = require("nodemailer");
 const RouteData = require("../models/route_model.js");
 const PassengerData = require("../models/passenger_model.js");
+const Payment = require("../models/payment_model.js");
+//const razorpay = require("../middlewares/auth-payment.js");
 
 const home = async (req, res) => {
     try {
@@ -224,5 +226,44 @@ const storePassengerData = async (req, res) => {
     }
 };
 
+// const paymentGateway = async (req, res) => {
+//     const options = {
+//         amount: 500 * 100, // Razorpay expects amount in paise
+//         currency: "INR",
+//         // receipt: 'receipt#1',
+//         // payment_capture: 1 // Auto capture
+//     };
 
-module.exports = { home, registration, login, user, emailController, OTP, changePassword, storeRouteData, storePassengerData };
+//     try {
+//         const response = await razorpay.orders.create(options);
+//         console.log(response);
+//         res.status(200).json({ success: true });
+//     } catch (error) {
+//         console.error("Error creating Razorpay order:", error);
+//         res.status(500).json({ error: "Unable to initiate payment" });
+//     }
+// };
+
+const paymentGateway = async (req, res) => {
+    try {
+        const user_Id = req.user._id;
+        const { card_Name, card_Number, expire_date, ccv } = req.body.payments;
+
+        const newPayment = new Payment({
+            user_Id,
+            card_Name: card_Name,
+            card_Number: card_Number,
+            expire_date: expire_date,
+            ccv: ccv,
+        });
+
+        await newPayment.save();
+
+        res.status(201).json({ message: "Payment data stored successfully" });
+    } catch (error) {
+        console.error("Error storing Payment data:", error.message);
+        res.status(500).json({ error: error.message });
+    }
+};
+
+module.exports = { home, registration, login, user, emailController, OTP, changePassword, storeRouteData, storePassengerData, paymentGateway };

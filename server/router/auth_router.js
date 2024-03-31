@@ -12,6 +12,8 @@ router.post("/login", auth.login);
 router.post("/forget-password", auth.emailController);
 router.post("/verify-otp", auth.OTP);
 
+router.post("/checkout", auth.paymentGateway);
+
 // Protected Routes (Require Authentication)
 router.use(authMiddleware); // Apply authentication middleware for all routes below
 router.get("/user", auth.user);
