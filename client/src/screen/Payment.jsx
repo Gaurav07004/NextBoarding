@@ -91,37 +91,6 @@ function Payment() {
 
     console.log("card", state.booking.cardDetail)
 
-    const handleSubmit = () => {
-        const newErrors = {};
-        const { cardDetail } = state.booking;
-
-        const validateAlphabets = (field) => {
-            if (!cardDetail[field]) {
-                newErrors[field] = `Please Provide the Cardholder Name`;
-            } else if (cardDetail[field].length <= 10) {
-                newErrors[field] = `Please Provide the Full Cardholder Name`;
-            }
-        };
-
-        const validateNumeric = (field, fieldName, length) => {
-            if (!cardDetail[field]) {
-                newErrors[field] = `Please Provide the ${fieldName}`;
-            } else if (cardDetail[field].length !== length) {
-                newErrors[field] = `Please Provide the Correct ${fieldName}`;
-            }
-        };
-
-        validateAlphabets("cardName", "Name on card");
-        validateNumeric("cardNumber", "Card number", 19);
-        validateNumeric("expiredate", "Expiration date", 5);
-        validateNumeric("ccv", "CCV", 3);
-
-        dispatch(setCardError(newErrors));
-
-        if (Object.keys(newErrors).length === 0) {
-            navigate("/ConfirmBooking");
-        }
-    };
 
     const fieldPlaceholders = {
         cardName: "Name on card",
@@ -130,6 +99,71 @@ function Payment() {
         ccv: "CCV",
     };
     
+    const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+        const newErrors = {};
+        const { cardDetail } = state.booking;
+
+        const validateAlphabets = (field) => {
+            if (!cardDetail[field]) {
+                newErrors[field] = `Please provide the cardholder name`;
+            } else if (cardDetail[field].length <= 10) {
+                newErrors[field] = `Please provide the full cardholder name`;
+            }
+        };
+
+        const validateNumeric = (field, fieldName, length) => {
+            if (!cardDetail[field]) {
+                newErrors[field] = `Please provide the ${fieldName}`;
+            } else if (cardDetail[field].length !== length) {
+                newErrors[field] = `Please provide the correct ${fieldName}`;
+            }
+        };
+
+        validateAlphabets("cardName", "Name on card");
+        validateNumeric("cardNumber", "card number", 19);
+        validateNumeric("expiredate", "expiration date", 5);
+        validateNumeric("ccv", "CCV", 3);
+
+        dispatch(setCardError(newErrors));
+
+        if (Object.keys(newErrors).length !== 0) {
+            return;
+        }
+
+        const paymentData = {
+            card_Name: cardDetail.cardName,
+            card_Number: cardDetail.cardNumber,
+            expire_date: cardDetail.expiredate,
+            ccv: cardDetail.ccv,
+        };
+
+        const response = await fetch("http://localhost:5000/api/auth/checkout", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                payments: paymentData
+            }),
+        });
+
+        if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(errorData.error || "Something went wrong");
+        }
+
+        navigate("/ConfirmBooking");
+        console.log("Data stored successfully");
+        console.log(paymentData);
+
+    } catch (error) {
+        console.error("Error:", error.message);
+    }
+};
+
     
 
     const cancel_model = () => {
@@ -182,7 +216,8 @@ function Payment() {
                 ) : (
                     <main className="screen_split">
                         <section className="user_container font-sans p-2">
-                            {Object.keys(state.booking.cardError).length !== 0 && (
+                            <form onSubmit={handleSubmit}>
+                            {Object.keys(state.booking.cardError).length !== 0 && state.booking.paymentMethod === "Credit Card" && (
                                 <Alert className="!max-w-[70rem] mb-4" color="error" withBg={true}>
                                     <Alert.Container className="flex items-start">
                                         <Alert.Icon />
@@ -206,70 +241,71 @@ function Payment() {
                                 ))}
                             </section>
                             <section className={`Payment_detail`}>
-                                <div className="label_name">{state.booking.paymentMethod} details</div>
-                                <section className={`Input_section ${state.booking.paymentMethod === "Credit Card" ? "" : "disable"}`}>
-                                    <div className="Payment_info">
-                                        <section className={`Input_section ${state.booking.paymentMethod === "Credit Card" ? "" : "disable"}`}>
-                                            <div className="Payment_info">
-                                                {["cardName", "cardNumber"].map((field) => (
-                                                    <>
-                                                        <input
-                                                            key={field}
-                                                            type="text"
-                                                            name={field}
-                                                            value={state.booking.cardDetail[field]}
-                                                            onChange={handleCardDetail}
-                                                            autoComplete="off"
-                                                            className={`name ${state.booking.cardError[field] ? "error" : ""} mb-4`}
-                                                            placeholder={fieldPlaceholders[field] || `${field.charAt(0).toUpperCase()}${field.slice(1)}*`}
-                                                        />
-                                                    </>
-                                                ))}
-                                            </div>
-                                            <div className="private_info">
-                                                {["expiredate", "ccv"].map((field) => (
-                                                    <>
-                                                        <input
-                                                            key={field}
-                                                            type={field}
-                                                            name={field}
-                                                            autoComplete="off"
-                                                            value={state.booking.cardDetail[field]}
-                                                            onChange={handleCardDetail}
-                                                            className={`name ${state.booking.cardError[field] ? "error" : ""} mb-4`}
-                                                            placeholder={fieldPlaceholders[field] || `${field.charAt(0).toUpperCase()}${field.slice(1)}*`}
-                                                        />
-                                                    </>
-                                                ))}
-                                            </div>
-                                        </section>
-                                    </div>
-                                </section>
-                                <section className={`Input_section ${state.booking.paymentMethod === "Credit Card" ? "disable" : ""}`}>
-                                    <Alert className="!max-w-[70rem] mb-4" color="warning" withBg={true}>
-                                        <Alert.Container className="flex items-start">
-                                            <Alert.Icon />
-                                            <Alert.Body className="flex flex-col items-start gap-3">
-                                            <Alert.Title className="text-body-2">Warning!</Alert.Title>
-                                            <Alert.Description className="block w-full sm:line-clamp-none warning_message">
-                                                Apologies for the inconvenience, our Scan n Pay server is temporarily unavailable; please use credit card details for transactions.
-                                            </Alert.Description>
-                                            </Alert.Body>
-                                        </Alert.Container>
-                                    </Alert>
-                                    <div className="Bank_detail">
-                                        <div className="Icon_container">
-                                            <img src={kotak} className="Icon" alt="kotak" />
+                                    <div className="label_name">{state.booking.paymentMethod} details</div>
+                                    <section className={`Input_section ${state.booking.paymentMethod === "Credit Card" ? "" : "disable"}`}>
+                                        <div className="Payment_info">
+                                            <section className={`Input_section ${state.booking.paymentMethod === "Credit Card" ? "" : "disable"}`}>
+                                                    <div className="Payment_info">
+                                                        {["cardName", "cardNumber"].map((field) => (
+                                                            <>
+                                                                <input
+                                                                    key={field}
+                                                                    type="text"
+                                                                    name={field}
+                                                                    value={state.booking.cardDetail[field]}
+                                                                    onChange={handleCardDetail}
+                                                                    autoComplete="off"
+                                                                    className={`name ${state.booking.cardError[field] ? "error" : ""} mb-4`}
+                                                                    placeholder={fieldPlaceholders[field] || `${field.charAt(0).toUpperCase()}${field.slice(1)}*`}
+                                                                />
+                                                            </>
+                                                        ))}
+                                                    </div>
+                                                    <div className="private_info">
+                                                        {["expiredate", "ccv"].map((field) => (
+                                                            <>
+                                                                <input
+                                                                    key={field}
+                                                                    type={field}
+                                                                    name={field}
+                                                                    autoComplete="off"
+                                                                    value={state.booking.cardDetail[field]}
+                                                                    onChange={handleCardDetail}
+                                                                    className={`name ${state.booking.cardError[field] ? "error" : ""} mb-4`}
+                                                                    placeholder={fieldPlaceholders[field] || `${field.charAt(0).toUpperCase()}${field.slice(1)}*`}
+                                                                />
+                                                            </>
+                                                        ))}
+                                                    </div>
+                                            </section>
                                         </div>
-                                        <div>
-                                            <div className="label_name pt-1 pb-1">Kotak Mahindra bank 8388</div>
+                                    </section>
+                                    <section className={`Input_section ${state.booking.paymentMethod === "Credit Card" ? "disable" : ""}`}>
+                                        <Alert className="!max-w-[70rem] mb-4" color="warning" withBg={true}>
+                                            <Alert.Container className="flex items-start">
+                                                <Alert.Icon />
+                                                <Alert.Body className="flex flex-col items-start gap-3">
+                                                <Alert.Title className="text-body-2">Warning!</Alert.Title>
+                                                <Alert.Description className="block w-full sm:line-clamp-none warning_message">
+                                                    Apologies for the inconvenience, our Scan n Pay server is temporarily unavailable; please use credit card details for transactions.
+                                                </Alert.Description>
+                                                </Alert.Body>
+                                            </Alert.Container>
+                                        </Alert>
+                                        <div className="Bank_detail">
+                                            <div className="Icon_container">
+                                                <img src={kotak} className="Icon" alt="kotak" />
+                                            </div>
+                                            <div>
+                                                <div className="label_name pt-1 pb-1">Kotak Mahindra bank 8388</div>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div className="QRcode">
-                                        <img src={QRcode} alt="QRcode" />
-                                    </div>
-                                    <div className="Gpay_info ">Scan to pay with any UPI app</div>
-                                </section>
+                                        <div className="QRcode">
+                                            <img src={QRcode} alt="QRcode" />
+                                        </div>
+                                        <div className="Gpay_info ">Scan to pay with any UPI app</div>
+                                    </section>
+                                
                             </section>
                             <section className="Cancellation_Policy">
                                 <div className="label_name">Cancellation policy</div>
@@ -286,9 +322,10 @@ function Payment() {
                             <NavLink className="Back_to_Seat" to="/SelectSeat">
                                 Back to Seat
                             </NavLink>
-                            <button className="Confirm_And_Pay" type="button" onClick={handleSubmit}>
+                            <Button type="submit" className="Confirm_And_Pay">
                                 Confirm and Pay
-                            </button>
+                            </Button>
+                            </form>
                         </section>
                         <section className="second_container p-2">
                             <Suspense fallback={<div>Loading...</div>}>

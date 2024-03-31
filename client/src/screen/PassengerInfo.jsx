@@ -4,7 +4,7 @@ import Container from "@mui/material/Container";
 import { useDispatch, useSelector } from "react-redux";
 import { FaPlus, FaMinus } from "react-icons/fa6";
 import bags from "D:/Development/Web-development/ReactJs/NextBoarding/client/src/assets/bags.png";
-import { useNavigate, NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { Button } from "keep-react";
 import { TailSpin } from "react-loader-spinner";
 import { setSelectedBags, setLoading, setPassengerForm, setPassengerEmergency, setSaveInfoButton, setPassengerDetailButton } from "../redux/slices/booking/bookingslices.jsx";
@@ -99,61 +99,6 @@ const handleChange = (e, passengerIndex, isEmergency = false) => {
         email: "Email address*",
         phoneNumber: "Phone Number*",
     };
-
-
-// const handleSubmit = async (e) => {
-//     e.preventDefault();
-
-//     try {
-//         const token = state.booking.token;
-//         if (!token) {
-//             throw new Error("No token found. Please log in.");
-//         }
-
-//         const passengerData = state.booking.passengerForm.map(passenger => ({
-//             first_Name: passenger.firstName,
-//             middle_Name: passenger.middleName,
-//             last_Name: passenger.lastName,
-//             email_Address: passenger.email,
-//             phone_Number: passenger.phoneNumber,
-//             gender: passenger.gender,
-//             residential_Address: passenger.address,
-            
-//         }));
-
-//         const emergencyContacts = {
-//             emergency_FirstName: state.booking.passengerEmergency.firstName,
-//             emergency_LastName: state.booking.passengerEmergency.lastName,
-//             emergency_EmailAddress: state.booking.passengerEmergency.email,
-//             emergency_PhoneNumber: state.booking.passengerEmergency.phoneNumber,
-//         };
-
-//         const response = await fetch("http://localhost:5000/api/auth/PassengerData", {
-//             method: "POST",
-//             headers: {
-//                 "Content-Type": "application/json",
-//                 Authorization: `Bearer ${token}`,
-//             },
-//             body: JSON.stringify({
-//                 passengers: passengerData,
-//                 emergencyContacts: emergencyContacts,
-//                 checked_Bags: state.booking.selectedBags.count,
-//             }),
-//         });
-
-//         if (!response.ok) {
-//             const errorData = await response.json();
-//             throw new Error(errorData.error || "Something went wrong");
-//         }
-//         navigate("/SelectSeat");
-//         console.log("Data stored successfully");
-//         console.log(passengerData,
-//                     emergencyContacts,
-//                     state.booking.selectedBags.count,)
-//     } catch (error) {
-//         console.error("Error:", error.message);
-//     }
-// };
 
     return (
         <main>

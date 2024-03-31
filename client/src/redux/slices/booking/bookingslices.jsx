@@ -72,7 +72,7 @@ const initialState = {
         cardName: "",
         cardNumber: "",
         expiredate: "",
-        CCV: "",
+        ccv: "",
     },
     cardError: [],
     loading: false,
