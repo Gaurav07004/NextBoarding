@@ -1,7 +1,7 @@
 const { z } = require("zod");
 
 const signupSchema = z.object({
-    username: z
+    fullName: z
         .string({ required_error: "Name is required" })
         .trim()
         .min(3, { message: "Name must be at least 3 characters" })

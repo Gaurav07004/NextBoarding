@@ -17,7 +17,7 @@ const home = async (req, res) => {
 
 const registration = async (req, res) => {
     try {
-        const { username, email, password } = req.body;
+        const { fullName, email, password, PhoneNumber = '', MaritalStatus = '', Gender = '', Address = '' } = req.body;
 
         const userExist = await User.findOne({ email });
 
@@ -25,7 +25,7 @@ const registration = async (req, res) => {
             return res.status(400).json({ error: "Email already exists" });
         }
 
-        const newUser = await User.create({ username, email, password });
+        const newUser = await User.create({ fullName, email, password, PhoneNumber, MaritalStatus, Gender, Address });
         const token = await newUser.generateToken();
         res.status(200).json({ newUser, token, userId: newUser._id.toString() });
     } catch (error) {
@@ -60,7 +60,7 @@ const login = async (req, res) => {
 const user = async (req, res) => {
     try {
         const userData = req.user;
-        return res.status(200).json({ msg: userData });
+        return res.status(200).json({ userData });
     } catch (error) {
         console.error("Error from the user route:", error.message);
         res.status(500).json("Internal Server Error");
@@ -90,7 +90,7 @@ const sendEmail = async (email) => {
 
         const info = await transporter.sendMail({
             from: {
-                name: "FlyEase",
+                name: "NextBoarding",
                 address: process.env.EMAIL_USER,
             },
             to: email,
@@ -226,24 +226,6 @@ const storePassengerData = async (req, res) => {
     }
 };
 
-// const paymentGateway = async (req, res) => {
-//     const options = {
-//         amount: 500 * 100, // Razorpay expects amount in paise
-//         currency: "INR",
-//         // receipt: 'receipt#1',
-//         // payment_capture: 1 // Auto capture
-//     };
-
-//     try {
-//         const response = await razorpay.orders.create(options);
-//         console.log(response);
-//         res.status(200).json({ success: true });
-//     } catch (error) {
-//         console.error("Error creating Razorpay order:", error);
-//         res.status(500).json({ error: "Unable to initiate payment" });
-//     }
-// };
-
 const paymentGateway = async (req, res) => {
     try {
         const user_Id = req.user._id;
@@ -266,4 +248,30 @@ const paymentGateway = async (req, res) => {
     }
 };
 
-module.exports = { home, registration, login, user, emailController, OTP, changePassword, storeRouteData, storePassengerData, paymentGateway };
+const AccountData = async (req, res) => {
+    const { fullName, email, PhoneNumber, MaritalStatus, Gender, Address } = req.body;
+
+    try {
+        const user = await User.findOne({ email });
+
+        if (!user) {
+            return res.status(400).json({ error: "User not found" });
+        }
+        
+        user.fullName = fullName;
+        user.email = email;
+        user.PhoneNumber = PhoneNumber;
+        user.MaritalStatus = MaritalStatus;
+        user.Gender = Gender;
+        user.Address = Address;
+
+        await user.save();
+
+        return res.status(200).json({ message: "User data updated successfully" });
+    } catch (error) {
+        console.error("Error updating user data:", error.message);
+        return res.status(500).json({ error: "Internal Server Error" });
+    }
+};
+
+module.exports = { home, registration, login, user, emailController, OTP, changePassword, storeRouteData, storePassengerData, paymentGateway, AccountData };
