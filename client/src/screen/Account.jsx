@@ -1,4 +1,4 @@
-import React, { Suspense, useEffect } from "react";
+import React, { Suspense, useEffect, startTransition  } from "react";
 import { useDispatch, useSelector } from "react-redux";
 //import { GiHamburgerMenu } from "react-icons/gi";
 import { Avatar } from "keep-react";
@@ -17,22 +17,29 @@ const Completed = React.lazy(() => import("../components/JsxFolder/Completed.jsx
 
 function Account() {
     const dispatch = useDispatch();
-    const state = useSelector((state) => state.booking);
+    const state = useSelector((state) => state);
 
     useEffect(() => {
-        dispatch(setLoading(true));
+        const setLoadingWithTransition = (loading) => {
+            startTransition(() => {
+                dispatch(setLoading(loading));
+            });
+        };
+
+        setLoadingWithTransition(true);
 
         const loadingTimeout = setTimeout(() => {
-            dispatch(setLoading(false));
+            setLoadingWithTransition(false);
         }, 1000);
 
         return () => clearTimeout(loadingTimeout);
     }, [dispatch]);
 
+
     const handleSidebar = () => {
         dispatch(setShowSidebar(!state.showSidebar));
     };
-
+    
     return (
         <main>
             <Suspense fallback={<div>Loading...</div>}>
@@ -63,17 +70,37 @@ function Account() {
                             </Suspense>
                         </section>
                         {["Upcoming", "Cancelled", "Completed", "Account Details"].map((status, index) => (
-                            <section key={index} className={`Account_info_section ${state.selectedTripStatus === status ? "" : "hidden"} transition-all`}>
+                            <section key={index} className={`Account_info_section ${state.booking.selectedTripStatus === status ? "" : "hidden"} transition-all`}>
                                 <div className="font-semibold text-red-400 text-2xl mb-1 label">{status === "Account Details" ? "Account Detail" : status + " Trip"}</div>
                                 <div className="font-semibold text-gray-400 text-sm label_2">{status === "Account Details" ? "Manage Your FlyEase Profile" : ""}</div>
                                 <div className="flex gap-4 mt-12 user_id">
                                     <Avatar shape="circle" img={signUp_1} />
                                     <div className="flex flex-col justify-center">
                                         <div className="font-semibold text-red-400 text-md mb-1">User ID</div>
-                                        <div className="font-semibold text-gray-400 text-sm">Gaurav Singh</div>
+                                        <div className="font-semibold text-gray-400 text-sm">{state.booking.passengerAccInfo?.Fullname || ""}</div>
                                     </div>
                                 </div>
-                                {status === "Upcoming" ? <Upcoming/> : status === "Cancelled" ? <Cancelled/> : status === "Account Details" ? <AccountDetail/> : <Completed/>}
+                                {status === "Upcoming" ? (
+                                        <Suspense fallback={<div>Loading...</div>}>
+                                            <Upcoming/>
+                                        </Suspense>
+                                    ) : (
+                                        status === "Cancelled" ? (
+                                            <Suspense fallback={<div>Loading...</div>}>
+                                                <Cancelled/>
+                                            </Suspense>
+                                        ) : (
+                                            status === "Account Details" ? (
+                                                <Suspense fallback={<div>Loading...</div>}>
+                                                    <AccountDetail/>
+                                                </Suspense>
+                                            ) : (
+                                                <Suspense fallback={<div>Loading...</div>}>
+                                                    <Completed/>
+                                                </Suspense>
+                                            )
+                                        )
+                                    )}
                             </section>
                         ))}
                     </section>

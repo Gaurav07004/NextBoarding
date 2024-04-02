@@ -94,9 +94,9 @@ function SidebarComponent() {
                         </Sidebar.Item>
                         {(state.booking.selectedProfileLabel === "My Trips" && item.label === "My Trips") && (
                             <div className='p-2 pl-6'>
-                                <div className='p-2 flex gap-4 items-center' onClick={() => handleTripStatus(item.sub_label_1)}><PiSuitcaseRollingFill size={18}/><span>{item.sub_label_1}</span></div>
-                                <div className='p-2 flex gap-4 items-center' onClick={() => handleTripStatus(item.sub_label_2)}><MdCancelPresentation size={18}/><span>{item.sub_label_2}</span></div>
-                                <div className='p-2 flex gap-4 items-center' onClick={() => handleTripStatus(item.sub_label_3)}><IoCheckmarkCircleOutline  size={18}/><span>{item.sub_label_3}</span></div>
+                                <div className='p-2 flex gap-4 items-center hover:bg-red-100 rounded-lg transition-all' onClick={() => handleTripStatus(item.sub_label_1)}><PiSuitcaseRollingFill size={18}/><span>{item.sub_label_1}</span></div>
+                                <div className='p-2 flex gap-4 items-center hover:bg-red-100 rounded-lg transition-all' onClick={() => handleTripStatus(item.sub_label_2)}><MdCancelPresentation size={18}/><span>{item.sub_label_2}</span></div>
+                                <div className='p-2 flex gap-4 items-center hover:bg-red-100 rounded-lg transition-all' onClick={() => handleTripStatus(item.sub_label_3)}><IoCheckmarkCircleOutline  size={18}/><span>{item.sub_label_3}</span></div>
                             </div>
                         )}
                     </div>
@@ -112,7 +112,7 @@ function SidebarComponent() {
                         User Id
                     </Typography>
                     <Typography variant="p" className="text-body-4 font-normal text-metal-400">
-                        Gaurav Singh
+                        {state.booking.passengerAccInfo?.Fullname || ""}
                     </Typography>
                 </div>
             </Sidebar.Footer>

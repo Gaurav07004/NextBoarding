@@ -238,6 +238,8 @@ function BookingPortal() {
             </div>
         );
     };
+
+    console.log("token", state.booking.token)
     // const handleSubmit = async (e) => {
     //     e.preventDefault();
 
@@ -484,5 +486,6 @@ function BookingPortal() {
         </Container>
     );
 }
+
 
 export default BookingPortal;

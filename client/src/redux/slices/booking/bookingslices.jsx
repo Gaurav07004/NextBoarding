@@ -83,8 +83,7 @@ const initialState = {
     showPassword: "password",
     selectedTripStatus: "Account Details",
     selectedImages: [],
-    passengerAccInfo: [
-        {
+    passengerAccInfo: {
             Fullname: "",
             PhoneNumber: "",
             MaritalStatus: "",
@@ -92,9 +91,9 @@ const initialState = {
             Gender: "",
             Address: "",
         },
-    ],
+    accountData: "",
     passengerRegistration: {
-        username: "",
+        fullName: "",
         email: "",
         password: "",
     },
@@ -398,7 +397,10 @@ const bookingSlice = createSlice({
             state.selectedImages = action.payload;
         },
         setPassengerAccInfo: (state, action) => {
-            state.passengerForm = action.payload;
+            state.passengerAccInfo = action.payload;
+        },
+        setAccountData: (state, action) => {
+            state.accountData = action.payload;
         },
         setPassengerRegistration: (state, action) => {
             state.passengerRegistration = action.payload;
@@ -524,6 +526,7 @@ export const {
     setShowModel,
     setPaymentMethod,
     setOfferContainer,
+    setAccountData,
     setCardDetail,
     setLoading,
     setFlightLoading,

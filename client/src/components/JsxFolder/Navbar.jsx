@@ -97,16 +97,16 @@ function Navbar() {
             </nav>
             {state.booking.showProfileModal && (
                 <div className="Profile_slider">
-                    <p className="text-xs text-zinc-700">You are viewing your personal profile gauravsingh07004@gmail.com</p>
+                    <p className="text-sm text-zinc-700 font-semibold mb-4">You are viewing your personal profile {state.booking.passengerAccInfo?.Fullname || ""}</p>
                     {[
-                        { Icon: <FiUser />, title: "My Profile", description: "Manage your profile, traveller details, login details and password.", swtich: "Profile" },
+                        { Icon: <FiUser />, title: "My Profile", description: "Manage your profile, traveller details, login details and password.", swtich: "Account" },
                         { Icon: <BsSuitcase2 />, title: "My Trips", description: "See booking details, Print e-ticket, Cancel Booking, Check Refund Status & more.", swtich: "MyTrips" },
                         { Icon: <FiLogOut />, title: "Log Out", description: "Click here to log out of your account.", swtich: "SignIn" },
                     ].map((level, index) => (
                         <NavLink className="profile_section" key={index} to={`/${level.swtich}`}>
                             <div className="text-2xl mt-1 text-zinc-500">{level.Icon}</div>
                             <div className="navLinkContent">
-                                <p className="mb-1 text-black font-semibold text-lg">{level.title}</p>
+                                <p className="mb-1 text-zinc-700 font-semibold text-lg">{level.title}</p>
                                 <p className="mb-1 text-zinc-500 text-xs">{level.description}</p>
                             </div>
                         </NavLink>

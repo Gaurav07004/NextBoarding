@@ -8,7 +8,7 @@ import { CiLock, CiMail, CiUser } from "react-icons/ci";
 import { Button } from "keep-react";
 import "../CssFolder/SignUp.css";
 import { TailSpin } from "react-loader-spinner";
-import { setConditionCheck, setLoading, setPassengerRegistration } from "../../redux/slices/booking/bookingslices.jsx";
+import { setConditionCheck, setLoading, setPassengerRegistration, setToken } from "../../redux/slices/booking/bookingslices.jsx";
 import { NavLink, useNavigate } from "react-router-dom";
 
 
@@ -49,6 +49,7 @@ function SignUp() {
 
             const data = await response.json();
             console.log("Response data:", data);
+            dispatch(setToken(data.token));
             alert("Register Successfully!");
 
             navigate("/");
@@ -110,7 +111,7 @@ function SignUp() {
                             <form className="signup-form" onSubmit={handleSubmit}>
                                 <div className="input-with-icon">
                                     <CiUser className="icon" />
-                                    <input className="user_field" type="text" name="username" placeholder="Full Name" required autoComplete="off" value={state.booking.passengerRegistration.username} onChange={handleInputChange} />
+                                    <input className="user_field" type="text" name="fullName" placeholder="Full Name" required autoComplete="off" value={state.booking.passengerRegistration.fullName} onChange={handleInputChange} />
                                 </div>
                                 <div className="input-with-icon">
                                     <CiMail className="icon" />
