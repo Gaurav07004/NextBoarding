@@ -13,13 +13,17 @@ router.post("/forget-password", auth.emailController);
 router.post("/verify-otp", auth.OTP);
 router.post("/changePassword", auth.changePassword);
 
-router.post("/checkout", auth.paymentGateway);
-
 // Protected Routes (Require Authentication)
-router.use(authMiddleware); // Apply authentication middleware for all routes below
+router.use(authMiddleware);
 router.get("/user", auth.user);
 router.post("/RouteData", auth.storeRouteData);
 router.post("/PassengerData", auth.storePassengerData);
+router.post("/checkout", auth.paymentGateway);
 router.put("/AccountData", auth.AccountData);
+router.delete("/DeleteAccount", auth.DeleteAccount);
+router.put("/Canceltrip", auth.CancelTrip);
+router.get("/trips/:id", auth.getTripById);
+
+
 
 module.exports = router;

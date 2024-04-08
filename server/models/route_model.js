@@ -62,6 +62,10 @@ const routeSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    status: {
+        type: String,
+        required: true
+    }
 });
 
 const RouteData = mongoose.model('RouteData', routeSchema);

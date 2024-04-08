@@ -1,6 +1,7 @@
-const User = require("../models/user_model.js");
+const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 const nodemailer = require("nodemailer");
+const User = require("../models/user_model.js");
 const RouteData = require("../models/route_model.js");
 const PassengerData = require("../models/passenger_model.js");
 const Payment = require("../models/payment_model.js");
@@ -17,7 +18,7 @@ const home = async (req, res) => {
 
 const registration = async (req, res) => {
     try {
-        const { fullName, email, password, PhoneNumber = '', MaritalStatus = '', Gender = '', Address = '' } = req.body;
+        const { fullName, email, password, PhoneNumber = "", MaritalStatus = "", Gender = "", Address = "" } = req.body;
 
         const userExist = await User.findOne({ email });
 
@@ -57,10 +58,42 @@ const login = async (req, res) => {
     }
 };
 
+// const user = async (req, res) => {
+//     try {
+//         const userData = req.user;
+//         return res.status(200).json({ userData });
+//     } catch (error) {
+//         console.error("Error from the user route:", error.message);
+//         res.status(500).json("Internal Server Error");
+//     }
+// };
+
 const user = async (req, res) => {
     try {
-        const userData = req.user;
-        return res.status(200).json({ userData });
+        const userId = req.user._id;
+        let routeData = await RouteData.find({ user_Id: userId });
+
+        const currentDate = new Date();
+        routeData = await Promise.all(
+            routeData.map(async (route) => {
+                const travelDate = new Date(route.travel_Date);
+                route.status = travelDate <= currentDate ? "Completed" : "Upcoming";
+                await route.save();
+                return route.toJSON();
+            })
+        );
+
+        const passengerData = await PassengerData.find({ user_Id: userId });
+        const paymentData = await Payment.find({ user_Id: userId });
+
+        const userData = {
+            user: req.user,
+            routeData,
+            passengerData,
+            paymentData,
+        };
+
+        return res.status(200).json(userData);
     } catch (error) {
         console.error("Error from the user route:", error.message);
         res.status(500).json("Internal Server Error");
@@ -175,7 +208,23 @@ const storeRouteData = async (req, res) => {
     try {
         const user_Id = req.user._id;
 
-        const { departure_City, departure_Airport, arrival_City, arrival_Airport, travel_Date, traveller_Number, traveller_Class, fare_Type, airline_Name, flight_Number, departure_Time, arrival_Time, total_duration, stop } = req.body;
+        const {
+            departure_City,
+            departure_Airport,
+            arrival_City,
+            arrival_Airport,
+            travel_Date,
+            traveller_Number,
+            traveller_Class,
+            fare_Type,
+            airline_Name,
+            flight_Number,
+            departure_Time,
+            arrival_Time,
+            total_duration,
+            stop,
+            status,
+        } = req.body;
 
         const newRoute = new RouteData({
             user_Id,
@@ -193,6 +242,7 @@ const storeRouteData = async (req, res) => {
             arrival_Time,
             total_duration,
             stop,
+            status,
         });
 
         await newRoute.save();
@@ -206,7 +256,6 @@ const storeRouteData = async (req, res) => {
 
 const storePassengerData = async (req, res) => {
     try {
-
         const user_Id = req.user._id;
         const { passengers, emergencyContacts, checked_Bags } = req.body;
 
@@ -257,7 +306,7 @@ const AccountData = async (req, res) => {
         if (!user) {
             return res.status(400).json({ error: "User not found" });
         }
-        
+
         user.fullName = fullName;
         user.email = email;
         user.PhoneNumber = PhoneNumber;
@@ -274,4 +323,101 @@ const AccountData = async (req, res) => {
     }
 };
 
-module.exports = { home, registration, login, user, emailController, OTP, changePassword, storeRouteData, storePassengerData, paymentGateway, AccountData };
+const DeleteAccount = async (req, res) => {
+    try {
+        const { email, password } = req.body;
+
+        const user = await User.findOne({ email });
+
+        if (!user) {
+            return res.status(400).json({ error: "Invalid credentials" });
+        }
+
+        const isPasswordValid = await bcrypt.compare(password, user.password);
+
+        if (!isPasswordValid) {
+            return res.status(401).json({ error: "Invalid password" });
+        }
+
+        await User.deleteOne({ email });
+
+        res.status(200).json({ message: "Account deleted successfully" });
+    } catch (error) {
+        console.error("Error deleting account:", error.message);
+        res.status(500).json({ error: "Internal Server Error" });
+    }
+};
+
+// const CancelTrip = async (req, res) => {
+//     try {
+//         const { tripId } = req.body;
+
+//         if (!mongoose.Types.ObjectId.isValid(tripId)) {
+//             return res.status(400).json({ message: "Invalid tripId" });
+//         }
+
+//         const trip = await RouteData.findById(tripId);
+
+//         if (!trip) {
+//             return res.status(404).json({ message: "Trip not found" });
+//         }
+
+//         if (trip.status === 'Cancelled') {
+//             return res.status(400).json({ message: 'Trip already cancelled' });
+//         }
+
+//         trip.status = "Cancelled";
+//         await trip.save();
+
+//         return res.status(200).json({ message: 'Trip cancelled successfully' });
+
+//     } catch (error) {
+//         console.error("Error cancelling trip:", error.message);
+//         res.status(500).json("Internal Server Error");
+//     }
+
+// };
+
+const CancelTrip = async (req, res) => {
+    //const tripId = req.params.id;
+    const { tripId, status } = req.body;
+
+    try {
+        const updatedTrip = await RouteData.findById(tripId);
+
+        if (!updatedTrip) {
+            return res.status(404).json({ error: "Trip not found" });
+        }
+
+        updatedTrip.status = status; // Update the status field of the updatedTrip object
+
+        await updatedTrip.save(); // Save the changes to the updatedTrip object
+
+        return res.status(200).json({ message: "Trip data updated successfully" });
+    } catch (error) {
+        res.status(500).json({ error: "Failed to cancel trip", message: error.message });
+    }
+};
+
+
+const getTripById = async (req, res) => {
+    const tripId = req.params.id;
+
+    try {
+        // Retrieve trip data from the database based on the trip ID
+        const tripData = await RouteData.findById(tripId);
+
+        if (!tripData) {
+            // If trip data with the given ID is not found, send a 404 response
+            return res.status(404).json({ error: "Trip not found" });
+        }
+
+        // Send the trip data in the response
+        res.json(tripData);
+    } catch (error) {
+        // If an error occurs, send a 500 response with the error message
+        res.status(500).json({ error: "Failed to fetch trip data", message: error.message });
+    }
+};
+
+module.exports = { home, registration, login, user, emailController, OTP, changePassword, storeRouteData, storePassengerData, paymentGateway, AccountData, DeleteAccount, CancelTrip, getTripById };
