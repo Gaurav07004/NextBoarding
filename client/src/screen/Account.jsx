@@ -39,6 +39,34 @@ function Account() {
     const handleSidebar = () => {
         dispatch(setShowSidebar(!state.showSidebar));
     };
+
+    // useEffect(() => {
+    //     const fetchUserData = async () => {
+    //         try {
+    //             const token = state.booking.token;
+    //             if (!token) {
+    //                 throw new Error("No token found. Please log in.");
+    //             }
+
+    //             const response = await fetch("http://localhost:5000/api/auth/user", {
+    //                 method: "GET",
+    //                 headers: {
+    //                     "Content-Type": "application/json",
+    //                     Authorization: `Bearer ${token}`,
+    //                 },
+    //             });
+    //             if (!response.ok) {
+    //                 throw new Error("Failed to fetch user data");
+    //             }
+    //             const data = await response.json();
+    //             dispatch(setRouteData(data.routeData));
+    //             console.log("routeData", data.routeData);
+    //         } catch (error) {
+    //             console.error("Error fetching user data:", error);
+    //         }
+    //     };
+    //     fetchUserData();
+    // }, []);
     
     return (
         <main>

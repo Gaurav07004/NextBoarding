@@ -1,18 +1,17 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, Suspense } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Button, Modal, Typography, Divider } from "keep-react";
-import { Trash } from "phosphor-react";
-import { CiLock, CiMail, CiUnlock } from "react-icons/ci";
+import { Button, Divider, Notification } from "keep-react";
+import { Check } from 'phosphor-react'
 import "../CssFolder/AccountDetail.css";
-import { setShowPasswordModal, setShowPassword, setPassengerAccInfo, setAccountData } from "../../redux/slices/booking/bookingslices.jsx";
+import { setPassengerAccInfo, setDeleteModal, setShowPasswordModal } from "../../redux/slices/booking/bookingslices.jsx";
 
 const ForgetPassword = React.lazy(() => import("../JsxFolder/ForgetPassword.jsx"));
+const DeleteAccount = React.lazy(() => import("../JsxFolder/DeleteAccount.jsx"));
 
 function Account() {
     const dispatch = useDispatch();
-    const [ShowDeleteModal, setDeleteModal] = useState(false);
-    const [Data, setData] = useState(true);
     const state = useSelector((state) => state);
+    const [showNotification, setShowNotification] = useState(false); 
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -37,98 +36,10 @@ function Account() {
         dispatch(setShowPasswordModal(!state.booking.showPasswordModal));
     };
     const deleteModal = () => {
-        dispatch(setDeleteModal(!ShowDeleteModal));
+        dispatch(setDeleteModal(!state.booking.ShowDeleteModal));
     };
 
-    const handleShowPassword = () => {
-        dispatch(setShowPassword("text"));
-    };
-
-    const handleHidePassword = () => {
-        dispatch(setShowPassword("password"));
-    };
-
-    const Delete_Account = () => {
-        return (
-            <>
-                <Modal isOpen={ShowDeleteModal} onClose={deleteModal}>
-                    <Modal.Body className="flex flex-col">
-                        <Modal.Content className="my-4">
-                            <div className="flex items-center gap-2">
-                                <Modal.Icon className="rounded-md bg-red-100">
-                                    <Trash size={28} color="red" />
-                                </Modal.Icon>
-                                <Typography variant="h3" className="text-body-1 font-bold text-metal-700">
-                                    Delete Account
-                                </Typography>
-                            </div>
-                            <Typography variant="p" className={`mt-3 text-body-4 font-normal text-metal-600`}>
-                                Confirm your Email Address and Password to delete your account.
-                            </Typography>
-                            <div className="input-with-icon">
-                                <>
-                                    <CiMail className="icon1 mt-0" />
-                                    <input className="forget_Password_field rounded-lg" type="email" placeholder="Enter your email address" />
-                                    {state.booking.showPassword === "password" ? <CiLock className="icon2" onClick={handleShowPassword} /> : <CiUnlock className="icon" onClick={handleHidePassword} />}
-                                    <input className="forget_Password_field rounded-lg" type={state.booking.showPassword} placeholder="New Password" />
-                                </>
-                            </div>
-                        </Modal.Content>
-                        <Modal.Footer>
-                            <Button size="md" variant="outline" color="secondary" onClick={deleteModal} className="w-1/2 back">
-                                Cancel
-                            </Button>
-                            <Button size="md" color="primary" onClick={deleteModal} className="Reset_button ">
-                                Confirm
-                            </Button>
-                        </Modal.Footer>
-                    </Modal.Body>
-                </Modal>
-            </>
-        );
-    };
-
-    useEffect(() => {
-        const fetchUserData = async () => {
-            try {
-                const token = state.booking.token;
-                if (!token) {
-                    throw new Error("No token found. Please log in.");
-                }
-
-                const response = await fetch("http://localhost:5000/api/auth/user", {
-                    method: "GET",
-                    headers: {
-                        "Content-Type": "application/json",
-                        Authorization: `Bearer ${token}`,
-                    },
-                });
-                if (!response.ok) {
-                    throw new Error("Failed to fetch user data");
-                }
-                const data = await response.json();
-                dispatch(setAccountData(data.userData));
-                console.log("accountData", data.userData);
-            } catch (error) {
-                console.error("Error fetching user data:", error);
-            }
-        };
-        fetchUserData();
-    }, []);
-
-    if (Data && state.booking.accountData) {
-        dispatch(
-            setPassengerAccInfo({
-                Fullname: state.booking.accountData.fullName,
-                PhoneNumber: state.booking.accountData.PhoneNumber,
-                MaritalStatus: state.booking.accountData.MaritalStatus,
-                EmailAddress: state.booking.accountData.email,
-                Gender: state.booking.accountData.Gender,
-                Address: state.booking.accountData.Address,
-            })
-        );
-        setData(false);
-    }
+    console.log("passengerData", state.booking.flightBookingDetails)
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -168,6 +79,27 @@ function Account() {
 
     console.log("passengerAccInfo", state.booking.passengerAccInfo);
 
+    const NotificationComponent = () => (
+        <div className="px-5 py-3">
+            <Notification isOpen={showNotification} onClose={() => setShowNotification(false)} position="top-right">
+                <Notification.Body className="max-w-sm p-4 border-slate-300 border-2 rounded-lg bg-slate-100">
+                    <Notification.Content>
+                        <div className="flex items-center gap-2 justify-center">
+                            <div className="h-14 w-14 p-1.5 bg-success-50 text-success-500 rounded-full border-2 border-success-300">
+                                <Check size={40} />
+                            </div>
+                            <div className="max-w-[220px]">
+                                <p className="text-body-4  text-metal-700 m-0 font-semibold">
+                                    Account is Login Successfully!
+                                </p>
+                            </div>
+                        </div>
+                    </Notification.Content>
+                </Notification.Body>
+            </Notification>
+        </div>
+    );
+
     return (
         <main>
             <section>
@@ -203,12 +135,15 @@ function Account() {
                         </Button>
                     </div>
                     <Divider size="lg" className="mt-6" />
-                    <div>{Delete_Account()}</div>
-                    <div className="font-semibold mt-6 text-red-500 cursor-pointer" onClick={deleteModal}>
+                    <section><DeleteAccount/></section>
+                    <div className="font-semibold text-red-500 cursor-pointer" onClick={deleteModal}>
                         Delete Account
                     </div>
                 </form>
             </section>
+            <Suspense>
+                <NotificationComponent/>
+            </Suspense>
         </main>
     );
 }

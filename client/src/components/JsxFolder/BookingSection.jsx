@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Button } from "keep-react";
 import { format } from "date-fns";
@@ -37,11 +37,17 @@ import {
     setSelectedTravelDetails,
     setSelectedFares,
     fetch_API,
+    setAccountData,
+    setRouteData,
+    setFlightBookingDetails,
+    setPassengerAccInfo
 } from "../../redux/slices/booking/bookingslices.jsx";
 
 function BookingPortal() {
     const dispatch = useDispatch();
     const state = useSelector((state) => state);
+    const [Data, setData] = useState(true);
+    //const [Data1, setData1] = useState(true);
 
     useEffect(() => {
         const handleOutsideClick = (event) => {
@@ -73,6 +79,79 @@ function BookingPortal() {
             document.removeEventListener("click", handleOutsideClick);
         };
     }, [dispatch]);
+
+    useEffect(() => {
+        const fetchUserData = async () => {
+            try {
+                const token = state.booking.token;
+                if (!token) {
+                    throw new Error("No token found. Please log in.");
+                }
+
+                const response = await fetch("http://localhost:5000/api/auth/user", {
+                    method: "GET",
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${token}`,
+                    },
+                });
+                if (!response.ok) {
+                    throw new Error("Failed to fetch user data");
+                }
+                const data = await response.json();
+                dispatch(setAccountData(data.user));
+                dispatch(setRouteData(data.routeData));
+                dispatch(setFlightBookingDetails(data.passengerData));
+                console.log("accountData", data.user);
+                console.log("routeData", data.routeData);
+                console.log("passengerData", data.passengerData);
+            } catch (error) {
+                console.error("Error fetching user data:", error);
+            }
+        };
+        fetchUserData();
+    }, []);
+
+    if (Data && state.booking.accountData) {
+        dispatch(
+            setPassengerAccInfo({
+                Fullname: state.booking.accountData.fullName,
+                PhoneNumber: state.booking.accountData.PhoneNumber,
+                MaritalStatus: state.booking.accountData.MaritalStatus,
+                EmailAddress: state.booking.accountData.email,
+                Gender: state.booking.accountData.Gender,
+                Address: state.booking.accountData.Address,
+            })
+        );
+        setData(false);
+    }
+    // if (Data1 && state.booking.routeData.length > 0) {
+    //     state.booking.routeData.forEach((route, routeIndex) => {
+    //         dispatch(
+    //             setRouteInfo({
+    //                 departureCity: route.departure_City,
+    //                 departureAirport: route.departure_Airport,
+    //                 arrivalCity: route.arrival_City,
+    //                 arrivalAirport: route.arrival_Airport,
+    //                 travelDate: route.travel_Date,
+    //                 travellerNumber: route.traveller_Number,
+    //                 travellerClass: route.traveller_Class,
+    //                 fareType: route.fare_Type,
+    //                 airlineName: route.airline_Name,
+    //                 flightNumber: route.flight_Number,
+    //                 departureTime: route.departure_Time,
+    //                 arrivalTime: route.arrival_Time,
+    //                 totalDuration: route.total_duration,
+    //                 stop: route.stop,
+    //                 status: route.status
+    //             })
+    //         );
+    //     });
+    //     setData1(false);
+    // }
+
+
+    console.log("TRipData", state.booking.routeInfo);
 
     const fetchAirportAPI = async (input, type) => {
         try {
@@ -239,253 +318,197 @@ function BookingPortal() {
         );
     };
 
-    console.log("token", state.booking.token)
-    // const handleSubmit = async (e) => {
-    //     e.preventDefault();
-
-    //     try {
-    //         // const token = localStorage.getItem("token");
-    //         const token = state.booking.token;
-    //         if (!token) {
-    //             throw new Error("No token found. Please log in.");
-    //         }
-
-    //         const response = await fetch("http://localhost:5000/api/auth/RouteData", {
-    //             method: "POST",
-    //             headers: {
-    //                 "Content-Type": "application/json",
-    //                 Authorization: `Bearer ${token}`, // Include token in Authorization header
-    //             },
-    //             body: JSON.stringify({
-    //                 departure_City: state.booking.departureAirport.city,
-    //                 departure_Airport: state.booking.departureAirport.name,
-    //                 arrival_City: state.booking.arrivalAirport.city,
-    //                 arrival_Airport: state.booking.arrivalAirport.name,
-    //                 travel_Date: state.booking.currentDate,
-    //                 traveller_Number: state.booking.selectedNoOfTravellers.Totalcount,
-    //                 traveller_Class: state.booking.selectedTravelClass,
-    //                 fare_Type: state.booking.selectedFares,
-    //             }),
-    //         });
-
-    //         if (!response.ok) {
-    //             const errorData = await response.json();
-    //             throw new Error(errorData.error || "Something went wrong");
-    //         }
-
-    //         console.log("Data stored successfully");
-    //     } catch (error) {
-    //         console.error("Error:", error.message);
-    //         // Display error message in the UI
-    //     }
-
-    //     // Log the data being sent in the request
-    //     console.log("Form data:", {
-    //         departure_City: state.booking.departureAirport.city,
-    //         departure_Airport: state.booking.departureAirport.name,
-    //         arrival_City: state.booking.arrivalAirport.city,
-    //         arrival_Airport: state.booking.arrivalAirport.name,
-    //         travel_Date: state.booking.currentDate,
-    //         traveller_Number: state.booking.selectedNoOfTravellers.Totalcount,
-    //         traveller_Class: state.booking.selectedTravelClass,
-    //         fare_Type: state.booking.selectedFares,
-    //     });
-    // };
-
+    console.log("token", state.booking.token);
+    console.log("bookingData", state.booking.flightBookingDetails);
     return (
         <Container fluid>
             <main>
                 {/* <form > */}
-                    <section className="Booking_Section">
-                        <div className="BookingInfo">
-                            <span>Book International and Domestic Flights</span>
-                        </div>
-                        <div className="BookingContainer">
-                            <section>{Booking_section("departure")}</section>
-                            <section>{Booking_section("arrival")}</section>
+                <section className="Booking_Section">
+                    <div className="BookingInfo">
+                        <span>Book International and Domestic Flights</span>
+                    </div>
+                    <div className="BookingContainer">
+                        <section>{Booking_section("departure")}</section>
+                        <section>{Booking_section("arrival")}</section>
 
-                            <div className={`DepartureDateBookingSection ${state.booking.dateClicked ? "clicked" : ""}`} onClick={() => handleColorChange("departureDate")}>
-                                <div onClick={() => dispatch(setCalendar(!state.booking.showCalendar))}>
-                                    <div className="DateSection">
-                                        <span className="sectionLabel">Departure</span>
-                                        <IoIosArrowDown className="Departure-Date-Icon" />
-                                    </div>
-                                    <div className="DepartureDate">
-                                        <span className="Date">{format(new Date(state.booking.currentDate), "dd")}</span>
-                                        <span className="Month">{format(new Date(state.booking.currentDate), "MMM")}'</span>
-                                        <span className="Year">{format(new Date(state.booking.currentDate), "yy")}</span>
-                                    </div>
-                                    <span className="Day">{format(state.booking.currentDate, "EEEE")}</span>
+                        <div className={`DepartureDateBookingSection ${state.booking.dateClicked ? "clicked" : ""}`} onClick={() => handleColorChange("departureDate")}>
+                            <div onClick={() => dispatch(setCalendar(!state.booking.showCalendar))}>
+                                <div className="DateSection">
+                                    <span className="sectionLabel">Departure</span>
+                                    <IoIosArrowDown className="Departure-Date-Icon" />
                                 </div>
-
-                                {state.booking.showCalendar && (
-                                    <article className="CalendarSection">
-                                        <Calendar defaultValue={state.booking.currentDate} onChange={(date) => dispatch(setCurrentDate(date))} minDate={new Date()} maxDate={maxDate} />
-                                    </article>
-                                )}
+                                <div className="DepartureDate">
+                                    <span className="Date">{format(new Date(state.booking.currentDate), "dd")}</span>
+                                    <span className="Month">{format(new Date(state.booking.currentDate), "MMM")}'</span>
+                                    <span className="Year">{format(new Date(state.booking.currentDate), "yy")}</span>
+                                </div>
+                                <span className="Day">{format(state.booking.currentDate, "EEEE")}</span>
                             </div>
-                            <div className={`TravellersClassBookingSection ${state.booking.travellersClassClicked ? "clicked" : ""}`} onClick={() => handleColorChange("travellersClass")}>
-                                <div
-                                    htmlFor="TravellersClass"
-                                    onClick={() => {
-                                        dispatch(setTravellersClassOption(!state.booking.travellersClassOption));
-                                    }}
-                                >
-                                    <div className="DateSection">
-                                        <span className="sectionLabel">Travellers & Class</span>
-                                        <IoIosArrowDown className="Departure-Date-Icon" />
-                                    </div>
-                                    <div>
-                                        <div className="CountOfTravellers">
-                                            <span className="Count">{state.booking.selectedTravelDetails?.selectedNoOfTravellers || 1}</span>
-                                            <span className="Travellers">Travellers</span>
-                                        </div>
-                                        <main className="TravellerClass">{state.booking.selectedTravelDetails?.selectedTravelClass || "Economy"}</main>
-                                    </div>
+
+                            {state.booking.showCalendar && (
+                                <article className="CalendarSection">
+                                    <Calendar defaultValue={state.booking.currentDate} onChange={(date) => dispatch(setCurrentDate(date))} minDate={new Date()} maxDate={maxDate} />
+                                </article>
+                            )}
+                        </div>
+                        <div className={`TravellersClassBookingSection ${state.booking.travellersClassClicked ? "clicked" : ""}`} onClick={() => handleColorChange("travellersClass")}>
+                            <div
+                                htmlFor="TravellersClass"
+                                onClick={() => {
+                                    dispatch(setTravellersClassOption(!state.booking.travellersClassOption));
+                                }}
+                            >
+                                <div className="DateSection">
+                                    <span className="sectionLabel">Travellers & Class</span>
+                                    <IoIosArrowDown className="Departure-Date-Icon" />
                                 </div>
-                                {state.booking.travellersClassOption && (
-                                    <section className="TravellersClassBookingContainer">
-                                        <div className="TravellersClassSuggestion">
-                                            <div className="CountOfAdults">
-                                                <p className="PassengerYear">ADULTS (12y+)</p>
+                                <div>
+                                    <div className="CountOfTravellers">
+                                        <span className="Count">{state.booking.selectedTravelDetails?.selectedNoOfTravellers || 1}</span>
+                                        <span className="Travellers">Travellers</span>
+                                    </div>
+                                    <main className="TravellerClass">{state.booking.selectedTravelDetails?.selectedTravelClass || "Economy"}</main>
+                                </div>
+                            </div>
+                            {state.booking.travellersClassOption && (
+                                <section className="TravellersClassBookingContainer">
+                                    <div className="TravellersClassSuggestion">
+                                        <div className="CountOfAdults">
+                                            <p className="PassengerYear">ADULTS (12y+)</p>
+                                            <p className="TravelDay">on the day of travel</p>
+                                            <ul className="NoOfTravellers">
+                                                {[1, 2, 3, 4, 5, 6, 7, 8].map((count, index, arr) => (
+                                                    <li
+                                                        key={index}
+                                                        className={`NoOfCount ${state.booking.selectedNoOfTravellers.Adult === count || (!state.booking.selectedNoOfTravellers.Adult && count === arr[0]) ? "Selected" : ""}`}
+                                                        onClick={() => handleNoOfTravellersClick(count, "Adult")}
+                                                    >
+                                                        {count}
+                                                    </li>
+                                                ))}
+                                            </ul>
+                                        </div>
+                                        <div className="CountOfChildInfant">
+                                            <div className="CountOfChild">
+                                                <p className="PassengerYear">CHILDREN (2y - 12y )</p>
                                                 <p className="TravelDay">on the day of travel</p>
                                                 <ul className="NoOfTravellers">
-                                                    {[1, 2, 3, 4, 5, 6, 7, 8].map((count, index, arr) => (
+                                                    {[0, 1, 2, 3, 4, 5, 6].map((count, index, arr) => (
                                                         <li
                                                             key={index}
-                                                            className={`NoOfCount ${state.booking.selectedNoOfTravellers.Adult === count || (!state.booking.selectedNoOfTravellers.Adult && count === arr[0]) ? "Selected" : ""}`}
-                                                            onClick={() => handleNoOfTravellersClick(count, "Adult")}
+                                                            className={`NoOfCount ${state.booking.selectedNoOfTravellers.Child === count || (!state.booking.selectedNoOfTravellers.Child && count === arr[0]) ? "Selected" : ""}`}
+                                                            onClick={() => handleNoOfTravellersClick(count, "Child")}
                                                         >
                                                             {count}
                                                         </li>
                                                     ))}
                                                 </ul>
                                             </div>
-                                            <div className="CountOfChildInfant">
-                                                <div className="CountOfChild">
-                                                    <p className="PassengerYear">CHILDREN (2y - 12y )</p>
-                                                    <p className="TravelDay">on the day of travel</p>
-                                                    <ul className="NoOfTravellers">
-                                                        {[0, 1, 2, 3, 4, 5, 6].map((count, index, arr) => (
-                                                            <li
-                                                                key={index}
-                                                                className={`NoOfCount ${state.booking.selectedNoOfTravellers.Child === count || (!state.booking.selectedNoOfTravellers.Child && count === arr[0]) ? "Selected" : ""}`}
-                                                                onClick={() => handleNoOfTravellersClick(count, "Child")}
-                                                            >
-                                                                {count}
-                                                            </li>
-                                                        ))}
-                                                    </ul>
-                                                </div>
-                                                <div className="CountOfInfant">
-                                                    <p className="PassengerYear">INFANTS (below 2y)</p>
-                                                    <p className="TravelDay">on the day of travel</p>
-                                                    <ul className="NoOfTravellers">
-                                                        {[0, 1, 2, 3, 4, 5, 6].map((count, index, arr) => (
-                                                            <li
-                                                                key={index}
-                                                                className={`NoOfCount ${state.booking.selectedNoOfTravellers.Infant === count || (!state.booking.selectedNoOfTravellers.Infant && count === arr[0]) ? "Selected" : ""}`}
-                                                                onClick={() => handleNoOfTravellersClick(count, "Infant")}
-                                                            >
-                                                                {count}
-                                                            </li>
-                                                        ))}
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                            <div className="TravelClassName">
-                                                <p className="TravelClass">CHOOSE TRAVEL CLASS</p>
-                                                <ul className="Classes">
-                                                    {["Economy", "Business"].map((count, index) => (
+                                            <div className="CountOfInfant">
+                                                <p className="PassengerYear">INFANTS (below 2y)</p>
+                                                <p className="TravelDay">on the day of travel</p>
+                                                <ul className="NoOfTravellers">
+                                                    {[0, 1, 2, 3, 4, 5, 6].map((count, index, arr) => (
                                                         <li
                                                             key={index}
-                                                            className={`TypeOfClass ${state.booking.selectedTravelClass === count || (!state.booking.selectedTravelClass && count === 0) ? "Selected" : ""}`}
-                                                            onClick={() => handleTypeOfClass(count)}
+                                                            className={`NoOfCount ${state.booking.selectedNoOfTravellers.Infant === count || (!state.booking.selectedNoOfTravellers.Infant && count === arr[0]) ? "Selected" : ""}`}
+                                                            onClick={() => handleNoOfTravellersClick(count, "Infant")}
                                                         >
                                                             {count}
                                                         </li>
                                                     ))}
                                                 </ul>
-                                            </div>
-                                            <div>
-                                                <button className="ApplyButton" onClick={() => handleApplyButtonClick()}>
-                                                    Apply
-                                                </button>
                                             </div>
                                         </div>
-                                    </section>
-                                )}
-                            </div>
-                        </div>
-                        <section className="makeFlex">
-                            <div className="Fare-Container">
-                                <span className="Select-A-Fare-Type">
-                                    <div>Select A</div>
-                                    <div>Fare Type:</div>
-                                </span>
-                                <span className="Select-A-Fare-Type-mobile">
-                                    <div>Select A Fare Type:</div>
-                                </span>
-                                <ul className="SpecialNewFares">
-                                    {["Regular Fare", "Armed Forces Fares", "Student Fares", "Senior Citizen Fares", "Doctors & Nurses Fares"].map((fare, index) => (
-                                        <li
-                                            key={index}
-                                            className={`FareTypes ${state.booking.selectedFares === fare || (!state.booking.selectedFares && fare === "Regular Fare") ? "activeItem" : ""}`}
-                                            onClick={() => handleFareTypeToggle(fare)}
-                                        >
-                                            <div>
-                                                {fare.split(" ").map((word, wordIndex, array) => (
-                                                    <React.Fragment key={wordIndex}>
-                                                        {wordIndex === array.length - 1 ? <br /> : " "}
-                                                        {word}
-                                                    </React.Fragment>
+                                        <div className="TravelClassName">
+                                            <p className="TravelClass">CHOOSE TRAVEL CLASS</p>
+                                            <ul className="Classes">
+                                                {["Economy", "Business"].map((count, index) => (
+                                                    <li
+                                                        key={index}
+                                                        className={`TypeOfClass ${state.booking.selectedTravelClass === count || (!state.booking.selectedTravelClass && count === 0) ? "Selected" : ""}`}
+                                                        onClick={() => handleTypeOfClass(count)}
+                                                    >
+                                                        {count}
+                                                    </li>
                                                 ))}
-                                            </div>
-                                            {FareTypeData.FareDetail.map((fareDetail, index) => (
-                                                <React.Fragment key={index}>
-                                                    {fare === fareDetail.FareName && (
-                                                        <div className="SpecialNewFaresDetail">
-                                                            <p className="FareName">{fareDetail.FareName}</p>
-                                                            <p className="FareDetail">{fareDetail.FareDetail}</p>
-                                                        </div>
-                                                    )}
+                                            </ul>
+                                        </div>
+                                        <div>
+                                            <button className="ApplyButton" onClick={() => handleApplyButtonClick()}>
+                                                Apply
+                                            </button>
+                                        </div>
+                                    </div>
+                                </section>
+                            )}
+                        </div>
+                    </div>
+                    <section className="makeFlex">
+                        <div className="Fare-Container">
+                            <span className="Select-A-Fare-Type">
+                                <div>Select A</div>
+                                <div>Fare Type:</div>
+                            </span>
+                            <span className="Select-A-Fare-Type-mobile">
+                                <div>Select A Fare Type:</div>
+                            </span>
+                            <ul className="SpecialNewFares">
+                                {["Regular Fare", "Armed Forces Fares", "Student Fares", "Senior Citizen Fares", "Doctors & Nurses Fares"].map((fare, index) => (
+                                    <li key={index} className={`FareTypes ${state.booking.selectedFares === fare || (!state.booking.selectedFares && fare === "Regular Fare") ? "activeItem" : ""}`} onClick={() => handleFareTypeToggle(fare)}>
+                                        <div>
+                                            {fare.split(" ").map((word, wordIndex, array) => (
+                                                <React.Fragment key={wordIndex}>
+                                                    {wordIndex === array.length - 1 ? <br /> : " "}
+                                                    {word}
                                                 </React.Fragment>
                                             ))}
-                                        </li>
-                                    ))}
-                                </ul>
-                            </div>
-                            <div className="Trending-Search-Container">
-                                <span className="Trending-Search">Trending Search: </span>
-                                <ul className="Trending-Option">
-                                    <li className="Trending-Flight">
-                                        <p>
-                                            {previousCity1}
-                                            <GoArrowRight className="GoArrow" />
-                                            {TrendingSearch(["Amsterdam", "Dubai", "Frankfurt", "Mexico", "Istanbul", "London", "Paris"], previousCity1)}
-                                        </p>
+                                        </div>
+                                        {FareTypeData.FareDetail.map((fareDetail, index) => (
+                                            <React.Fragment key={index}>
+                                                {fare === fareDetail.FareName && (
+                                                    <div className="SpecialNewFaresDetail">
+                                                        <p className="FareName">{fareDetail.FareName}</p>
+                                                        <p className="FareDetail">{fareDetail.FareDetail}</p>
+                                                    </div>
+                                                )}
+                                            </React.Fragment>
+                                        ))}
                                     </li>
-                                    <li className="Trending-Flight">
-                                        <p>
-                                            {previousCity2}
-                                            <GoArrowRight className="GoArrow" />
-                                            {TrendingSearch(["Jakarta", "Helsinki", "New York", "Barcelona", "Goa", "Madrid"], previousCity2)}
-                                        </p>
-                                    </li>
-                                </ul>
-                            </div>
-                        </section>
+                                ))}
+                            </ul>
+                        </div>
+                        <div className="Trending-Search-Container">
+                            <span className="Trending-Search">Trending Search: </span>
+                            <ul className="Trending-Option">
+                                <li className="Trending-Flight">
+                                    <p>
+                                        {previousCity1}
+                                        <GoArrowRight className="GoArrow" />
+                                        {TrendingSearch(["Amsterdam", "Dubai", "Frankfurt", "Mexico", "Istanbul", "London", "Paris"], previousCity1)}
+                                    </p>
+                                </li>
+                                <li className="Trending-Flight">
+                                    <p>
+                                        {previousCity2}
+                                        <GoArrowRight className="GoArrow" />
+                                        {TrendingSearch(["Jakarta", "Helsinki", "New York", "Barcelona", "Goa", "Madrid"], previousCity2)}
+                                    </p>
+                                </li>
+                            </ul>
+                        </div>
                     </section>
-                        <NavLink className="Search p-0" to="/Search">
-                            <Button type="submit" className="SearchBtn">
-                                SEARCH
-                            </Button>
-                        </NavLink>
+                </section>
+                <NavLink className="Search p-0" to="/Search">
+                    <Button type="submit" className="SearchBtn">
+                        SEARCH
+                    </Button>
+                </NavLink>
                 {/* </form> */}
             </main>
         </Container>
     );
 }
-
 
 export default BookingPortal;

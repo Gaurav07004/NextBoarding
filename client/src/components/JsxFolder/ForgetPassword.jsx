@@ -114,7 +114,7 @@ function ForgetPassword() {
         e.preventDefault();
         try {
             await handleRequest("http://localhost:5000/api/auth/forget-password", "POST", { email: state.booking.forgetEmail.email });
-            alert("Email sent successfully");
+            // alert("Email sent successfully");
             console.log("Email sent successfully");
         } catch (error) {
             alert("Error: " + error.message);
@@ -143,7 +143,8 @@ function ForgetPassword() {
     };
 
   return (
-    <div><Modal isOpen={state.booking.showPasswordModal} onClose={cancelModal}>
+    <div>
+        <Modal isOpen={state.booking.showPasswordModal} onClose={cancelModal}>
                 <form
                     onSubmit={async (e) => {
                         e.preventDefault();
@@ -222,7 +223,8 @@ function ForgetPassword() {
                         </Modal.Footer>
                     </Modal.Body>
                 </form>
-            </Modal></div>
+            </Modal>
+    </div>
   )
 }
 

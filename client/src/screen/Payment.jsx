@@ -133,6 +133,11 @@ function Payment() {
             return;
         }
 
+        const token = state.booking.token;
+            if (!token) {
+                throw new Error("No token found. Please log in.");
+            }
+
         const paymentData = {
             card_Name: cardDetail.cardName,
             card_Number: cardDetail.cardNumber,
@@ -144,6 +149,7 @@ function Payment() {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
             },
             body: JSON.stringify({
                 payments: paymentData

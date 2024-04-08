@@ -15,6 +15,7 @@ const Bills = () => {
         dispatch(setSaveInfoButton(!state.booking.saveInfoButton));
     };
 
+
     const handleSubmit = async (e) => {
         e.preventDefault();
 
@@ -46,6 +47,7 @@ const Bills = () => {
                     arrival_Time: state.booking.flightDetail.arrival,
                     total_duration: state.booking.flightDetail.time,
                     stop: state.booking.flightDetail.stop,
+                    status: state.booking.routeStatus,
                 }),
             });
 

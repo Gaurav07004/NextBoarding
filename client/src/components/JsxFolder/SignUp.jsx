@@ -1,11 +1,12 @@
-import { useEffect } from "react";
+import { useEffect, useState, Suspense } from "react";
 import signUp from "D:/Development/Web-development/ReactJs/NextBoarding/client/src/assets/signUp_1.png";
 import Container from "@mui/material/Container";
 import { useDispatch, useSelector } from "react-redux";
 import { FcGoogle } from "react-icons/fc";
 import { FaFacebook } from "react-icons/fa";
 import { CiLock, CiMail, CiUser } from "react-icons/ci";
-import { Button } from "keep-react";
+import { Button, Notification  } from "keep-react";
+import { Check } from 'phosphor-react'
 import "../CssFolder/SignUp.css";
 import { TailSpin } from "react-loader-spinner";
 import { setConditionCheck, setLoading, setPassengerRegistration, setToken } from "../../redux/slices/booking/bookingslices.jsx";
@@ -16,6 +17,8 @@ function SignUp() {
     const state = useSelector((state) => state);
     const dispatch = useDispatch();
     const navigate = useNavigate();
+
+    const [showNotification, setShowNotification] = useState(false); 
 
     const handleCondition = () => {
         dispatch(setConditionCheck(!state.booking.conditionCheck));
@@ -30,6 +33,30 @@ function SignUp() {
             })
         );
     };
+
+    const NotificationComponent = () => (
+    <div className="px-5 py-3">
+        <Notification isOpen={showNotification} onClose={() => setShowNotification(false)} position="top-right">
+            <Notification.Body className="max-w-sm p-4 border-slate-300 border-2 rounded-lg bg-slate-100">
+                <Notification.Content>
+                    <div className="flex items-center gap-2 justify-center">
+                        <div className="h-14 w-14 p-1.5 bg-success-50 text-success-500 rounded-full border-2 border-success-300">
+                            <Check size={40} />
+                        </div>
+                        <div className="max-w-[220px]">
+                            <p className="text-body-4  text-metal-700 m-0 font-semibold">
+                                Account is Register Successfully!
+                            </p>
+                        </div>
+                    </div>
+                </Notification.Content>
+            </Notification.Body>
+        </Notification>
+    </div>
+);
+
+
+
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -50,9 +77,10 @@ function SignUp() {
             const data = await response.json();
             console.log("Response data:", data);
             dispatch(setToken(data.token));
-            alert("Register Successfully!");
-
-            navigate("/");
+            setShowNotification(true);
+            setTimeout(() => {
+                navigate("/"); 
+            }, 3000);
         } catch (error) {
             console.error("Error:", error.message);
         }
@@ -78,58 +106,63 @@ function SignUp() {
                         <TailSpin visible={true} height="60" width="60" color="#605dec" ariaLabel="tail-spin-loading" radius="1" wrapperStyle={{}} wrapperClass="" />
                     </div>
                 ) : (
-                    <main className="SignUp_modal">
-                        <section className="signUp_image_container">
-                            <img src={signUp} alt="signUp" className="Image" />
-                        </section>
-                        <section className="signUp_form_container">
-                            <h1 className="font-bold text-amber-400 text-3xl header mb-2">Sign Up</h1>
-                            <p className="text-zinc-400 text-sm font-semibold m-0">
-                                Already a member?{" "}
-                                <NavLink className="text-orange-500 cursor-pointer no-underline" to="/SignIn">
-                                    Sign in
-                                </NavLink>
-                            </p>
-                            <div className="plugin_desktop">
-                                <Button color="secondary" variant="outline" className="Button py-2">
-                                    <FcGoogle className="text-2xl plugin_icon" /> <span className="ml-1 plugin_type">Google</span>
-                                </Button>
-                                <Button color="secondary" variant="outline" className="Button py-2">
-                                    <FaFacebook className="text-2xl plugin_icon text-blue-500" /> <span className="ml-1 plugin_type">Facebook</span>
-                                </Button>
-                            </div>
-                            <div className="plugin_Mobile">
-                                <Button color="secondary" variant="outline" className="Button py-3">
-                                    <FcGoogle className="text-2xl plugin_icon" />
-                                    <span className="ml-1 plugin_type">Google</span>
-                                </Button>
-                                <Button color="secondary" variant="outline" className="Button py-3">
-                                    <FaFacebook className="text-2xl text-blue-500" /> <span className="ml-1 plugin_type">Facebook</span>
-                                </Button>
-                            </div>
-                            <p className="font-semibold text-zinc-500 text-sm text-center Separate">OR</p>
-                            <form className="signup-form" onSubmit={handleSubmit}>
-                                <div className="input-with-icon">
-                                    <CiUser className="icon" />
-                                    <input className="user_field" type="text" name="fullName" placeholder="Full Name" required autoComplete="off" value={state.booking.passengerRegistration.fullName} onChange={handleInputChange} />
+                    <>
+                        <main className="SignUp_modal">
+                            <section className="signUp_image_container">
+                                <img src={signUp} alt="signUp" className="Image" />
+                            </section>
+                            <section className="signUp_form_container">
+                                <h1 className="font-bold text-amber-400 text-3xl header mb-2">Sign Up</h1>
+                                <p className="text-zinc-400 text-sm font-semibold m-0">
+                                    Already a member?{" "}
+                                    <NavLink className="text-orange-500 cursor-pointer no-underline" to="/SignIn">
+                                        Sign in
+                                    </NavLink>
+                                </p>
+                                <div className="plugin_desktop">
+                                    <Button color="secondary" variant="outline" className="Button py-2">
+                                        <FcGoogle className="text-2xl plugin_icon" /> <span className="ml-1 plugin_type">Google</span>
+                                    </Button>
+                                    <Button color="secondary" variant="outline" className="Button py-2">
+                                        <FaFacebook className="text-2xl plugin_icon text-blue-500" /> <span className="ml-1 plugin_type">Facebook</span>
+                                    </Button>
                                 </div>
-                                <div className="input-with-icon">
-                                    <CiMail className="icon" />
-                                    <input className="user_field" type="text" name="email" placeholder="Email or Phone Number" required autoComplete="off" value={state.booking.passengerRegistration.email} onChange={handleInputChange} />
+                                <div className="plugin_Mobile">
+                                    <Button color="secondary" variant="outline" className="Button py-3">
+                                        <FcGoogle className="text-2xl plugin_icon" />
+                                        <span className="ml-1 plugin_type">Google</span>
+                                    </Button>
+                                    <Button color="secondary" variant="outline" className="Button py-3">
+                                        <FaFacebook className="text-2xl text-blue-500" /> <span className="ml-1 plugin_type">Facebook</span>
+                                    </Button>
                                 </div>
-                                <div className="input-with-icon">
-                                    <CiLock className="icon" />
-                                    <input className="password_field" type="password" name="password" placeholder="Password" required autoComplete="off" value={state.booking.passengerRegistration.password} onChange={handleInputChange} />
-                                </div>
-                                <div className="mt-4">
-                                    <label htmlFor="check1" className={`text-zinc-400 text-sm condition ${state.booking.conditionCheck ? "activeItem" : ""}`} onClick={handleCondition}>
-                                        I agree to the <span className="terms-and-conditions">terms and conditions</span>
-                                    </label>
-                                    <Button className="create_Account bg-amber-400 hover:bg-amber-300 active:bg-amber-200 text-white">Create Account</Button>
-                                </div>
-                            </form>
-                        </section>
-                    </main>
+                                <p className="font-semibold text-zinc-500 text-sm text-center Separate">OR</p>
+                                <form className="signup-form" onSubmit={handleSubmit}>
+                                    <div className="input-with-icon">
+                                        <CiUser className="icon" />
+                                        <input className="user_field" type="text" name="fullName" placeholder="Full Name" required autoComplete="off" value={state.booking.passengerRegistration.fullName} onChange={handleInputChange} />
+                                    </div>
+                                    <div className="input-with-icon">
+                                        <CiMail className="icon" />
+                                        <input className="user_field" type="text" name="email" placeholder="Email or Phone Number" required autoComplete="off" value={state.booking.passengerRegistration.email} onChange={handleInputChange} />
+                                    </div>
+                                    <div className="input-with-icon">
+                                        <CiLock className="icon" />
+                                        <input className="password_field" type="password" name="password" placeholder="Password" required autoComplete="off" value={state.booking.passengerRegistration.password} onChange={handleInputChange} />
+                                    </div>
+                                    <div className="mt-4">
+                                        <label htmlFor="check1" className={`text-zinc-400 text-sm condition ${state.booking.conditionCheck ? "activeItem" : ""}`} onClick={handleCondition}>
+                                            I agree to the <span className="terms-and-conditions">terms and conditions</span>
+                                        </label>
+                                        <Button className="create_Account bg-amber-400 hover:bg-amber-300 active:bg-amber-200 text-white">Create Account</Button>
+                                    </div>
+                                </form>
+                            </section>
+                        </main>
+                        <Suspense>
+                            <NotificationComponent/>
+                        </Suspense>
+                    </>
                 )}
             </Container>
         </main>

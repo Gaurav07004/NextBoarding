@@ -118,6 +118,16 @@ const initialState = {
     },
     token: null,
     totalAmount: "",
+    ShowDeleteModal: false,
+    deleteAccount: {
+        email: "",
+        password: "",
+    },
+    dataLoad: true,
+    routeData: [],
+    routeInfo: [],
+    flightBookingDetails: [],
+    routeStatus: "Upcoming",
 };
 export const fetch_API = createAsyncThunk("fetch_API", async (input) => {
     try {
@@ -440,6 +450,27 @@ const bookingSlice = createSlice({
         setTotalAmount: (state, action) => {
             state.totalAmount = action.payload;
         },
+        setDeleteModal: (state, action) => {
+            state.ShowDeleteModal = action.payload;
+        },
+        setDeleteAccount: (state, action) => {
+            state.deleteAccount = action.payload;
+        },
+        setDataLoad: (state, action) => {
+            state.dataLoad = action.payload;
+        },
+        setRouteData: (state, action) => {
+            state.routeData = action.payload;
+        },
+        setFlightBookingDetails(state, action) {
+            state.flightBookingDetails = action.payload;
+        },
+        setRouteStatus(state, action) {
+            state.routeStatus = action.payload;
+        },
+        setRouteInfo(state, action) {
+            state.routeInfo.push(action.payload);
+        }
     },
     extraReducers: (builder) => {
         builder.addCase(fetch_API.fulfilled, (state, action) => {
@@ -517,6 +548,7 @@ export const {
     setSaveInfoButton,
     setFlightDetail,
     setSelectedFliter,
+    setDeleteModal,
     setSelectedBags,
     setPassengerEmergency,
     setPassengerForm,
@@ -546,6 +578,12 @@ export const {
     setOTP,
     setToken,
     setTotalAmount,
+    setDeleteAccount,
+    setDataLoad,
+    setRouteData,
+    setFlightBookingDetails,
+    setRouteStatus,
+    setRouteInfo 
 } = bookingSlice.actions;
 
 export default bookingSlice.reducer;
