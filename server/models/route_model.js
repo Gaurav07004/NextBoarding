@@ -64,7 +64,7 @@ const routeSchema = new mongoose.Schema({
     },
     status: {
         type: String,
-        required: true
+        default: "Upcoming"
     }
 });
 

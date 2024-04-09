@@ -76,9 +76,11 @@ const user = async (req, res) => {
         const currentDate = new Date();
         routeData = await Promise.all(
             routeData.map(async (route) => {
-                const travelDate = new Date(route.travel_Date);
-                route.status = travelDate <= currentDate ? "Completed" : "Upcoming";
-                await route.save();
+                if(route.status !== "Cancelled") {
+                    const travelDate = new Date(route.travel_Date);
+                    route.status = travelDate <= currentDate ? "Completed" : "Upcoming";
+                    await route.save();
+                }
                 return route.toJSON();
             })
         );
@@ -153,7 +155,7 @@ const emailController = async (req, res) => {
 
     const userExist = await User.findOne({ email });
 
-    if (!email) {
+    if (!userExist) {
         return res.status(400).json({ error: "User Not Found" });
     }
     try {
@@ -223,7 +225,6 @@ const storeRouteData = async (req, res) => {
             arrival_Time,
             total_duration,
             stop,
-            status,
         } = req.body;
 
         const newRoute = new RouteData({
@@ -242,7 +243,6 @@ const storeRouteData = async (req, res) => {
             arrival_Time,
             total_duration,
             stop,
-            status,
         });
 
         await newRoute.save();
@@ -379,45 +379,45 @@ const DeleteAccount = async (req, res) => {
 // };
 
 const CancelTrip = async (req, res) => {
-    //const tripId = req.params.id;
-    const { tripId, status } = req.body;
-
     try {
-        const updatedTrip = await RouteData.findById(tripId);
+        const { tripId } = req.params;
+        const { status } = req.body;
 
-        if (!updatedTrip) {
-            return res.status(404).json({ error: "Trip not found" });
+        const updatedRoute = await RouteData.findOneAndUpdate(
+            { _id: tripId },
+            { status },
+            { new: true }
+        );
+
+        if (!updatedRoute) {
+            return res.status(404).json({ error: "Route not found" });
         }
 
-        updatedTrip.status = status; // Update the status field of the updatedTrip object
-
-        await updatedTrip.save(); // Save the changes to the updatedTrip object
-
-        return res.status(200).json({ message: "Trip data updated successfully" });
+        return res.status(200).json({ message: "Canceled Successfully (Backend)" });
     } catch (error) {
-        res.status(500).json({ error: "Failed to cancel trip", message: error.message });
+        console.error("Error updating trip status:", error);
+        return res.status(500).json({ error: "Internal server error" });
     }
 };
 
+// const getTripById = async (req, res) => {
+//     const tripId = req.params.id;
 
-const getTripById = async (req, res) => {
-    const tripId = req.params.id;
+//     try {
+//         // Retrieve trip data from the database based on the trip ID
+//         const tripData = await RouteData.findById(tripId);
 
-    try {
-        // Retrieve trip data from the database based on the trip ID
-        const tripData = await RouteData.findById(tripId);
+//         if (!tripData) {
+//             // If trip data with the given ID is not found, send a 404 response
+//             return res.status(404).json({ error: "Trip not found" });
+//         }
 
-        if (!tripData) {
-            // If trip data with the given ID is not found, send a 404 response
-            return res.status(404).json({ error: "Trip not found" });
-        }
+//         // Send the trip data in the response
+//         res.json(tripData);
+//     } catch (error) {
+//         // If an error occurs, send a 500 response with the error message
+//         res.status(500).json({ error: "Failed to fetch trip data", message: error.message });
+//     }
+// };
 
-        // Send the trip data in the response
-        res.json(tripData);
-    } catch (error) {
-        // If an error occurs, send a 500 response with the error message
-        res.status(500).json({ error: "Failed to fetch trip data", message: error.message });
-    }
-};
-
-module.exports = { home, registration, login, user, emailController, OTP, changePassword, storeRouteData, storePassengerData, paymentGateway, AccountData, DeleteAccount, CancelTrip, getTripById };
+module.exports = { home, registration, login, user, emailController, OTP, changePassword, storeRouteData, storePassengerData, paymentGateway, AccountData, DeleteAccount, CancelTrip };
