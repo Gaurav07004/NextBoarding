@@ -47,7 +47,6 @@ const Bills = () => {
                     arrival_Time: state.booking.flightDetail.arrival,
                     total_duration: state.booking.flightDetail.time,
                     stop: state.booking.flightDetail.stop,
-                    status: state.booking.routeStatus,
                 }),
             });
 

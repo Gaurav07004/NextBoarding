@@ -5,7 +5,7 @@ import { NavLink } from "react-router-dom";
 
 function TableComponent() {
     const state = useSelector((state) => state);
-    const cancelledRoutes = state.booking.routeData.filter(route => route.status === "Cancelled");
+    const cancelledRoutes = Object.values(state.booking.routeData).filter(route => route.status === "Cancelled");
 
     if (cancelledRoutes.length === 0) {
         return (
@@ -13,7 +13,7 @@ function TableComponent() {
                 <Empty.Image>
                     <img src={Search} height={200} width={300} alt="404" />
                 </Empty.Image>
-                <Empty.Title className="text-2xl font-semibold">Looks empty, you've no cancelled bookings.</Empty.Title>
+                <Empty.Title className="text-2xl font-semibold">Looks empty, you have no cancelled bookings.</Empty.Title>
                 <Empty.Description>When you book a trip, you will see your itinerary here.</Empty.Description>
                 <NavLink to="/" className="no-underline w-fit block">
                     <Button className="mt-4 bg-amber-400 hover:bg-amber-300 focus:bg-amber-400 active:bg-amber-400 make_trip">Make a Trip</Button>
