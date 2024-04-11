@@ -30,7 +30,7 @@ const Bills = () => {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
-                    Authorization: `Bearer ${token}`, // Include token in Authorization header
+                    Authorization: `Bearer ${token}`,
                 },
                 body: JSON.stringify({
                     departure_City: state.booking.departureAirport.city,

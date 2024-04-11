@@ -125,32 +125,6 @@ function BookingPortal() {
         );
         setData(false);
     }
-    // if (Data1 && state.booking.routeData.length > 0) {
-    //     state.booking.routeData.forEach((route, routeIndex) => {
-    //         dispatch(
-    //             setRouteInfo({
-    //                 departureCity: route.departure_City,
-    //                 departureAirport: route.departure_Airport,
-    //                 arrivalCity: route.arrival_City,
-    //                 arrivalAirport: route.arrival_Airport,
-    //                 travelDate: route.travel_Date,
-    //                 travellerNumber: route.traveller_Number,
-    //                 travellerClass: route.traveller_Class,
-    //                 fareType: route.fare_Type,
-    //                 airlineName: route.airline_Name,
-    //                 flightNumber: route.flight_Number,
-    //                 departureTime: route.departure_Time,
-    //                 arrivalTime: route.arrival_Time,
-    //                 totalDuration: route.total_duration,
-    //                 stop: route.stop,
-    //                 status: route.status
-    //             })
-    //         );
-    //     });
-    //     setData1(false);
-    // }
-
-
     console.log("TRipData", state.booking.routeInfo);
 
     const fetchAirportAPI = async (input, type) => {
