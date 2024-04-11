@@ -353,36 +353,6 @@ const DeleteAccount = async (req, res) => {
     }
 };
 
-// const CancelTrip = async (req, res) => {
-//     try {
-//         const { tripId } = req.body;
-
-//         if (!mongoose.Types.ObjectId.isValid(tripId)) {
-//             return res.status(400).json({ message: "Invalid tripId" });
-//         }
-
-//         const trip = await RouteData.findById(tripId);
-
-//         if (!trip) {
-//             return res.status(404).json({ message: "Trip not found" });
-//         }
-
-//         if (trip.status === 'Cancelled') {
-//             return res.status(400).json({ message: 'Trip already cancelled' });
-//         }
-
-//         trip.status = "Cancelled";
-//         await trip.save();
-
-//         return res.status(200).json({ message: 'Trip cancelled successfully' });
-
-//     } catch (error) {
-//         console.error("Error cancelling trip:", error.message);
-//         res.status(500).json("Internal Server Error");
-//     }
-
-// };
-
 const CancelTrip = async (req, res) => {
     try {
         const { passengerId } = req.params;
@@ -395,14 +365,12 @@ const CancelTrip = async (req, res) => {
             return res.status(404).json({ error: "Passenger not found" });
         }
 
-        // Find the index of the passenger within the passengers array
         const passengerIndex = passengerData.passengers.findIndex(passenger => passenger._id.toString() === passengerId);
 
         if (passengerIndex === -1) {
             return res.status(404).json({ error: "Passenger not found" });
         }
 
-        // Update the status of the passenger
         passengerData.passengers[passengerIndex].status = status;
         await passengerData.save();
 
@@ -413,33 +381,5 @@ const CancelTrip = async (req, res) => {
     }
 };
 
-
-// const CancelTrip = async (req, res) => {
-//     try {
-//         const { passengerId } = req.params;
-//         const { status } = req.body;
-
-//         const booking = await PassengerData.passengers.findOne({ _id: passengerId });
-
-//         if (!booking) {
-//             return res.status(404).json({ error: "Booking not found" });
-//         }
-
-//         const passenger = booking.find(passenger => passenger._id.toString() === passengerId);
-
-//         if (!passenger) {
-//             return res.status(404).json({ error: "Passenger not found in booking" });
-//         }
-
-//         passenger.status = status;
-
-//         await booking.save();
-
-//         return res.status(200).json({ message: "Passenger status updated successfully" });
-//     } catch (error) {
-//         console.error("Error updating passenger status:", error);
-//         return res.status(500).json({ error: "Internal server error" });
-//     }
-// };
 
 module.exports = { home, registration, login, user, emailController, OTP, changePassword, storeRouteData, storePassengerData, paymentGateway, AccountData, DeleteAccount, CancelTrip };
