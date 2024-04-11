@@ -9,7 +9,8 @@ const passengerSchema = new mongoose.Schema({
     phone_Number: { type: String, required: true },
     gender: { type: String, required: true },
     residential_Address: { type: String, required: true },
-    seat: {type: String, required: true},
+    seat: { type: String, required: true},
+    status: { type: String, default: "Upcoming"} 
 });
 
 const emergencyContactSchema = new mongoose.Schema({
@@ -23,6 +24,11 @@ const bookingSchema = new mongoose.Schema({
     user_Id: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User',
+        required: true
+    },
+    route_Id: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'RouteData',
         required: true
     },
     passengers: { type: [passengerSchema], required: true },

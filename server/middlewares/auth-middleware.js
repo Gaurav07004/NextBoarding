@@ -71,9 +71,11 @@ const authMiddleware = async (req, res, next) => {
         req.token = jwtToken;
         req.userId = userId;
         req.routeData = routeData; 
-        req.passengerData = passengerData; 
         req.paymentData = paymentData; 
-
+        const routeIds = routeData.map(route => route._id);
+        req.routeIds = routeIds;
+        req.passengerData = passengerData;
+        
         next();
     } catch (error) {
         return res.status(401).json({ message: "Unauthorized, Invalid Token" });

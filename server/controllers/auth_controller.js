@@ -71,19 +71,19 @@ const login = async (req, res) => {
 const user = async (req, res) => {
     try {
         const userId = req.user._id;
-        let routeData = await RouteData.find({ user_Id: userId });
+        const routeData = await RouteData.find({ user_Id: userId });
 
-        const currentDate = new Date();
-        routeData = await Promise.all(
-            routeData.map(async (route) => {
-                if(route.status !== "Cancelled") {
-                    const travelDate = new Date(route.travel_Date);
-                    route.status = travelDate <= currentDate ? "Completed" : "Upcoming";
-                    await route.save();
-                }
-                return route.toJSON();
-            })
-        );
+        // const currentDate = new Date();
+        // routeData = await Promise.all(
+        //     routeData.map(async (route) => {
+        //         if(route.status !== "Cancelled") {
+        //             const travelDate = new Date(route.travel_Date);
+        //             route.status = travelDate <= currentDate ? "Completed" : "Upcoming";
+        //             await route.save();
+        //         }
+        //         return route.toJSON();
+        //     })
+        // );
 
         const passengerData = await PassengerData.find({ user_Id: userId });
         const paymentData = await Payment.find({ user_Id: userId });
@@ -256,11 +256,15 @@ const storeRouteData = async (req, res) => {
 
 const storePassengerData = async (req, res) => {
     try {
+
         const user_Id = req.user._id;
+        const route_Id = req.routeIds[req.routeIds.length - 1]
         const { passengers, emergencyContacts, checked_Bags } = req.body;
 
+        // Create a new instance of Booking model
         const newBooking = new PassengerData({
             user_Id,
+            route_Id,
             passengers,
             emergencyContacts,
             checked_Bags,
@@ -274,6 +278,7 @@ const storePassengerData = async (req, res) => {
         res.status(500).json({ error: error.message });
     }
 };
+
 
 const paymentGateway = async (req, res) => {
     try {
@@ -380,43 +385,60 @@ const DeleteAccount = async (req, res) => {
 
 const CancelTrip = async (req, res) => {
     try {
-        const { tripId } = req.params;
+        const { passengerId } = req.params;
+        const { route_Id } = req.params;
         const { status } = req.body;
 
-        const updatedRoute = await RouteData.findOneAndUpdate(
-            { _id: tripId },
-            { status },
-            { new: true }
-        );
+        const passengerData = await PassengerData.findOne({route_Id});
 
-        if (!updatedRoute) {
-            return res.status(404).json({ error: "Route not found" });
+        if (!passengerData) {
+            return res.status(404).json({ error: "Passenger not found" });
         }
 
-        return res.status(200).json({ message: "Canceled Successfully (Backend)" });
+        // Find the index of the passenger within the passengers array
+        const passengerIndex = passengerData.passengers.findIndex(passenger => passenger._id.toString() === passengerId);
+
+        if (passengerIndex === -1) {
+            return res.status(404).json({ error: "Passenger not found" });
+        }
+
+        // Update the status of the passenger
+        passengerData.passengers[passengerIndex].status = status;
+        await passengerData.save();
+
+        return res.status(200).json({ message: "Trip canceled successfully" });
     } catch (error) {
-        console.error("Error updating trip status:", error);
+        console.error("Error canceling trip:", error);
         return res.status(500).json({ error: "Internal server error" });
     }
 };
 
-// const getTripById = async (req, res) => {
-//     const tripId = req.params.id;
 
+// const CancelTrip = async (req, res) => {
 //     try {
-//         // Retrieve trip data from the database based on the trip ID
-//         const tripData = await RouteData.findById(tripId);
+//         const { passengerId } = req.params;
+//         const { status } = req.body;
 
-//         if (!tripData) {
-//             // If trip data with the given ID is not found, send a 404 response
-//             return res.status(404).json({ error: "Trip not found" });
+//         const booking = await PassengerData.passengers.findOne({ _id: passengerId });
+
+//         if (!booking) {
+//             return res.status(404).json({ error: "Booking not found" });
 //         }
 
-//         // Send the trip data in the response
-//         res.json(tripData);
+//         const passenger = booking.find(passenger => passenger._id.toString() === passengerId);
+
+//         if (!passenger) {
+//             return res.status(404).json({ error: "Passenger not found in booking" });
+//         }
+
+//         passenger.status = status;
+
+//         await booking.save();
+
+//         return res.status(200).json({ message: "Passenger status updated successfully" });
 //     } catch (error) {
-//         // If an error occurs, send a 500 response with the error message
-//         res.status(500).json({ error: "Failed to fetch trip data", message: error.message });
+//         console.error("Error updating passenger status:", error);
+//         return res.status(500).json({ error: "Internal server error" });
 //     }
 // };
 
