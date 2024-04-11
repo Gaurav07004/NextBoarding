@@ -71,19 +71,19 @@ const login = async (req, res) => {
 const user = async (req, res) => {
     try {
         const userId = req.user._id;
-        const routeData = await RouteData.find({ user_Id: userId });
+        let routeData = await RouteData.find({ user_Id: userId });
 
-        // const currentDate = new Date();
-        // routeData = await Promise.all(
-        //     routeData.map(async (route) => {
-        //         if(route.status !== "Cancelled") {
-        //             const travelDate = new Date(route.travel_Date);
-        //             route.status = travelDate <= currentDate ? "Completed" : "Upcoming";
-        //             await route.save();
-        //         }
-        //         return route.toJSON();
-        //     })
-        // );
+        const currentDate = new Date();
+        routeData = await Promise.all(
+            routeData.map(async (route) => {
+                if(route.status !== "Cancelled") {
+                    const travelDate = new Date(route.travel_Date);
+                    route.status = travelDate <= currentDate ? "Completed" : "Upcoming";
+                    await route.save();
+                }
+                return route.toJSON();
+            })
+        );
 
         const passengerData = await PassengerData.find({ user_Id: userId });
         const paymentData = await Payment.find({ user_Id: userId });
