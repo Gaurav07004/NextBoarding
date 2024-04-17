@@ -40,7 +40,8 @@ import {
     setAccountData,
     setRouteData,
     setFlightBookingDetails,
-    setPassengerAccInfo
+    setPassengerAccInfo,
+    setSelectedImages
 } from "../../redux/slices/booking/bookingslices.jsx";
 
 function BookingPortal() {
@@ -122,6 +123,9 @@ function BookingPortal() {
                 Gender: state.booking.accountData.Gender,
                 Address: state.booking.accountData.Address,
             })
+        );
+        dispatch(
+            setSelectedImages( state.booking.accountData.profileImage )
         );
         setData(false);
     }

@@ -15,9 +15,14 @@ import { NavLink } from "react-router-dom";
 function SidebarComponent() {
     const dispatch = useDispatch();
     const state = useSelector((state) => state);
+
     const handleImageUpload = (imageList) => {
-        dispatch(setSelectedImages(imageList));
+        const dataUrl = imageList.length > 0 ? imageList[0].data_url : null;
+        dispatch(setSelectedImages(dataUrl)); 
     };
+
+    console.log("setSelectedImages", state.booking.selectedImages)
+    
     const handleSidebar = () => {
         dispatch(setShowSidebar(!state.booking.showSidebar));
     };
@@ -33,14 +38,13 @@ function SidebarComponent() {
     const sidebarItems = [
         { icon: <LuUserCircle2 size={24} />, label: "Account Details" },
         { icon: <PiPersonSimpleBikeBold size={24} />, label: "My Trips", sub_label_1: "Upcoming", sub_label_2: "Cancelled", sub_label_3: "Completed" },
-        // { icon: <IoLogIn  size={24} />, label: "LogIn Details" },
         { icon: <IoLogOut size={24} />, label: "Log Out"}
     ];
 
     return (
         <Sidebar>
             <div className="flex">
-                <ImageUploading multiple value={state.booking.selectedImages} onChange={handleImageUpload} maxNumber={1} dataURLKey="data_url">
+                <ImageUploading value={state.booking.selectedImages} onChange={handleImageUpload}  dataURLKey="data_url">
                     {({ imageList, onImageUpload, onImageUpdate }) => (
                         <div className="upload__image-wrapper">
                             {imageList.length === 0 ? (
@@ -48,7 +52,9 @@ function SidebarComponent() {
                                     <FiUser />
                                 </div>
                             ) : (
-                                ""
+                                <div>
+                                    <img className="image-item" src={state.booking.selectedImages} alt="" width="100" />
+                                </div>
                             )}
                             <div
                                 onClick={() => {
@@ -58,11 +64,11 @@ function SidebarComponent() {
                             >
                                 {imageList.length === 0 ? <BsPencilSquare /> : <BsPencilSquare />}
                             </div>
-                            {imageList.map((image, index) => (
+                            {Array.isArray(imageList) && imageList.map((image, index) => (
                                 <div key={index}>
                                     <img className="image-item" src={image["data_url"]} alt="" width="100" />
                                 </div>
-                            ))}
+                            ))}     
                         </div>
                     )}
                 </ImageUploading>

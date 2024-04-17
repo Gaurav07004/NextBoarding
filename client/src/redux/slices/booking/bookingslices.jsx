@@ -82,7 +82,7 @@ const initialState = {
     showPasswordModal: false,
     showPassword: "password",
     selectedTripStatus: "Account Details",
-    selectedImages: [],
+    selectedImages: "",
     passengerAccInfo: {
             Fullname: "",
             PhoneNumber: "",
@@ -224,15 +224,6 @@ export const Passenger_seat = createAsyncThunk("Passengers_seat", async (selectS
     }
 });
 
-// export const UserAuthentication = createAsyncThunk("booking/UserAuthentication", async (_, thunkAPI) => {
-//     try {
-//         const state = thunkAPI.getState();
-//         const data = await userAuthentication(state.booking.token);
-//         return data;
-//     } catch (error) {
-//         return thunkAPI.rejectWithValue(error.message);
-//     }
-// });
 
 
 const bookingSlice = createSlice({

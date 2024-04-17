@@ -63,6 +63,7 @@ function Account() {
                     MaritalStatus: state.booking.passengerAccInfo.MaritalStatus,
                     Gender: state.booking.passengerAccInfo.Gender,
                     Address: state.booking.passengerAccInfo.Address,
+                    profileImage: state.booking.selectedImages,
                 }),
             });
 
