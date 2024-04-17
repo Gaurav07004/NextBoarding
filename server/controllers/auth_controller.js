@@ -18,7 +18,7 @@ const home = async (req, res) => {
 
 const registration = async (req, res) => {
     try {
-        const { fullName, email, password, PhoneNumber = "", MaritalStatus = "", Gender = "", Address = "" } = req.body;
+        const { fullName, email, password, PhoneNumber = "", MaritalStatus = "", Gender = "", Address = "", profileImage = "" } = req.body;
 
         const userExist = await User.findOne({ email });
 
@@ -26,7 +26,7 @@ const registration = async (req, res) => {
             return res.status(400).json({ error: "Email already exists" });
         }
 
-        const newUser = await User.create({ fullName, email, password, PhoneNumber, MaritalStatus, Gender, Address });
+        const newUser = await User.create({ fullName, email, password, PhoneNumber, MaritalStatus, Gender, Address, profileImage });
         const token = await newUser.generateToken();
         res.status(200).json({ newUser, token, userId: newUser._id.toString() });
     } catch (error) {
@@ -72,20 +72,34 @@ const user = async (req, res) => {
     try {
         const userId = req.user._id;
         let routeData = await RouteData.find({ user_Id: userId });
+        let passengerData = await PassengerData.find({ user_Id: userId });
 
         const currentDate = new Date();
-        routeData = await Promise.all(
-            routeData.map(async (route) => {
-                if(route.status !== "Cancelled") {
+
+        passengerData = await Promise.all(
+            passengerData.map(async (passengerRoute) => {
+                const routeId = passengerRoute.route_Id.toString(); // Convert ObjectId to string
+                
+                const route = routeData.find(route => route._id.toString() === routeId); // Convert route _id to string for comparison
+                
+                if (route) {
                     const travelDate = new Date(route.travel_Date);
-                    route.status = travelDate <= currentDate ? "Completed" : "Upcoming";
-                    await route.save();
+                    passengerRoute.passengers = passengerRoute.passengers.map(passenger => {
+                        if (passenger.status !== "Cancelled") {
+                            if (travelDate > currentDate) {
+                                passenger.status = "Upcoming";
+                            } else {
+                                passenger.status = "Completed";
+                            }
+                        }
+                        return passenger;
+                    });
                 }
-                return route.toJSON();
+                await passengerRoute.save(); // Saving updated passenger data
+                return passengerRoute;
             })
         );
 
-        const passengerData = await PassengerData.find({ user_Id: userId });
         const paymentData = await Payment.find({ user_Id: userId });
 
         const userData = {
@@ -101,6 +115,76 @@ const user = async (req, res) => {
         res.status(500).json("Internal Server Error");
     }
 };
+
+
+
+// const user = async (req, res) => {
+//     try {
+//         const userId = req.user._id;
+        
+//         // Fetch route data for the user
+//         let routeData = await RouteData.find({ user_Id: userId });
+
+//         // Get the current date
+//         const currentDate = new Date();
+
+//         // Update the status of passengers in each route
+//         routeData = await Promise.all(
+//             routeData.map(async (route) => {
+//                 // Fetch passenger data related to the current route
+//                 const passengers = await PassengerData.find({ route_Id: route._id });
+
+//                 // Update status for each passenger
+//                 await Promise.all(
+//                     passengers.map(async (passenger) => {
+//                         if (passenger.status !== "Cancelled") {
+//                             const travelDate = new Date(route.travel_Date);
+//                             console.log("Travel Date:", travelDate);
+//                             console.log("Current Date:", currentDate);
+//                             if (travelDate <= currentDate) {
+//                                 console.log("Setting status to Completed");
+//                                 passenger.status = "Completed";
+//                             } else {
+//                                 console.log("Setting status to Upcoming");
+//                                 passenger.status = "Upcoming";
+//                             }
+//                             await passenger.save();
+//                         }
+//                     })
+//                 );
+
+//                 // Convert passengers to JSON
+//                 const passengersJSON = passengers.map((passenger) => passenger.toJSON());
+                
+//                 // Return updated route data
+//                 return {
+//                     ...route.toJSON(),
+//                     passengers: passengersJSON
+//                 };
+//             })
+//         );
+
+//         // Fetch passenger data for the user
+//         const passengerData = await PassengerData.find({ user_Id: userId });
+
+//         // Fetch payment data for the user
+//         const paymentData = await Payment.find({ user_Id: userId });
+
+//         // Construct user data to be sent in the response
+//         const userData = {
+//             user: req.user,
+//             routeData,
+//             passengerData,
+//             paymentData,
+//         };
+
+//         // Send the user data in the response
+//         return res.status(200).json(userData);
+//     } catch (error) {
+//         console.error("Error from the user route:", error.message);
+//         res.status(500).json("Internal Server Error");
+//     }
+// };
 
 const sendEmail = async (email) => {
     try {
@@ -279,7 +363,6 @@ const storePassengerData = async (req, res) => {
     }
 };
 
-
 const paymentGateway = async (req, res) => {
     try {
         const user_Id = req.user._id;
@@ -303,7 +386,7 @@ const paymentGateway = async (req, res) => {
 };
 
 const AccountData = async (req, res) => {
-    const { fullName, email, PhoneNumber, MaritalStatus, Gender, Address } = req.body;
+    const { fullName, email, PhoneNumber, MaritalStatus, Gender, Address, profileImage } = req.body;
 
     try {
         const user = await User.findOne({ email });
@@ -318,6 +401,7 @@ const AccountData = async (req, res) => {
         user.MaritalStatus = MaritalStatus;
         user.Gender = Gender;
         user.Address = Address;
+        user.profileImage = profileImage;
 
         await user.save();
 
