@@ -14,8 +14,8 @@ const corsOptions = {
 app.use(cors(corsOptions));
 
 // Increase payload size limit (e.g., 50MB)
-app.use(express.json({ limit: '50mb' }));
-app.use(express.urlencoded({ limit: '50mb', extended: true }));
+app.use(express.json({ limit: '1gb' }));
+app.use(express.urlencoded({ limit: '1gb', extended: true }));
 
 app.use("/api/auth", router);
 

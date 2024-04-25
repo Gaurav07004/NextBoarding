@@ -116,8 +116,6 @@ const user = async (req, res) => {
     }
 };
 
-
-
 // const user = async (req, res) => {
 //     try {
 //         const userId = req.user._id;

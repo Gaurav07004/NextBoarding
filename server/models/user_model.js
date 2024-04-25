@@ -32,10 +32,9 @@ const userSchema = new mongoose.Schema({
         type: String,
         default: '',
     },
-    profileImage: {
+    profileImage: [{
         type: String,
-        default: '',
-    }
+    }],
 });
 
 userSchema.pre("save", async function(next) {
