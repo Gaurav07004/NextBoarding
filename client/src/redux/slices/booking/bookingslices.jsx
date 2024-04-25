@@ -82,7 +82,8 @@ const initialState = {
     showPasswordModal: false,
     showPassword: "password",
     selectedTripStatus: "Account Details",
-    selectedImages: "",
+    selectedImages: [],
+    profileImages: null,
     passengerAccInfo: {
             Fullname: "",
             PhoneNumber: "",
@@ -397,6 +398,9 @@ const bookingSlice = createSlice({
         setSelectedImages: (state, action) => {
             state.selectedImages = action.payload;
         },
+        setProfileImages: (state, action) => {
+            state.profileImages = action.payload;
+        },
         setPassengerAccInfo: (state, action) => {
             state.passengerAccInfo = action.payload;
         },
@@ -560,6 +564,7 @@ export const {
     setShowPassword,
     setSelectedTripStatus,
     setSelectedImages,
+    setProfileImages,
     setPassengerAccInfo,
     setPassengerRegistration,
     setPassengerLogin,

@@ -1,4 +1,4 @@
-import React, { Suspense, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import signIn from "../../assets/book.png";
 import Container from "@mui/material/Container";
 import { useDispatch, useSelector } from "react-redux";
@@ -6,7 +6,7 @@ import { TailSpin } from "react-loader-spinner";
 import { FcGoogle } from "react-icons/fc";
 import { FaFacebook } from "react-icons/fa";
 import { CiLock, CiMail, CiUnlock } from "react-icons/ci";
-import { Check } from 'phosphor-react'
+import { Check, WarningCircle  } from 'phosphor-react'
 import { Button, Notification } from "keep-react";
 import "../CssFolder/SignIn.css";
 import { setConditionCheck, setShowPasswordModal, setShowPassword, setLoading, setPassengerLogin, setToken } from "../../redux/slices/booking/bookingslices.jsx";
@@ -14,11 +14,12 @@ import { NavLink, useNavigate } from "react-router-dom";
 
 const ForgetPassword = React.lazy(() => import("../JsxFolder/ForgetPassword.jsx"));
 
-function SignUp() {
+function SignIn() {
     const state = useSelector((state) => state);
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const [showNotification, setShowNotification] = useState(false);
+    const [showFailedNotification, setShowFailedNotification] = useState(false);
 
     const handleCondition = () => {
         dispatch(setConditionCheck(!state.booking.conditionCheck));
@@ -56,8 +57,7 @@ function SignUp() {
         });
 
         if (!response.ok) {
-            const errorData = await response.json();
-            throw new Error(errorData.error || "An error occurred while processing your request.");
+            setShowFailedNotification(true);
         }
 
         return await response.json();
@@ -79,7 +79,7 @@ function SignUp() {
                 }, 3000);
                 console.log("Login Successfully!");
             } else {
-                throw new Error("Login failed. Please check your credentials.");
+                console.log("Login Failed!");
             }
         } catch (error) {
             console.error(error.message);
@@ -96,19 +96,18 @@ function SignUp() {
         return () => clearTimeout(loadingTimeout);
     }, [dispatch]);
 
-    const NotificationComponent = () => (
+    // eslint-disable-next-line react/prop-types
+    const NotificationComponent = ({ isOpen, onClose, iconColor, message, icon }) => (
         <div className="px-5 py-3">
-            <Notification isOpen={showNotification} onClose={() => setShowNotification(false)} position="top-right">
+            <Notification isOpen={isOpen} onClose={onClose} position="top-right">
                 <Notification.Body className="max-w-sm p-4 border-slate-300 border-2 rounded-lg bg-slate-100">
                     <Notification.Content>
                         <div className="flex items-center gap-2 justify-center">
-                            <div className="h-14 w-14 p-1.5 bg-success-50 text-success-500 rounded-full border-2 border-success-300">
-                                <Check size={40} />
+                            <div className={`h-14 w-14 p-1.5 bg-${iconColor}-50 text-${iconColor}-500 rounded-full border-2 border-${iconColor}-300`}>
+                                {icon}
                             </div>
                             <div className="max-w-[220px]">
-                                <p className="text-body-4  text-metal-700 m-0 font-semibold">
-                                    Account is Login Successfully!
-                                </p>
+                                <p className="text-body-4 text-metal-700 m-0 font-semibold">{message}</p>
                             </div>
                         </div>
                     </Notification.Content>
@@ -189,9 +188,8 @@ function SignUp() {
                                 <section><ForgetPassword/></section>
                             </section>
                         </main>
-                        <Suspense fallback={<div>Loading...</div>}>
-                            <NotificationComponent/>
-                        </Suspense>
+                        <NotificationComponent isOpen={showNotification} onClose={() => setShowNotification(false)} message="Login Successfully!" iconColor="success" icon={<Check size={40} />} />
+                        <NotificationComponent isOpen={showFailedNotification} onClose={() => setShowFailedNotification(false)} message="Login failed. Please check your credentials." iconColor="error" icon={<WarningCircle size={40} />} />
                     </>
                 )}
             </Container>
@@ -199,4 +197,4 @@ function SignUp() {
     );
 }
 
-export default SignUp;
+export default SignIn;

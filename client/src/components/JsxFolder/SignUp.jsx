@@ -1,4 +1,4 @@
-import { useEffect, useState, Suspense } from "react";
+import { useEffect, useState } from "react";
 import signUp from "D:/Development/Web-development/ReactJs/NextBoarding/client/src/assets/signUp_1.png";
 import Container from "@mui/material/Container";
 import { useDispatch, useSelector } from "react-redux";
@@ -159,9 +159,7 @@ function SignUp() {
                                 </form>
                             </section>
                         </main>
-                        <Suspense>
-                            <NotificationComponent/>
-                        </Suspense>
+                        <NotificationComponent/>
                     </>
                 )}
             </Container>

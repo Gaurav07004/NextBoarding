@@ -1,4 +1,4 @@
-import React, { useState, Suspense } from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Button, Divider, Notification } from "keep-react";
 import { Check } from 'phosphor-react'
@@ -71,7 +71,7 @@ function Account() {
                 const errorData = await response.json();
                 throw new Error(errorData.error || "Something went wrong");
             }
-            alert("Data stored successfully");
+            setShowNotification(true);
             console.log("Data stored successfully");
         } catch (error) {
             console.error("Error:", error.message);
@@ -91,7 +91,7 @@ function Account() {
                             </div>
                             <div className="max-w-[220px]">
                                 <p className="text-body-4  text-metal-700 m-0 font-semibold">
-                                    Account is Login Successfully!
+                                    Account Data is Update Successfully.
                                 </p>
                             </div>
                         </div>
@@ -142,9 +142,7 @@ function Account() {
                     </div>
                 </form>
             </section>
-            <Suspense>
-                <NotificationComponent/>
-            </Suspense>
+                    <NotificationComponent/>
         </main>
     );
 }

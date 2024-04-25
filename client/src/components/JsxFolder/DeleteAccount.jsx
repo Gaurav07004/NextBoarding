@@ -54,9 +54,11 @@ function DeleteAccount() {
                 throw new Error(errorData.error || "Something went wrong");
             }
 
-            alert("Account deleted successfully");
+            setShowNotification(true);
             console.log("Account deleted successfully");
-            navigate("/SignUp");
+            setTimeout(() => {
+                navigate("/SignUp");
+            }, 3000);
         } catch (error) {
             console.error("Error:", error.message);
         }
@@ -73,7 +75,7 @@ function DeleteAccount() {
                             </div>
                             <div className="max-w-[220px]">
                                 <p className="text-body-4  text-metal-700 m-0 font-semibold">
-                                    Account is Login Successfully!
+                                    Account deleted successfully
                                 </p>
                             </div>
                         </div>
@@ -119,7 +121,7 @@ function DeleteAccount() {
                                     value={state.booking.deleteAccount.email}
                                     onChange={handleDeleteAccount}
                                 />
-                                {state.booking.showPassword === "password" ? <CiLock className="icon2" onClick={handleShowPassword} /> : <CiUnlock className="icon" onClick={handleHidePassword} />}
+                                {state.booking.showPassword === "password" ? <CiLock className="icon2" onClick={handleShowPassword} /> : <CiUnlock className="icon2" onClick={handleHidePassword} />}
                                 <input
                                     className="forget_Password_field rounded-lg"
                                     type={state.booking.showPassword}

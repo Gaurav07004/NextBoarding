@@ -17,7 +17,7 @@ function SidebarComponent() {
     const state = useSelector((state) => state);
 
     const handleImageUpload = (imageList) => {
-        const dataUrl = imageList.length > 0 ? imageList[0].data_url : null;
+        const dataUrl = imageList.map((image) => image["data_url"]);
         dispatch(setSelectedImages(dataUrl)); 
     };
 
@@ -44,34 +44,34 @@ function SidebarComponent() {
     return (
         <Sidebar>
             <div className="flex">
-                <ImageUploading value={state.booking.selectedImages} onChange={handleImageUpload}  dataURLKey="data_url">
-                    {({ imageList, onImageUpload, onImageUpdate }) => (
+                <ImageUploading multiple value={state.booking.selectedImages} onChange={handleImageUpload} dataURLKey="data_url">
+                    {({ onImageUpload, onImageUpdate }) => (
                         <div className="upload__image-wrapper">
-                            {imageList.length === 0 ? (
+                            {state.booking.selectedImages.length === 0 ? (
                                 <div className="user_icon">
                                     <FiUser />
                                 </div>
                             ) : (
                                 <div>
-                                    <img className="image-item" src={state.booking.selectedImages} alt="" width="100" />
+                                    {Array.isArray(state.booking.selectedImages) && state.booking.selectedImages.map((dataUrl, index) => (
+                                        <div key={index}>
+                                            <img className="image-item" src={dataUrl} alt="" width="100" />
+                                            <div className="Image_Update_Btn bg-amber-400">
+                                                <BsPencilSquare onClick={() => onImageUpdate(index)} />
+                                            </div>
+                                        </div>
+                                    ))}
                                 </div>
                             )}
-                            <div
-                                onClick={() => {
-                                    imageList.length === 0 ? onImageUpload() : onImageUpdate(0);
-                                }}
-                                className="Image_Update_Btn bg-amber-400"
-                            >
-                                {imageList.length === 0 ? <BsPencilSquare /> : <BsPencilSquare />}
-                            </div>
-                            {Array.isArray(imageList) && imageList.map((image, index) => (
-                                <div key={index}>
-                                    <img className="image-item" src={image["data_url"]} alt="" width="100" />
+                            {(!Array.isArray(state.booking.selectedImages) || state.booking.selectedImages.length === 0) && (
+                                <div className="Image_Update_Btn bg-amber-400">
+                                    <BsPencilSquare onClick={onImageUpload} />
                                 </div>
-                            ))}     
+                            )}
                         </div>
                     )}
                 </ImageUploading>
+
                 <RxCrossCircled  className="text-xl cross" onClick={handleSidebar}/>
             </div>
             <Sidebar.Header className='mb-0'>
