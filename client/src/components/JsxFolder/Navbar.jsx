@@ -1,6 +1,5 @@
 import { Link as ScrollLink } from "react-scroll";
-import signUp from "D:/Development/Web-development/ReactJs/NextBoarding/client/src/assets/signUp_1.png";
-import NewLogo from "D:/Development/Web-development/ReactJs/NextBoarding/client/src/assets/NewLogo.png";
+import NewLogo from "D:/Development/Web-development/ReactJs/NextBoarding/client/src/assets/Logo1.png";
 import "../CssFolder/Navbar.css";
 import { NavLink } from "react-router-dom";
 import { Avatar } from "keep-react"
@@ -31,7 +30,7 @@ function Navbar() {
             <nav className={`navbar`}>
                 <div>
                     <NavLink to="/" className="logo">
-                        <img src={NewLogo} alt="logo" className="w-36 h-auto"/>
+                        <img src={NewLogo} alt="logo" className="w-32 h-auto"/>
                     </NavLink>
                 </div>
                 <div className="menu">
@@ -49,7 +48,16 @@ function Navbar() {
                             <ScrollLink to="contact" spy={true} smooth={true} duration={250}>Contact</ScrollLink>
                         </li>
                     </ul>
-                    <Avatar shape="circle" className="Profile_Image" size="lg" img={signUp} onClick={handleOpenModal} />
+                    {Array.isArray(state.booking.selectedImages) && state.booking.selectedImages.map((dataUrl, index) => (
+                        <div key={index}>
+                            {dataUrl ? (
+                                <Avatar shape="circle" className="Profile_Image" size="lg" img={dataUrl} onClick={handleOpenModal} />
+                            ) : (
+                                //<Avatar shape="circle" className="Profile_Image" size="lg" img={dataUrl} onClick={handleOpenModal} />
+                                <Avatar shape="rounded" className="Profile_Image" size="lg" onClick={handleOpenModal}/>
+                            )}
+                        </div>
+                    ))}
                 </div>
                 <div className="Hamburger">
                     <div className="Hamburger_icon" onClick={handleSideNavbar}>
@@ -58,7 +66,11 @@ function Navbar() {
                     {state.booking.showSideNavbar && (
                         <div className="Hamburger_menu">
                             <div className="Profile_status">
-                                <Avatar shape="circle" className="Profile_Image" size="lg" img={signUp} onClick={handleOpenModal} />
+                                {Array.isArray(state.booking.selectedImages) && state.booking.selectedImages.map((dataUrl, index) => (
+                                    <div key={index}>
+                                        <Avatar shape="circle" className="Profile_Image" size="lg" img={dataUrl} onClick={handleOpenModal} />
+                                    </div>
+                                ))}
                                 <div className="flex flex-col">
                                     <div className="User_name">Gaurav Singh</div>
                                     <div className="User_status">gauravsingh07004@gmail.com</div>

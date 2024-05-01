@@ -1,7 +1,7 @@
 import Container from "@mui/material/Container";
 import { NavLink, Link } from "react-router-dom";
 import { FaFacebookSquare, FaInstagram, FaHeart, FaTwitter } from "react-icons/fa";
-import NewLogo from "D:/Development/Web-development/ReactJs/NextBoarding/client/src/assets/NewLogo.png";
+import NewLogo from "D:/Development/Web-development/ReactJs/NextBoarding/client/src/assets/Logo1.png";
 import { PiCopyrightLight } from "react-icons/pi";
 import "../CssFolder/Footer.css";
 
@@ -12,7 +12,7 @@ function Footer() {
         <div className="footer-content">
           <div>
               <NavLink to="/" className="Site-logo">
-                <img src={NewLogo} alt="logo" className="w-48 h-auto"/>
+                <img src={NewLogo} alt="logo" className="w-32 h-auto"/>
               </NavLink>
             </div>
           <div className="quick-links">

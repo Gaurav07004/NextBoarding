@@ -1,8 +1,6 @@
 import React, { Suspense, useEffect, startTransition  } from "react";
 import { useDispatch, useSelector } from "react-redux";
-//import { GiHamburgerMenu } from "react-icons/gi";
 import { Avatar } from "keep-react";
-import signUp_1 from "../assets/signUp_1.png";
 import { IoMenu } from "react-icons/io5";
 import "../components/CssFolder/Account.css";
 import { TailSpin } from "react-loader-spinner";
@@ -74,7 +72,11 @@ function Account() {
                                 <div className="font-semibold text-red-400 text-2xl mb-1 label">{status === "Account Details" ? "Account Detail" : status + " Trip"}</div>
                                 <div className="font-semibold text-gray-400 text-sm label_2">{status === "Account Details" ? "Manage Your FlyEase Profile" : ""}</div>
                                 <div className="flex gap-4 mt-12 user_id">
-                                    <Avatar shape="circle" img={signUp_1} />
+                                    {Array.isArray(state.booking.selectedImages) && state.booking.selectedImages.map((dataUrl, index) => (
+                                        <div key={index}>
+                                            <Avatar shape="circle" className="Profile_Image" size="lg" img={dataUrl} />
+                                        </div>
+                                    ))}
                                     <div className="flex flex-col justify-center">
                                         <div className="font-semibold text-red-400 text-md mb-1">User ID</div>
                                         <div className="font-semibold text-gray-400 text-sm">{state.booking.passengerAccInfo?.Fullname || ""}</div>

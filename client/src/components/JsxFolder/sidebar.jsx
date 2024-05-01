@@ -1,5 +1,4 @@
 import { useDispatch, useSelector } from "react-redux";
-import signUp_1 from "../../assets/signUp_1.png"
 import { LuUserCircle2 } from "react-icons/lu";
 import { BsPencilSquare } from "react-icons/bs";
 import { FiUser } from "react-icons/fi";
@@ -110,12 +109,14 @@ function SidebarComponent() {
             </Sidebar.Body>
             <Divider className="my-3" size="xl"/>
             <Sidebar.Footer className="flex items-center gap-2">
-                <div>
-                    <Avatar shape="circle" img={signUp_1} />
-                </div>
+                {Array.isArray(state.booking.selectedImages) && state.booking.selectedImages.map((dataUrl, index) => (
+                        <div key={index}>
+                            <Avatar shape="circle" className="Profile_Image" size="lg" img={dataUrl} />
+                        </div>
+                    ))}
                 <div>
                     <Typography variant="p" className="mb-0 text-body-3 font-medium text-metal-600">
-                        User Id
+                        User ID
                     </Typography>
                     <Typography variant="p" className="text-body-4 font-normal text-metal-400">
                         {state.booking.passengerAccInfo?.Fullname || ""}

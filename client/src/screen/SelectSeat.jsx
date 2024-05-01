@@ -340,38 +340,6 @@ const SelectSeat = () => {
         }
     };
 
-    // const TravellerData = () => {
-    //     const PassengerData = [];
-    //     const selectedSeats = state.booking.selectSeat;
-    //     const passengerTable = state.booking.passengerForm.map(passenger => ({
-    //         first_Name: passenger.firstName,
-    //         middle_Name: passenger.middleName,
-    //         last_Name: passenger.lastName,
-    //         email_Address: passenger.email,
-    //         phone_Number: passenger.phoneNumber,
-    //         gender: passenger.gender,
-    //         residential_Address: passenger.address,
-    //     }));
-    //     const BusinessClass = selectedSeats?.Business.map(seat => seat);
-    //     const EconomyClass = selectedSeats?.Economy.map(seat => seat);
-
-    //     for (let i = 0; i < passengerCount; i++) {
-    //         if (BusinessClass.length < passengerCount) {
-    //             PassengerData.push({ traveller: passengerTable, seats: BusinessClass });
-    //         } else {
-    //             PassengerData.push({ traveller: passengerTable, seats: EconomyClass });
-    //         }
-    //     }
-
-    //     dispatch(setPassengerData(PassengerData));
-
-    //     // You need to decide what to return here. 
-    //     // For now, I'm just returning PassengerData.
-    //     return PassengerData;
-    // };
-
-
-
     // console.log(BusinessClass);
     return (
         <>

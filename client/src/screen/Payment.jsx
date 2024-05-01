@@ -99,12 +99,13 @@ function Payment() {
         ccv: "CCV",
     };
     
-    const handleSubmit = async (e) => {
+
+const handleSubmit = async (e) => {
     e.preventDefault();
 
     try {
         const newErrors = {};
-        const { cardDetail } = state.booking;
+        const { cardDetail, token } = state.booking;
 
         const validateAlphabets = (field) => {
             if (!cardDetail[field]) {
@@ -133,10 +134,9 @@ function Payment() {
             return;
         }
 
-        const token = state.booking.token;
-            if (!token) {
-                throw new Error("No token found. Please log in.");
-            }
+        if (!token) {
+            throw new Error("No token found. Please log in.");
+        }
 
         const paymentData = {
             card_Name: cardDetail.cardName,
@@ -145,32 +145,26 @@ function Payment() {
             ccv: cardDetail.ccv,
         };
 
-        const response = await fetch("http://localhost:5000/api/auth/checkout", {
+        const checkoutResponse = await fetch("http://localhost:5000/api/auth/checkout", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
                 Authorization: `Bearer ${token}`,
             },
-            body: JSON.stringify({
-                payments: paymentData
-            }),
+            body: JSON.stringify({ payments: paymentData }),
         });
 
-        if (!response.ok) {
-            const errorData = await response.json();
-            throw new Error(errorData.error || "Something went wrong");
+        if (!checkoutResponse.ok) {
+            const errorData = await checkoutResponse.json();
+            const errorMessage = errorData.error || "Something went wrong during payment processing";
+            throw new Error(errorMessage);
         }
 
         navigate("/ConfirmBooking");
-        console.log("Data stored successfully");
-        console.log(paymentData);
-
     } catch (error) {
         console.error("Error:", error.message);
     }
 };
-
-    
 
     const cancel_model = () => {
         return (
