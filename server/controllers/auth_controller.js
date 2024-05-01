@@ -116,74 +116,6 @@ const user = async (req, res) => {
     }
 };
 
-// const user = async (req, res) => {
-//     try {
-//         const userId = req.user._id;
-        
-//         // Fetch route data for the user
-//         let routeData = await RouteData.find({ user_Id: userId });
-
-//         // Get the current date
-//         const currentDate = new Date();
-
-//         // Update the status of passengers in each route
-//         routeData = await Promise.all(
-//             routeData.map(async (route) => {
-//                 // Fetch passenger data related to the current route
-//                 const passengers = await PassengerData.find({ route_Id: route._id });
-
-//                 // Update status for each passenger
-//                 await Promise.all(
-//                     passengers.map(async (passenger) => {
-//                         if (passenger.status !== "Cancelled") {
-//                             const travelDate = new Date(route.travel_Date);
-//                             console.log("Travel Date:", travelDate);
-//                             console.log("Current Date:", currentDate);
-//                             if (travelDate <= currentDate) {
-//                                 console.log("Setting status to Completed");
-//                                 passenger.status = "Completed";
-//                             } else {
-//                                 console.log("Setting status to Upcoming");
-//                                 passenger.status = "Upcoming";
-//                             }
-//                             await passenger.save();
-//                         }
-//                     })
-//                 );
-
-//                 // Convert passengers to JSON
-//                 const passengersJSON = passengers.map((passenger) => passenger.toJSON());
-                
-//                 // Return updated route data
-//                 return {
-//                     ...route.toJSON(),
-//                     passengers: passengersJSON
-//                 };
-//             })
-//         );
-
-//         // Fetch passenger data for the user
-//         const passengerData = await PassengerData.find({ user_Id: userId });
-
-//         // Fetch payment data for the user
-//         const paymentData = await Payment.find({ user_Id: userId });
-
-//         // Construct user data to be sent in the response
-//         const userData = {
-//             user: req.user,
-//             routeData,
-//             passengerData,
-//             paymentData,
-//         };
-
-//         // Send the user data in the response
-//         return res.status(200).json(userData);
-//     } catch (error) {
-//         console.error("Error from the user route:", error.message);
-//         res.status(500).json("Internal Server Error");
-//     }
-// };
-
 const sendEmail = async (email) => {
     try {
         const transporter = nodemailer.createTransport({
@@ -198,11 +130,11 @@ const sendEmail = async (email) => {
         const otp = generateOTP();
         const emailContent = `<div style="max-width: 600px; margin: 0 auto; padding: 20px; background-color: #f0f0f0; border-radius: 1rem;">
             <h2 style="font-size: 24px; font-weight: bold; line-height: 28px;">Action Required: One-Time Verification Code</h2>
-            <p>You are receiving this email because a one-time verification code is required for your FlyEase account.</p>
+            <p>You are receiving this email because a one-time verification code is required for your NextBoarding account.</p>
             <p>Please use the following code to complete the verification process: <strong style="font-weight: bold; color: #007bff;">${otp}</strong></p>
             <p>If you did not request this verification code, please ignore this email.</p>
-            <p>If you need any assistance or have questions, feel free to contact our support team at <a href="mailto:${process.env.EMAIL_USER}" style="color: #007bff; text-decoration: none;">FlyEase Team</a>.</p>
-            <p>Thank you,<br>FlyEase Team</p>
+            <p>If you need any assistance or have questions, feel free to contact our support team at <a href="mailto:${process.env.EMAIL_USER}" style="color: #007bff; text-decoration: none;">NextBoarding Team</a>.</p>
+            <p>Thank you,<br>NextBoarding Team</p>
         </div>`;
 
         const info = await transporter.sendMail({
@@ -463,5 +395,56 @@ const CancelTrip = async (req, res) => {
     }
 };
 
+const TripConfirmation = async (req) => {
+    try {
+        const { bookingDetails } = req.body;
+        const transporter = nodemailer.createTransport({
+            service: "gmail",
+            host: "smtp.gmail.com",
+            auth: {
+                user: process.env.EMAIL_USER,
+                pass: process.env.EMAIL_PASS,
+            },
+        });
 
-module.exports = { home, registration, login, user, emailController, OTP, changePassword, storeRouteData, storePassengerData, paymentGateway, AccountData, DeleteAccount, CancelTrip };
+        const emailContent = `<div style="max-width: 600px; margin: 0 auto; font-family: sans-serif; padding: 20px; background-color: #f0f0f0; border-radius: 1rem;">
+            <h1 style="font-size: 24px; font-weight: 600; margin-bottom: 20px;">Flight Booking Confirmation</h1>
+            <p style="font-size: 16px; line-height: 1.6; margin-bottom: 10px;">Dear ${bookingDetails.passengerName},</p>
+            <p style="font-size: 16px; line-height: 1.6; margin-bottom: 10px;">We are pleased to confirm your flight booking with NextBoarding. Below are the details of your upcoming flight:</p>
+            <ul style="list-style-type: none; padding: 0; margin: 0;">
+                <li style="margin-bottom: 5px;"><strong>Flight Number:</strong> ${bookingDetails.flightNumber}</li>
+                <li style="margin-bottom: 5px;"><strong>Departure Date:</strong> ${bookingDetails.departureDate.slice(0, 10)}</li>
+                <li style="margin-bottom: 5px;"><strong>Departure Time:</strong> ${bookingDetails.departureTime}</li>
+                <li style="margin-bottom: 5px;"><strong>Departure Airport:</strong> ${bookingDetails.departureAirport}</li>
+                <li style="margin-bottom: 5px;"><strong>Arrival Airport:</strong> ${bookingDetails.arrivalAirport}</li>
+                <li style="margin-bottom: 5px;"><strong>Number of Travellers:</strong> ${bookingDetails.numTravelers}</li>
+                <li style="margin-bottom: 5px;"><strong>Travel Class:</strong> ${bookingDetails.travelClass}</li>
+            </ul>
+            <p style="font-size: 16px; line-height: 1.6; margin-bottom: 10px;">If you have any special requests or require assistance, please don't hesitate to contact our customer support team.</p>
+            <p style="font-size: 16px; line-height: 1.6; margin-bottom: 10px;">Thank you for choosing NextBoarding for your travel needs.</p>
+            <p style="font-size: 16px; line-height: 1.6; margin-bottom: 10px;">
+                If you need further assistance, feel free to reach out to our support team at <a href="mailto:${process.env.EMAIL_USER}" style="color: #007bff; text-decoration: none;">NextBoarding Team</a>.
+            </p>
+            <p style="font-size: 16px; line-height: 1.6; margin-bottom: 10px;">Safe travels,</p>
+            <p style="font-size: 16px; line-height: 1.6; margin-bottom: 10px;">NextBoarding Team</p>
+        </div>`;
+
+        await transporter.sendMail({
+            from: {
+                name: "NextBoarding",
+                address: process.env.EMAIL_USER,
+            },
+            to: bookingDetails.EmailAddress,
+            subject: "Booking Confirmation",
+            html: emailContent,
+        });
+
+        return "Email sent successfully.";
+    } catch (error) {
+        console.error("Error sending email:", error);
+        throw new Error("An error occurred while sending the email.");
+    }
+};
+
+
+module.exports = { home, registration, login, user, emailController, OTP, changePassword, storeRouteData, storePassengerData, paymentGateway, AccountData, DeleteAccount, CancelTrip, TripConfirmation };

@@ -22,5 +22,6 @@ router.post("/checkout", auth.paymentGateway);
 router.put("/AccountData", auth.AccountData);
 router.delete("/DeleteAccount", auth.DeleteAccount);
 router.put("/cancelTrips/:route_Id/:passengerId", auth.CancelTrip);
+router.post("/TripConfirmation", auth.TripConfirmation);
 
 module.exports = router;
