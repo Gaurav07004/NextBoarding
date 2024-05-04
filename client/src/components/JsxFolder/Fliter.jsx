@@ -2,12 +2,12 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import "../CssFolder/Fliter.css";
 import { PiSunHorizonDuotone, PiSunDuotone, PiCloudSunDuotone, PiCloudMoonDuotone } from "react-icons/pi";
-import { setSelectedFliter } from "../../redux/slices/booking/bookingslices.jsx";
+import { setSelectedFliter, setSelectedDepartureTime, setSelectedAirline } from "../../redux/slices/booking/bookingslices.jsx";
 import { TbFilterEdit } from "react-icons/tb";
 import { IoCloseOutline } from "react-icons/io5";
 
 const Fliter = () => {
-    const { departureAirport, departureAirlineResult, departureLogoResult, selectedFliter } = useSelector((state) => state.booking);
+    const { departureAirport, departureAirlineResult, departureLogoResult, selectedFliter, selectedDepartureTime, selectedAirline } = useSelector((state) => state.booking);
     const dispatch = useDispatch();
 
     const getUniqueAirlines = () => {
@@ -15,7 +15,6 @@ const Fliter = () => {
 
         departureAirlineResult.forEach((airline) => {
             const matchingLogo = departureLogoResult.find((airlinelogo) => airlinelogo.logo_url && airlinelogo.iata === airline.airline_iata);
-            console.log("departureLogoResult", departureLogoResult);
             if (matchingLogo && !uniqueAirlines.some((unique) => unique.logo_url === matchingLogo.logo_url)) {
                 uniqueAirlines.push({
                     name: matchingLogo.name,
@@ -34,31 +33,95 @@ const Fliter = () => {
         return price;
     };
 
-    const [selectedDepartureTime, setSelectedDepartureTime] = useState("");
-    const [selectedAirline, setSelectedAirline] = useState("");
+    // const [selectedAirline, setSelectedAirline] = useState("");
     const [filterShow, setFilterShow] = useState(false);
 
     const fliter_stops = (value) => {
-        dispatch(setSelectedFliter(value));
+        let updatedFilter = { ...selectedFliter };
+        updatedFilter[value] = !updatedFilter[value];
+        dispatch(setSelectedFliter(updatedFilter));
     };
+
+    // console.log("stop", selectedFliter);
 
     const fliter_Airline = (airlineName) => {
         const currentlySelectedAirline = selectedAirline;
 
         if (currentlySelectedAirline === airlineName) {
-            setSelectedAirline("");
+            dispatch(setSelectedAirline(""));
         } else {
-            setSelectedAirline(airlineName);
+            dispatch(setSelectedAirline(airlineName));
         }
     };
 
     const handleDepartureTimeChange = (time) => {
-        setSelectedDepartureTime((prevTime) => (prevTime === time ? "" : time));
+        dispatch(
+            setSelectedDepartureTime({
+                ...selectedDepartureTime,
+                [time]: !selectedDepartureTime[time],
+            })
+        );
     };
 
     // console.log("Value_stop", selectedFliter);
     // console.log("Value_airline", selectedAirline);
     // console.log("Value_time", selectedDepartureTime);
+
+    const Filter = () => {
+        return (
+            <section className="Fliter_Container">
+                <div className="Fliter_Departure_Stop_container">
+                    <label className="Fliter_Departure_Stop_label">Stops From {departureAirport?.city || "Mumbai"}</label>
+                    <div className="Stop_NonStop">
+                        <input type="checkbox" className="check_box" checked={selectedFliter.stop} onChange={() => fliter_stops("stop")} />
+                        <div className="checkbox_label">Stop</div>
+                        <input type="checkbox" className="check_box" checked={selectedFliter.nonStop} onChange={() => fliter_stops("nonStop")} />
+                        <div className="checkbox_label">Non Stop</div>
+                        <input type="checkbox" className="check_box" checked={selectedFliter.both} onChange={() => fliter_stops("both")} />
+                        <div className="checkbox_label">Both</div>
+                    </div>
+                </div>
+                <div className="Fliter_Departure_Time_container">
+                    <label className="Fliter_Departure_Time_label">Departure From {departureAirport?.city || "Mumbai"}</label>
+                    <div className="Fliter_Depature_Times">
+                        <div className={`Departure_Time ${selectedDepartureTime.earlyMorning && "activeItem"}`} onClick={() => handleDepartureTimeChange("earlyMorning")}>
+                            <PiSunHorizonDuotone />
+                            <div className="time">Before 06 AM</div>
+                        </div>
+                        <div className={`Departure_Time ${selectedDepartureTime.morning && "activeItem"}`} onClick={() => handleDepartureTimeChange("morning")}>
+                            <PiSunDuotone />
+                            <div className="time">06 AM - 12 PM</div>
+                        </div>
+                        <div className={`Departure_Time ${selectedDepartureTime.afternoon && "activeItem"}`} onClick={() => handleDepartureTimeChange("afternoon")}>
+                            <PiCloudSunDuotone />
+                            <div className="time">12PM - 06 PM</div>
+                        </div>
+                        <div className={`Departure_Time ${selectedDepartureTime.evening && "activeItem"}`} onClick={() => handleDepartureTimeChange("evening")}>
+                            <PiCloudMoonDuotone />
+                            <div className="time">After 06 PM</div>
+                        </div>
+                    </div>
+                </div>
+                <div className="Fliter_Airline_container">
+                    <label htmlFor="Fliter_Airline" className="Fliter_Airline_label">
+                        Airlines
+                    </label>
+                    {uniqueAirlines_data.map((uniqueAirline) => (
+                        <React.Fragment className="Airline_detail" key={uniqueAirline}>
+                            <label className="Airline">
+                                <input type="checkbox" className="check_box" checked={selectedAirline === uniqueAirline.name} onChange={() => fliter_Airline(uniqueAirline.name)} />
+                                <img src={uniqueAirline.logo_url} alt="logo" className="airlinelogosmall" />
+                                <div className="Airline_name">{uniqueAirline.name}</div>
+                                <div className="Airline_avg_price">₹ {price()}</div>
+                            </label>
+                        </React.Fragment>
+                    ))}
+                </div>
+            </section>
+        );
+    };
+
+    // console.log("selectedAirline", selectedAirline)
 
     return (
         <>
@@ -66,55 +129,7 @@ const Fliter = () => {
                 <p className="text-zinc-600 font-bold tracking-wider text-sl m-2 pt-6 pr-8 pb-0 pl-2">
                     Popular <span className="text-amber-400">Fliter</span>
                 </p>
-                <section className="Fliter_Container">
-                    <div className="Fliter_Departure_Stop_container">
-                        <label className="Fliter_Departure_Stop_label">Stops From {departureAirport?.city || "Mumbai"}</label>
-                        <div className="Stop_NonStop">
-                            <input type="checkbox" className="check_box" checked={selectedFliter === "Stop"} onChange={() => fliter_stops("Stop")} />
-                            <div className="checkbox_label">Stop</div>
-                            <input type="checkbox" className="check_box" checked={selectedFliter === "Non Stop"} onChange={() => fliter_stops("Non Stop")} />
-                            <div className="checkbox_label">Non Stop</div>
-                            <input type="checkbox" className="check_box" checked={selectedFliter === "Both"} onChange={() => fliter_stops("Both")} />
-                            <div className="checkbox_label">Both</div>
-                        </div>
-                    </div>
-                    <div className="Fliter_Departure_Time_container">
-                        <label className="Fliter_Departure_Time_label">Departure From {departureAirport?.city || "Mumbai"}</label>
-                        <div className="Fliter_Depature_Times">
-                            <div className={`Departure_Time ${selectedDepartureTime === "Before 06 AM" && "activeItem"}`} onClick={() => handleDepartureTimeChange("Before 06 AM")}>
-                                <PiSunHorizonDuotone />
-                                <div className="time">Before 06 AM</div>
-                            </div>
-                            <div className={`Departure_Time ${selectedDepartureTime === "06 AM - 12 PM" && "activeItem"}`} onClick={() => handleDepartureTimeChange("06 AM - 12 PM")}>
-                                <PiSunDuotone />
-                                <div className="time">06 AM - 12 PM</div>
-                            </div>
-                            <div className={`Departure_Time ${selectedDepartureTime === "12 PM - 06 PM" && "activeItem"}`} onClick={() => handleDepartureTimeChange("12 PM - 06 PM")}>
-                                <PiCloudSunDuotone />
-                                <div className="time">12PM - 06 PM</div>
-                            </div>
-                            <div className={`Departure_Time ${selectedDepartureTime === "After 06 PM" && "activeItem"}`} onClick={() => handleDepartureTimeChange("After 06 PM")}>
-                                <PiCloudMoonDuotone />
-                                <div className="time">After 06 PM</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="Fliter_Airline_container">
-                        <label htmlFor="Fliter_Airline" className="Fliter_Airline_label">
-                            Airlines
-                        </label>
-                        {uniqueAirlines_data.map((uniqueAirline) => (
-                            <React.Fragment className="Airline_detail" key={uniqueAirline}>
-                                <label className="Airline">
-                                    <input type="checkbox" className="check_box" checked={selectedAirline === uniqueAirline.name} onChange={() => fliter_Airline(uniqueAirline.name)} />
-                                    <img src={uniqueAirline.logo_url} alt="logo" className="airlinelogosmall" />
-                                    <div className="Airline_name">{uniqueAirline.name}</div>
-                                    <div className="Airline_avg_price">₹ {price()}</div>
-                                </label>
-                            </React.Fragment>
-                        ))}
-                    </div>
-                </section>
+                <Filter />
             </main>
 
             <main className="Fliterpanel_moblie">
@@ -125,55 +140,7 @@ const Fliter = () => {
                 {filterShow && (
                     <main className="Fliterpanel font-sans cursor-pointer">
                         <IoCloseOutline className="float-right w-9 h-auto p-2" onClick={() => setFilterShow(!filterShow)} />
-                        <section className="Fliter_Container">
-                            <div className="Fliter_Departure_Stop_container">
-                                <label className="Fliter_Departure_Stop_label">Stops From {departureAirport?.city || "Mumbai"}</label>
-                                <div className="Stop_NonStop">
-                                    <input type="checkbox" className="check_box" checked={selectedFliter === "Stop"} onChange={() => fliter_stops("Stop")} />
-                                    <div className="checkbox_label">Stop</div>
-                                    <input type="checkbox" className="check_box" checked={selectedFliter === "Non Stop"} onChange={() => fliter_stops("Non Stop")} />
-                                    <div className="checkbox_label">Non Stop</div>
-                                    <input type="checkbox" className="check_box" checked={selectedFliter === "Both"} onChange={() => fliter_stops("Both")} />
-                                    <div className="checkbox_label">Both</div>
-                                </div>
-                            </div>
-                            <div className="Fliter_Departure_Time_container">
-                                <label className="Fliter_Departure_Time_label">Departure From {departureAirport?.city || "Mumbai"}</label>
-                                <div className="Fliter_Depature_Times">
-                                    <div className={`Departure_Time ${selectedDepartureTime === "Before 06 AM" && "activeItem"}`} onClick={() => handleDepartureTimeChange("Before 06 AM")}>
-                                        <PiSunHorizonDuotone />
-                                        <div className="time">Before 06 AM</div>
-                                    </div>
-                                    <div className={`Departure_Time ${selectedDepartureTime === "06 AM - 12 PM" && "activeItem"}`} onClick={() => handleDepartureTimeChange("06 AM - 12 PM")}>
-                                        <PiSunDuotone />
-                                        <div className="time">06 AM - 12 PM</div>
-                                    </div>
-                                    <div className={`Departure_Time ${selectedDepartureTime === "12 PM - 06 PM" && "activeItem"}`} onClick={() => handleDepartureTimeChange("12 PM - 06 PM")}>
-                                        <PiCloudSunDuotone />
-                                        <div className="time">12PM - 06 PM</div>
-                                    </div>
-                                    <div className={`Departure_Time ${selectedDepartureTime === "After 06 PM" && "activeItem"}`} onClick={() => handleDepartureTimeChange("After 06 PM")}>
-                                        <PiCloudMoonDuotone />
-                                        <div className="time">After 06 PM</div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="Fliter_Airline_container">
-                                <label htmlFor="Fliter_Airline" className="Fliter_Airline_label">
-                                    Airlines
-                                </label>
-                                {uniqueAirlines_data.map((uniqueAirline) => (
-                                    <React.Fragment className="Airline_detail" key={uniqueAirline}>
-                                        <label className="Airline">
-                                            <input type="checkbox" className="check_box" checked={selectedAirline === uniqueAirline.name} onChange={() => fliter_Airline(uniqueAirline.name)} />
-                                            <img src={uniqueAirline.logo_url} alt="logo" className="airlinelogosmall" />
-                                            <div className="Airline_name">{uniqueAirline.name}</div>
-                                            <div className="Airline_avg_price">₹ {price()}</div>
-                                        </label>
-                                    </React.Fragment>
-                                ))}
-                            </div>
-                        </section>
+                        <Filter />
                     </main>
                 )}
             </main>

@@ -1,7 +1,7 @@
-import { useEffect, useCallback } from "react";
+import React, { useEffect, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Table } from "keep-react";
-//import AirplaneAnimation from "../assets/AirplaneAnimation.gif"
+import { Empty, Table } from "keep-react";
+import Search from "../../assets/Search1.png";
 import "../CssFolder/Flight.css";
 import { setDepartureAirlineResult, setDepartureLogoResult, setDepartureFlight, setDepartureAirline, setFlightDetail, fetchAirlineData } from "../../redux/slices/booking/bookingslices.jsx";
 
@@ -93,8 +93,8 @@ const Flight = () => {
                 })
             );
 
-            console.log("departureIata", departureIata, "arrivalIata", arrivalIata);
-            console.log("departureIata2", state.booking.departureAirport.length > 0 ? state.booking.departureAirport[0].iata : null, "arrivalIata2", state.booking.arrivalAirport.length > 0 ? state.booking.arrivalAirport[0].iata : null);
+            // console.log("departureIata", departureIata, "arrivalIata", arrivalIata);
+            // console.log("departureIata2", state.booking.departureAirport.length > 0 ? state.booking.departureAirport[0].iata : null, "arrivalIata2", state.booking.arrivalAirport.length > 0 ? state.booking.arrivalAirport[0].iata : null);
 
             const { filteredAirlineData, logoPromises } = airlineAction.payload;
 
@@ -106,6 +106,7 @@ const Flight = () => {
             console.error("Error fetching airline data:", error);
         }
     }, [state.booking.departureAirport, state.booking.arrivalAirport, state.booking.currentDate, dispatch]);
+
     useEffect(() => {
         fetch_Airline_Data();
     }, [fetch_Airline_Data]);
@@ -166,6 +167,7 @@ const Flight = () => {
         else stop = "Non Stop";
         return stop;
     };
+
     const getOrdinalSuffix = (date) => {
         if (date >= 11 && date <= 13) {
             return "th";
@@ -223,18 +225,68 @@ const Flight = () => {
         dispatch(setDepartureFlight(airline));
     };
 
-    // useEffect(() => {
-    //     dispatch(setFlightLoading(true));
+    const renderFlightRow = (airline, airlinelogo) => {
+        return (
+            <React.Fragment>
+                <Table.Row key={airlinelogo.iata} onClick={() => handleFlightClick(airline, airlinelogo)} className="bg-white">
+                    <Table.Cell>
+                        <img src={airlinelogo.logo_url} alt="logo" className="airlinelogo" />
+                    </Table.Cell>
+                    <Table.Cell className="airlineInfo">
+                        <div className="duration">{toHoursAndMinutes(airline.duration)}</div>
+                        <div className="Departure_airline">{airlinelogo.name}</div>
+                    </Table.Cell>
+                    <Table.Cell className="-mb-0.5 text-body-4 font-medium text-metal-400 Departure_arrival_time">
+                        {formatTime(airline.dep_time)} - {formatTime(airline.arr_time)}
+                    </Table.Cell>
+                    <Table.Cell className="stopInfo">{stop(airline.duration)}</Table.Cell>
+                    <Table.Cell className="-mb-0.5 text-body-4 font-medium text-metal-400 Departure_price">₹ {price(airline.duration, state.booking.departureAirport.country, state.booking.arrivalAirport.country)}</Table.Cell>
+                </Table.Row>
+            </React.Fragment>
+        );
+    };
 
-    //     const loadingTimeout = setTimeout(() => {
-    //         dispatch(setFlightLoading(false));
-    //     }, 3000);
+    const isFlightMatchingFilter = (airline, flightStop) => {
+        const selectedFilter = state.booking.selectedFliter;
+        return (selectedFilter.stop && flightStop === "1 Stop") || (selectedFilter.nonStop && flightStop === "Non Stop") || selectedFilter.both || (!selectedFilter.stop && !selectedFilter.nonStop && !selectedFilter.both);
+    };
 
-    //     return () => clearTimeout(loadingTimeout);
-    // }, [dispatch]);
-    // console.log("date", flightDetail.date);
-    // console.log("Flight", departureFlight);
-    // console.log("Airline", flightHours);
+    const isDepartureTimeMatchingFilter = (departureTime) => {
+        const selectedTime = state.booking.selectedDepartureTime;
+
+        return selectedTime.earlyMorning
+            ? isBefore06AM(departureTime)
+            : selectedTime.morning
+            ? isBetween06AMAnd12PM(departureTime)
+            : selectedTime.afternoon
+            ? isBetween12PMAnd06PM(departureTime)
+            : selectedTime.evening
+            ? isAfter06PM(departureTime)
+            : true;
+    };
+
+    const getHoursFromTime = (time) => {
+        const [hoursStr] = time.split(":");
+        return parseInt(hoursStr);
+    };
+
+    const isWithinTimeRange = (departureTime, startHour, endHour) => {
+        const hours = getHoursFromTime(departureTime);
+        return hours >= startHour && hours < endHour;
+    };
+
+    const isBefore06AM = (departureTime) => isWithinTimeRange(departureTime, 0, 6);
+    const isBetween06AMAnd12PM = (departureTime) => isWithinTimeRange(departureTime, 6, 12);
+    const isBetween12PMAnd06PM = (departureTime) => isWithinTimeRange(departureTime, 12, 18);
+    const isAfter06PM = (departureTime) => isWithinTimeRange(departureTime, 18, 24);
+
+    const isAirlineMatchingFilter = (airlinelogo) => {
+        const selectedAirline = state.booking.selectedAirline;
+        if (!selectedAirline) return true;
+
+        return selectedAirline === airlinelogo.name;
+    };
+
     return (
         <main className="flightpanel font-sans">
             <p className="text-zinc-600 font-bold tracking-wider text-sl m-2 pt-6 pr-8 pb-0 pl-2 title">
@@ -242,45 +294,40 @@ const Flight = () => {
             </p>
             <section className="flightDeal">
                 <Table showBorder={true} showBorderPosition="right" striped={true} hoverable={true}>
-                    <Table.Head>
-                        <Table.HeadCell className="min-w-[150px] text-sm font-semibold column_name text-center">Airline Logo</Table.HeadCell>
-                        <Table.HeadCell className="min-w-[180px] text-sm font-semibold column_name text-center">Flight Duration</Table.HeadCell>
-                        <Table.HeadCell className="min-w-[180px] text-sm font-semibold column_name text-center">Flight Time</Table.HeadCell>
-                        <Table.HeadCell className="min-w-[120px] text-sm font-semibold column_name text-center">Stops</Table.HeadCell>
-                        <Table.HeadCell className="min-w-[100px] text-sm font-semibold column_name text-center">Price</Table.HeadCell>
-                    </Table.Head>
+                    {state.booking.departureAirlineResult.length > 0 ? (
+                        <>
+                            <Table.Head>
+                                <Table.HeadCell className="min-w-[150px] text-sm font-semibold column_name text-center">Airline Logo</Table.HeadCell>
+                                <Table.HeadCell className="min-w-[180px] text-sm font-semibold column_name text-center">Flight Duration</Table.HeadCell>
+                                <Table.HeadCell className="min-w-[180px] text-sm font-semibold column_name text-center">Flight Time</Table.HeadCell>
+                                <Table.HeadCell className="min-w-[120px] text-sm font-semibold column_name text-center">Stops</Table.HeadCell>
+                                <Table.HeadCell className="min-w-[100px] text-sm font-semibold column_name text-center">Price</Table.HeadCell>
+                            </Table.Head>
+                            <Table.Body className="divide-gray-25 divide-y text-center">
+                                {state.booking.departureAirlineResult.map((airline) => {
+                                    const airlinelogo = state.booking.departureLogoResult.find((logo) => logo.iata === airline.airline_iata);
 
-                    <Table.Body className="divide-gray-25 divide-y text-center">
-                        {state.booking.departureAirlineResult.map((airline) => {
-                            const airlinelogo = state.booking.departureLogoResult.find((logo) => logo.iata === airline.airline_iata);
-                            if (airlinelogo && airlinelogo.logo_url) {
-                                return (
-                                    <Table.Row key={airlinelogo.iata} onClick={() => handleFlightClick(airline, airlinelogo)} className="bg-white ">
-                                        <Table.Cell>
-                                                <img src={airlinelogo.logo_url} alt="logo" className="airlinelogo " />
-                                        </Table.Cell>
+                                    if (airlinelogo && airlinelogo.logo_url && isAirlineMatchingFilter(airlinelogo)) {
+                                        const flightStop = stop(airline.duration);
+                                        const departureTime = formatTime(airline.dep_time);
 
-                                        <Table.Cell className="airlineInfo">
-                                            <div className="duration">{toHoursAndMinutes(airline.duration)}</div>
-                                            <div className="Departure_airline">{airlinelogo.name}</div>
-                                        </Table.Cell>
-
-                                        <Table.Cell className="-mb-0.5 text-body-4 font-medium text-metal-400 Departure_arrival_time">
-                                            {formatTime(airline.dep_time)} - {formatTime(airline.arr_time)}
-                                        </Table.Cell>
-
-                                        <Table.Cell className="stopInfo">{stop(airline.duration)}</Table.Cell>
-
-                                        <Table.Cell className="-mb-0.5 text-body-4 font-medium text-metal-400 Departure_price">
-                                            ₹ {price(airline.duration, state.booking.departureAirport.country, state.booking.arrivalAirport.country)}
-                                        </Table.Cell>
-                                    </Table.Row>
-                                );
-                            } else {
-                                return null;
-                            }
-                        })}
-                    </Table.Body>
+                                        if (isFlightMatchingFilter(airline, flightStop) && isDepartureTimeMatchingFilter(departureTime)) {
+                                            return renderFlightRow(airline, airlinelogo);
+                                        }
+                                    }
+                                    return null;
+                                })}
+                            </Table.Body>
+                        </>
+                    ) : (
+                        <Empty className="mt-12">
+                            <Empty.Image>
+                                <img src={Search} height={200} width={300} alt="404" />
+                            </Empty.Image>
+                            <Empty.Title className="text-2xl font-semibold">No flights available</Empty.Title>
+                            <Empty.Description>Currently, there are no flights available for the selected route and date. Please try again later or search for a different route.</Empty.Description>
+                        </Empty>
+                    )}
                 </Table>
             </section>
         </main>

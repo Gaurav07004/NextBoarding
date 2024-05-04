@@ -46,16 +46,24 @@ const initialState = {
     selectedFliter: {
         stop: false,
         nonStop: false,
+        both: false,
     },
+    selectedDepartureTime: {
+        earlyMorning: false,
+        morning: false,
+        afternoon: false,
+        evening: false,
+    },
+    selectedAirline: "",
     selectedBags: {
         count: 1,
     },
     passengerForm: [],
     passengerEmergency: {
-            firstName: "",
-            lastName: "",
-            phoneNumber: "",
-            email: ""
+        firstName: "",
+        lastName: "",
+        phoneNumber: "",
+        email: "",
     },
     passengerDetailButton: false,
     selectSeat: {
@@ -85,13 +93,13 @@ const initialState = {
     selectedImages: [],
     profileImages: null,
     passengerAccInfo: {
-            Fullname: "",
-            PhoneNumber: "",
-            MaritalStatus: "",
-            EmailAddress: "",
-            Gender: "",
-            Address: "",
-        },
+        Fullname: "",
+        PhoneNumber: "",
+        MaritalStatus: "",
+        EmailAddress: "",
+        Gender: "",
+        Address: "",
+    },
     accountData: "",
     passengerRegistration: {
         fullName: "",
@@ -150,7 +158,7 @@ export const fetch_API = createAsyncThunk("fetch_API", async (input) => {
 
 export const fetchAirlineData = createAsyncThunk("fetchAirlineData", async ({ input_1, input_2, selected_Date }) => {
     try {
-        const airlineResponse = await fetch(`https://airlabs.co/api/v9/routes?dep_iata=${input_1}&arr_iata=${input_2}&api_key=4cb6c714-89b6-471a-8127-8f9879c8861b`);
+        const airlineResponse = await fetch(`https://airlabs.co/api/v9/routes?dep_iata=${input_1}&arr_iata=${input_2}&api_key=cc88399e-cec8-4781-8639-7f8819c7f090`);
 
         if (!airlineResponse.ok) {
             console.error(`HTTP error! Status: ${airlineResponse.status}, Response:`, await airlineResponse.text());
@@ -224,8 +232,6 @@ export const Passenger_seat = createAsyncThunk("Passengers_seat", async (selectS
         throw error;
     }
 });
-
-
 
 const bookingSlice = createSlice({
     name: "booking",
@@ -340,6 +346,12 @@ const bookingSlice = createSlice({
         },
         setSelectedFliter: (state, action) => {
             state.selectedFliter = action.payload;
+        },
+        setSelectedDepartureTime: (state, action) => {
+            state.selectedDepartureTime = action.payload;
+        },
+        setSelectedAirline: (state, action) => {
+            state.selectedAirline = action.payload;
         },
         setSelectedBags: (state, action) => {
             state.selectedBags = action.payload;
@@ -465,7 +477,7 @@ const bookingSlice = createSlice({
         },
         setRouteInfo(state, action) {
             state.routeInfo.push(action.payload);
-        }
+        },
     },
     extraReducers: (builder) => {
         builder.addCase(fetch_API.fulfilled, (state, action) => {
@@ -536,6 +548,7 @@ export const {
     setSelectedTravelDetails,
     setSelectedFares,
     setFlightHours,
+    setSelectedDepartureTime,
     setFlightPrice,
     setNoofStop,
     setduration,
@@ -547,6 +560,7 @@ export const {
     setSelectedBags,
     setPassengerEmergency,
     setPassengerForm,
+    setSelectedAirline,
     setSelectSeat,
     setPassengerData,
     setPassengerDetailButton,
@@ -579,7 +593,7 @@ export const {
     setRouteData,
     setFlightBookingDetails,
     setRouteStatus,
-    setRouteInfo 
+    setRouteInfo,
 } = bookingSlice.actions;
 
 export default bookingSlice.reducer;
