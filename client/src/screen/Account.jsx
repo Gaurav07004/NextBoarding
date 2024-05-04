@@ -1,7 +1,7 @@
 import React, { Suspense, useEffect, startTransition  } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Avatar } from "keep-react";
-import { IoMenu } from "react-icons/io5";
+import { HiBars3CenterLeft } from "react-icons/hi2";
 import "../components/CssFolder/Account.css";
 import { TailSpin } from "react-loader-spinner";
 import { setLoading, setShowSidebar } from "../redux/slices/booking/bookingslices.jsx";
@@ -35,7 +35,7 @@ function Account() {
 
 
     const handleSidebar = () => {
-        dispatch(setShowSidebar(!state.showSidebar));
+        dispatch(setShowSidebar(!state.booking.showSidebar));
     };
     
     return (
@@ -51,9 +51,9 @@ function Account() {
                 <section className="px-12 py-20 Account_page bg-gray-100 flex flex-col gap-4">
                     <section className="HamBurger">
                         <div className="Hamburger2_icon" onClick={handleSidebar}>
-                            <IoMenu />
+                            <HiBars3CenterLeft />
                         </div>
-                        {state.showSidebar && (
+                        {state.booking.showSidebar && (
                             <Suspense fallback={<div>Loading...</div>}>
                                 <div className="for_Moblie">
                                     <Sidebar />

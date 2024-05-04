@@ -89,3 +89,91 @@ hr {
     margin: 4rem 0 4rem 5rem;
 
 }
+
+@media only screen and (min-width: 320px) and (max-width: 480px) {
+    .billpanel {
+        width: 100%;
+        padding: 0rem 0.5rem;
+    }
+    .departure_info {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .Amount {
+        grid-template-columns: 240px 70px;
+        text-align: start;
+    }
+    .button_save {
+        margin: 2rem auto;
+    }
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up)  */
+@media only screen and (min-width: 481px) and (max-width: 767px) {
+    .billpanel {
+        width: 100%;
+        padding: 0rem 0.5rem;
+    }
+
+    .departure_info {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .Amount {
+        grid-template-columns: 520px 70px;
+        text-align: start;
+    }
+    .button_save {
+        margin: 2rem auto;
+    }
+}
+
+/* Medium devices (landscape tablets, 768px and up)  */
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+    .Hamburger {
+        display: none;
+    }
+
+    .navbar {
+        display: flex;
+        padding: 5px 30px;
+        width: 100%;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .logo {
+        font-size: xx-large;
+    }
+}
+
+/* Large devices (laptops/desktops, 992px and up)  */
+@media only screen and (min-width: 992px) and (max-width: 1200px) {
+    .Hamburger {
+        display: none;
+    }
+
+    .navbar {
+        display: flex;
+        padding: 5px 30px;
+        width: 100%;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+
+    .logo {
+        font-size: xx-large;
+    }
+
+}
+
+/* Extra-large devices (large laptops and desktops, 1200px and up)  */
+@media only screen and (min-width: 1201px) {
+    .Hamburger {
+        display: none;
+    }
+}

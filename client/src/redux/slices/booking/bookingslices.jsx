@@ -150,7 +150,7 @@ export const fetch_API = createAsyncThunk("fetch_API", async (input) => {
 
 export const fetchAirlineData = createAsyncThunk("fetchAirlineData", async ({ input_1, input_2, selected_Date }) => {
     try {
-        const airlineResponse = await fetch(`https://airlabs.co/api/v9/routes?dep_iata=${input_1}&arr_iata=${input_2}&api_key=7eca91c2-3cd2-4cf1-b3e1-823f570f56f8`);
+        const airlineResponse = await fetch(`https://airlabs.co/api/v9/routes?dep_iata=${input_1}&arr_iata=${input_2}&api_key=4cb6c714-89b6-471a-8127-8f9879c8861b`);
 
         if (!airlineResponse.ok) {
             console.error(`HTTP error! Status: ${airlineResponse.status}, Response:`, await airlineResponse.text());

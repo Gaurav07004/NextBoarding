@@ -56,7 +56,7 @@ function Search() {
                             </div>
                         </div>
 
-                        <div className="TravellersClass_BookingSection">
+                        <div className="DepartureDate_BookingSection">
                             <label htmlFor="DepartureDate">
                                 <span className="Label">Departure</span>
                             </label>
@@ -68,7 +68,7 @@ function Search() {
                             </div>
                         </div>
 
-                        <div className="DepartureDate_BookingSection">
+                        <div className="TravellersClass_BookingSection">
                             <label htmlFor="DepartureCity" className="Label">
                                 <span className="DepartureLabel">Travellers & Class</span>
                             </label>
@@ -86,7 +86,6 @@ function Search() {
                     {state.booking.loading ? (
                         <div style={{ display: "flex", justifyContent: "center", alignItems: "center", height: "100vh" }}>
                             <TailSpin visible={true} height="60" width="60" color="#605dec" ariaLabel="tail-spin-loading" radius="1" wrapperStyle={{}} wrapperClass="" />
-                            {/* <img src={load} alt="load" /> */}
                         </div>
                     ) : (
                         <Suspense fallback={<div>Loading...</div>}>
@@ -95,6 +94,13 @@ function Search() {
                                     <Fliter />
                                     <Flight />
                                     <Bill />
+                                </div>
+                                <div className="splitScreen_Ipad">
+                                    <Fliter />
+                                    <div className="flex justify-between">
+                                        <Flight />
+                                        <Bill />
+                                    </div>
                                 </div>
                             </div>
                         </Suspense>

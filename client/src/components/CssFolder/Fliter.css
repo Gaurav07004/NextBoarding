@@ -1,4 +1,4 @@
-.Fliterpanel {
+.Fliterpanel_desktop {
     width: 330px;
 }
 
@@ -22,49 +22,10 @@
     align-items: center;
     display: grid;
     grid-template-columns: 20px 80px;
-    height: 75px;
+    height: 100px;
     margin-top: 8px;
 }
 
-.checkbox_label {
-    font-weight: 900;
-    color: #55575b;
-    margin-left: 10px;
-}
-
-.checkbox{
-    padding: 8px 0 8px 30px;
-    font-size: 15.5px;
-    position: relative;
-}
-
-.checkbox::before{
-    content: "";
-    width: 20px;
-    height: 20px;
-    border-radius: 3px;
-    border: solid 2px #9b9b9b;
-    display: flex;
-    position: absolute;
-    top: 10px;
-    left: 0;
-}
-
-.checkbox::after {
-    content: "";
-    display: inline-block;
-    transform: rotate(45deg);
-    height: 13px;
-    width: 6.5px;
-    border-bottom: 2px solid #ffffff;
-    border-right: 2px solid #ffffff;
-    position: absolute;
-    left: 7px;
-    top: 13px;
-}
-.checkbox.activeItem::before {
-    background-color: #66bb6a;
-}
 .Fliter_Departure_Time_container,
 .Fliter_Airline_container {
     margin-top: 20px;
@@ -77,9 +38,11 @@
     align-items: center;
     margin-top: 15px;
 }
+
 .Departure_Time.activeItem {
-    background-color: rgb(252 179 42 / 39%) !important;
+    background-color: rgb(252 179 42 / 61%) !important;
 }
+
 .Departure_Time {
     padding: 9px 5px;
     border: 1px solid #ccc;
@@ -118,6 +81,12 @@
     accent-color: #fcb32a;
 }
 
+.checkbox_label {
+    font-weight: 900;
+    color: #55575b;
+    margin-left: 10px;
+}
+
 .Airline {
     align-items: center;
     justify-content: space-between;
@@ -125,6 +94,7 @@
     grid-template-columns: 30px 40px 134px 58px;
     height: 40px;
 }
+
 .checkbox {
     align-items: center;
     justify-content: space-between;
@@ -132,6 +102,7 @@
     grid-template-columns: 43px 134px 58px;
     height: 40px;
 }
+
 .Airline_name {
     color: #27273fab;
     font-size: 16px;
@@ -144,4 +115,374 @@
     font-size: 16px;
     font-style: normal;
     font-weight: 700;
+}
+
+@media only screen and (min-width: 320px) and (max-width: 481px) {
+    .Fliterpanel_moblie {
+        padding: 1rem 0.5rem 0.5rem 0.5rem;
+    }
+
+    .Fliterpanel_desktop {
+        display: none;
+    }
+
+    .Fliterpanel {
+        animation: fadeInDown 0.3s ease-in-out;
+        background: #fff;
+        position: absolute;
+        width: 100%;
+        height: auto;
+        top: 19rem;
+        right: 0;
+        z-index: 1;
+        box-shadow: 0 1px 10px 0 rgba(0, 0, 0, 0.2);
+        padding: 1.2rem;
+    }
+
+    .Fliter_Departure_Stop_label,
+    .Fliter_Departure_Time_label,
+    .Fliter_Airline_label {
+        font-weight: 900;
+        color: #55575b;
+        font-size: smaller;
+    }
+
+    @keyframes fadeInDown {
+        0% {
+            opacity: 0;
+            -webkit-transform: translate3d(0, -10%, 0);
+            transform: translateY(0, 0, 0);
+        }
+
+        100% {
+            opacity: 1;
+            -webkit-transform: translate3d(0, 0, 0);
+            transform: translateY(0, 0, 10%);
+        }
+    }
+
+    .Fliter_Container {
+        box-shadow: none;
+        padding: 17px;
+    }
+
+    .check_box {
+        width: 80%;
+        height: 16px;
+    }
+
+    .checkbox_label {
+        margin-left: 6px;
+        font-size: small;
+    }
+
+    .Fliter_Depature_Times {
+        display: grid;
+        grid-template-columns: repeat(4, 60px);
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 15px;
+    }
+
+    .Departure_Time {
+        height: 65px;
+    }
+
+    .time {
+        font-size: 6.5px;
+        font-weight: 700;
+    }
+
+    .Airline {
+        grid-template-columns: 30px 60px 110px 58px;
+    }
+
+    .Airline_name,
+    .Airline_avg_price {
+        font-size: small;
+    }
+
+    .Stop_NonStop {
+        height: 100px;
+    }
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up)  */
+@media only screen and (min-width: 481px) and (max-width: 767px) {
+    .Fliterpanel_moblie {
+        padding: 1rem 0.5rem 0.5rem 0.5rem;
+    }
+
+    .Fliterpanel_desktop {
+        display: none;
+    }
+
+    .Fliterpanel {
+        animation: fadeInDown 0.3s ease-in-out;
+        background: #fff;
+        position: absolute;
+        width: 65%;
+        height: auto;
+        top: 14rem;
+        left: 9px;
+        z-index: 1;
+        box-shadow: 0 1px 10px 0 rgba(0, 0, 0, 0.2);
+        padding: 1.2rem;
+    }
+
+    .Fliter_Departure_Stop_label,
+    .Fliter_Departure_Time_label,
+    .Fliter_Airline_label {
+        font-weight: 900;
+        color: #55575b;
+        font-size: smaller;
+    }
+
+    @keyframes fadeInDown {
+        0% {
+            opacity: 0;
+            -webkit-transform: translate3d(0, -10%, 0);
+            transform: translateY(0, 0, 0);
+        }
+
+        100% {
+            opacity: 1;
+            -webkit-transform: translate3d(0, 0, 0);
+            transform: translateY(0, 0, 10%);
+        }
+    }
+
+    .Fliter_Container {
+        box-shadow: none;
+        padding: 17px;
+    }
+
+    .check_box {
+        width: 80%;
+        height: 16px;
+    }
+
+    .checkbox_label {
+        margin-left: 6px;
+        font-size: small;
+    }
+
+    .Fliter_Depature_Times {
+        display: grid;
+        grid-template-columns: repeat(4, 60px);
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 15px;
+    }
+
+    .Departure_Time {
+        height: 65px;
+    }
+
+    .time {
+        font-size: 6.5px;
+        font-weight: 700;
+    }
+
+    .Airline {
+        grid-template-columns: 30px 60px 110px 58px;
+    }
+
+    .Airline_name,
+    .Airline_avg_price {
+        font-size: small;
+    }
+
+    .Stop_NonStop {
+        height: 100px;
+    }
+}
+
+/* Medium devices (landscape tablets, 768px and up)  */
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+    .Fliterpanel_moblie {
+        padding: 1rem 0.5rem 0.5rem 0.5rem;
+    }
+
+    .Fliterpanel_desktop {
+        display: none;
+    }
+
+    .Fliterpanel {
+        animation: fadeInDown 0.3s ease-in-out;
+        background: #fff;
+        position: absolute;
+        width: 50%;
+        height: auto;
+        top: 14rem;
+        left: 9px;
+        z-index: 1;
+        box-shadow: 0 1px 10px 0 rgba(0, 0, 0, 0.2);
+        padding: 1.2rem;
+    }
+
+    .Fliter_Departure_Stop_label,
+    .Fliter_Departure_Time_label,
+    .Fliter_Airline_label {
+        font-weight: 900;
+        color: #55575b;
+        font-size: smaller;
+    }
+
+    @keyframes fadeInDown {
+        0% {
+            opacity: 0;
+            -webkit-transform: translate3d(0, -10%, 0);
+            transform: translateY(0, 0, 0);
+        }
+
+        100% {
+            opacity: 1;
+            -webkit-transform: translate3d(0, 0, 0);
+            transform: translateY(0, 0, 10%);
+        }
+    }
+
+    .Fliter_Container {
+        box-shadow: none;
+        padding: 17px;
+    }
+
+    .check_box {
+        width: 80%;
+        height: 16px;
+    }
+
+    .checkbox_label {
+        margin-left: 6px;
+        font-size: small;
+    }
+
+    .Fliter_Depature_Times {
+        display: grid;
+        grid-template-columns: repeat(4, 60px);
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 15px;
+    }
+
+    .Departure_Time {
+        height: 65px;
+    }
+
+    .time {
+        font-size: 6.5px;
+        font-weight: 700;
+    }
+
+    .Airline {
+        grid-template-columns: 30px 60px 110px 58px;
+    }
+
+    .Airline_name,
+    .Airline_avg_price {
+        font-size: small;
+    }
+
+    .Stop_NonStop {
+        height: 100px;
+    }
+}
+
+/* Large devices (laptops/desktops, 992px and up)  */
+@media only screen and (min-width: 992px) and (max-width: 1200px) {
+    .Fliterpanel_moblie {
+        padding: 1rem 0.5rem 0.5rem 0.5rem;
+    }
+
+    .Fliterpanel_desktop {
+        display: none;
+    }
+
+    .Fliterpanel {
+        animation: fadeInDown 0.3s ease-in-out;
+        background: #fff;
+        position: absolute;
+        width: 40%;
+        height: auto;
+        top: 14rem;
+        left: 9px;
+        z-index: 1;
+        box-shadow: 0 1px 10px 0 rgba(0, 0, 0, 0.2);
+        padding: 1.2rem;
+    }
+
+    .Fliter_Departure_Stop_label,
+    .Fliter_Departure_Time_label,
+    .Fliter_Airline_label {
+        font-weight: 900;
+        color: #55575b;
+        font-size: smaller;
+    }
+
+    @keyframes fadeInDown {
+        0% {
+            opacity: 0;
+            -webkit-transform: translate3d(0, -10%, 0);
+            transform: translateY(0, 0, 0);
+        }
+
+        100% {
+            opacity: 1;
+            -webkit-transform: translate3d(0, 0, 0);
+            transform: translateY(0, 0, 10%);
+        }
+    }
+
+    .Fliter_Container {
+        box-shadow: none;
+        padding: 17px;
+    }
+
+    .check_box {
+        width: 80%;
+        height: 16px;
+    }
+
+    .checkbox_label {
+        margin-left: 6px;
+        font-size: small;
+    }
+
+    .Fliter_Depature_Times {
+        display: grid;
+        grid-template-columns: repeat(4, 60px);
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 15px;
+    }
+
+    .Departure_Time {
+        height: 65px;
+    }
+
+    .time {
+        font-size: 6.5px;
+        font-weight: 700;
+    }
+
+    .Airline {
+        grid-template-columns: 30px 60px 110px 58px;
+    }
+
+    .Airline_name,
+    .Airline_avg_price {
+        font-size: small;
+    }
+
+    .Stop_NonStop {
+        height: 100px;
+    }
+}
+
+/* Extra-large devices (large laptops and desktops, 1200px and up)  */
+@media only screen and (min-width: 1201px) {
+    .Fliterpanel_moblie {
+        display: none;
+    }
 }

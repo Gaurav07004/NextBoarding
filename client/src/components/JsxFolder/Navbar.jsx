@@ -4,9 +4,9 @@ import "../CssFolder/Navbar.css";
 import { NavLink } from "react-router-dom";
 import { Avatar } from "keep-react"
 import { FiUser, FiLogOut } from "react-icons/fi";
-import { GiHamburgerMenu } from "react-icons/gi";
 import { RxDashboard } from "react-icons/rx";
 import { RiCustomerService2Fill, RiDashboardLine } from "react-icons/ri";
+import { HiBars3CenterLeft } from "react-icons/hi2";
 import { IoClose } from "react-icons/io5";
 import { LuSendToBack } from "react-icons/lu";
 import { BsSuitcase2 } from "react-icons/bs";
@@ -53,7 +53,6 @@ function Navbar() {
                             {dataUrl ? (
                                 <Avatar shape="circle" className="Profile_Image" size="lg" img={dataUrl} onClick={handleOpenModal} />
                             ) : (
-                                //<Avatar shape="circle" className="Profile_Image" size="lg" img={dataUrl} onClick={handleOpenModal} />
                                 <Avatar shape="rounded" className="Profile_Image" size="lg" onClick={handleOpenModal}/>
                             )}
                         </div>
@@ -61,14 +60,18 @@ function Navbar() {
                 </div>
                 <div className="Hamburger">
                     <div className="Hamburger_icon" onClick={handleSideNavbar}>
-                        <GiHamburgerMenu />
+                        <HiBars3CenterLeft className="rotate-180 text-3xl"/>
                     </div>
                     {state.booking.showSideNavbar && (
                         <div className="Hamburger_menu">
                             <div className="Profile_status">
                                 {Array.isArray(state.booking.selectedImages) && state.booking.selectedImages.map((dataUrl, index) => (
                                     <div key={index}>
-                                        <Avatar shape="circle" className="Profile_Image" size="lg" img={dataUrl} onClick={handleOpenModal} />
+                                        {dataUrl ? (
+                                            <Avatar shape="circle" className="Profile_Image" size="lg" img={dataUrl} onClick={handleOpenModal} />
+                                        ) : (
+                                            <Avatar shape="rounded" className="Profile_Image" size="lg" onClick={handleOpenModal}/>
+                                        )}
                                     </div>
                                 ))}
                                 <div className="flex flex-col">

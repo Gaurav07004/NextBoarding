@@ -933,6 +933,10 @@
       background-image: linear-gradient(to right, #ee2149, #752265);
     }
     
+    .Departure-Date-Icon {
+      margin: -3px 2px;
+      font-size: small;
+    }
 }
 
 /* Small devices (portrait tablets and large phones, 600px and up)  */

@@ -13,9 +13,10 @@
 .Departure_Booking_Status {
     border-top-left-radius: 8px;
     border-bottom-left-radius: 8px;
+    border-right: none !important;
 }
 
-.DepartureDate_BookingSection {
+.TravellersClass_BookingSection {
     border-top-right-radius: 8px;
     border-bottom-right-radius: 8px;
     border-left: none !important;
@@ -64,34 +65,38 @@
     width: 165px;
     display: inline-block;
 }
+
 .Airport_Info {
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-.Label{
+.Label {
     font-weight: bold;
     color: #b02258;
     text-transform: uppercase;
     font-size: small;
 }
 
-.date,.count{
+.date,
+.count {
     color: #55575b;
     font-weight: 600;
     margin-left: 4px;
 }
 
 .month,
-.year,.travellers {
+.year,
+.travellers {
     color: #55575b;
     font-weight: 400;
     cursor: pointer;
     margin-left: 4px;
 }
 
-.day,.travellerClass{
+.day,
+.travellerClass {
     color: #676565;
     cursor: pointer;
 }
@@ -101,8 +106,265 @@
     justify-content: space-between;
 }
 
-.Adjustments{
-    margin-top: 100px ;
+.splitScreen_Ipad {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
+.Adjustments {
+    margin-top: 100px;
+}
 
+@media only screen and (min-width: 320px) and (max-width: 480px) {
+    .splitScreen_Ipad {
+        display: none;
+    }
+
+    .Booking_Status_Container {
+        display: flex;
+        flex-wrap: wrap;
+        padding: 0rem 0.5rem;
+        font-size: smaller;
+    }
+
+    .Departure_Booking_Status,
+    .Arrival_Booking_Status,
+    .TravellersClass_BookingSection,
+    .DepartureDate_BookingSection {
+        flex: 1 0 50%;
+        padding: 10px 10px 10px 20px;
+        border: 1px solid rgb(190 188 188 / 55%);
+        height: 70px;
+        box-sizing: border-box;
+    }
+
+    .Departure_Booking_Status {
+        border-top-left-radius: 8px;
+        border-top-right-radius: 8px;
+        border-bottom-left-radius: 0px;
+        border-right: 1px solid rgb(190 188 188 / 55%) !important;
+        border-bottom: none !important;
+    }
+
+    .TravellersClass_BookingSection {
+        border-bottom-right-radius: 8px;
+        border-top-left-radius: 0px;
+        border-top-right-radius: 0px;
+        border-right: 1px solid rgb(190 188 188 / 55%) !important;
+        border-left: 1px solid rgb(190 188 188 / 55%) !important;
+        border-top: none !important;
+    }
+
+    .DepartureDate_BookingSection {
+        border-left: 1px solid rgb(190 188 188 / 55%) !important;
+        border-right: none !important;
+        border-bottom-left-radius: 8px;
+    }
+
+    .Arrival_Booking_Section,
+    .DepartureDate_BookingSection {
+        border-top: none !important;
+    }
+
+    .Adjustments {
+        margin: 0;
+    }
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up)  */
+@media only screen and (min-width: 481px) and (max-width: 767px) {
+    .splitScreen_Ipad {
+        display: none;
+    }
+
+    .Booking_Status_Container {
+        display: flex;
+        flex-wrap: wrap;
+        padding: 0rem 0.5rem;
+        font-size: smaller;
+    }
+
+    .Departure_Booking_Status,
+    .Arrival_Booking_Status,
+    .TravellersClass_BookingSection,
+    .DepartureDate_BookingSection {
+        flex: 1 0 50%;
+        padding: 10px 10px 10px 20px;
+        border: 1px solid rgb(190 188 188 / 55%);
+        height: 65px;
+        box-sizing: border-box;
+    }
+
+    .Departure_Booking_Status {
+        border-top-left-radius: 8px;
+        border-bottom-left-radius: 0px;
+        border-right: 1px solid rgb(190 188 188 / 55%) !important;
+        border-right: none !important;
+    }
+
+    .Arrival_Booking_Status {
+        border-top-right-radius: 8px !important;
+        border-right: 1px solid rgb(190 188 188 / 55%) !important;
+    }
+
+    .TravellersClass_BookingSection {
+        border-bottom-right-radius: 8px;
+        border-top-left-radius: 0px;
+        border-top-right-radius: 0px;
+        border-right: 1px solid rgb(190 188 188 / 55%) !important;
+        border-left: 1px solid rgb(190 188 188 / 55%) !important;
+        border-top: none !important;
+    }
+
+    .DepartureDate_BookingSection {
+        border-left: 1px solid rgb(190 188 188 / 55%) !important;
+        border-right: none !important;
+        border-bottom-left-radius: 8px;
+    }
+
+    .Arrival_Booking_Section,
+    .DepartureDate_BookingSection {
+        border-top: none !important;
+    }
+
+    .Adjustments {
+        margin: 0;
+    }
+}
+
+@media only screen and (min-width: 768px) and (max-width: 991px) {
+    .splitScreen_Ipad {
+        padding: 0rem 0.5rem;
+    }
+
+    .Booking_Status_Container {
+        display: flex;
+        flex-wrap: wrap;
+        padding: 0rem 0.5rem;
+        font-size: smaller;
+    }
+
+    .Departure_Booking_Status,
+    .Arrival_Booking_Status,
+    .TravellersClass_BookingSection,
+    .DepartureDate_BookingSection {
+        flex: 1 0 50%;
+        padding: 10px 10px 10px 20px;
+        border: 2px solid rgb(190 188 188 / 55%);
+        height: 65px;
+        box-sizing: border-box;
+    }
+
+    .Departure_Booking_Status {
+        border-top-left-radius: 8px;
+        border-bottom-left-radius: 0px;
+        border-right: 1px solid rgb(190 188 188 / 55%) !important;
+        border-right: none !important;
+    }
+
+    .Arrival_Booking_Status {
+        border-top-right-radius: 8px !important;
+        border-right: 1px solid rgb(190 188 188 / 55%) !important;
+    }
+
+    .TravellersClass_BookingSection {
+        border-bottom-right-radius: 8px;
+        border-top-left-radius: 0px;
+        border-top-right-radius: 0px;
+        border-right: 2px solid rgb(190 188 188 / 55%) !important;
+        border-left: 2px solid rgb(190 188 188 / 55%) !important;
+        border-top: none !important;
+    }
+
+    .DepartureDate_BookingSection {
+        border-left: 2px solid rgb(190 188 188 / 55%) !important;
+        border-right: none !important;
+        border-bottom-left-radius: 8px;
+    }
+
+    .Arrival_Booking_Section,
+    .DepartureDate_BookingSection {
+        border-top: none !important;
+    }
+
+    .Adjustments {
+        margin: 0;
+    }
+
+    .splitScreen {
+        display: none;
+    }
+}
+
+/* Large devices (laptops/desktops, 992px and up)  */
+@media only screen and (min-width: 992px) and (max-width: 1200px) {
+    .splitScreen_Ipad {
+        padding: 0rem 0.5rem;
+    }
+
+    .splitScreen {
+        display: none;
+    }
+
+    .Booking_Status_Container {
+        display: flex;
+        flex-wrap: wrap;
+        padding: 0rem 0.5rem;
+        font-size: smaller;
+    }
+
+    .Departure_Booking_Status,
+    .Arrival_Booking_Status,
+    .TravellersClass_BookingSection,
+    .DepartureDate_BookingSection {
+        flex: 1 0 50%;
+        padding: 10px 10px 10px 20px;
+        border: 2px solid rgb(190 188 188 / 55%);
+        height: 65px;
+        box-sizing: border-box;
+    }
+
+    .Departure_Booking_Status {
+        border-top-left-radius: 8px;
+        border-bottom-left-radius: 0px;
+        border-right: 1px solid rgb(190 188 188 / 55%) !important;
+        border-right: none !important;
+    }
+
+    .Arrival_Booking_Status {
+        border-top-right-radius: 8px !important;
+        border-right: 1px solid rgb(190 188 188 / 55%) !important;
+    }
+
+    .TravellersClass_BookingSection {
+        border-bottom-right-radius: 8px;
+        border-top-left-radius: 0px;
+        border-top-right-radius: 0px;
+        border-right: 2px solid rgb(190 188 188 / 55%) !important;
+        border-left: 2px solid rgb(190 188 188 / 55%) !important;
+        border-top: none !important;
+    }
+
+    .DepartureDate_BookingSection {
+        border-left: 2px solid rgb(190 188 188 / 55%) !important;
+        border-right: none !important;
+        border-bottom-left-radius: 8px;
+    }
+
+    .Arrival_Booking_Section,
+    .DepartureDate_BookingSection {
+        border-top: none !important;
+    }
+
+    .Adjustments {
+        margin-top: 2rem;
+    }
+}
+
+/* Extra-large devices (large laptops and desktops, 1200px and up)  */
+@media only screen and (min-width: 1201px) {
+    .splitScreen_Ipad {
+        display: none;
+    }
+}
