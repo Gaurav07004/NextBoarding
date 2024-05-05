@@ -2,8 +2,9 @@ import { useEffect, useState } from "react";
 import signUp from "../../assets/signUp_1.png"
 import Container from "@mui/material/Container";
 import { useDispatch, useSelector } from "react-redux";
-import { FcGoogle } from "react-icons/fc";
-import { FaFacebook } from "react-icons/fa";
+// import { FcGoogle } from "react-icons/fc";
+// import { FaFacebook } from "react-icons/fa";
+import NewLogo from "../../assets/Logo2.png";
 import { CiLock, CiMail, CiUser } from "react-icons/ci";
 import { Button, Notification  } from "keep-react";
 import { Check } from 'phosphor-react'
@@ -112,14 +113,10 @@ function SignUp() {
                                 <img src={signUp} alt="signUp" className="Image" />
                             </section>
                             <section className="signUp_form_container">
-                                <h1 className="font-bold text-amber-400 text-3xl header mb-2">Sign Up</h1>
-                                <p className="text-zinc-400 text-sm font-semibold m-0">
-                                    Already a member?{" "}
-                                    <NavLink className="text-orange-500 cursor-pointer no-underline" to="/SignIn">
-                                        Sign in
-                                    </NavLink>
-                                </p>
-                                <div className="plugin_desktop">
+                                <div className="logo">
+                                    <img src={NewLogo} alt="logo" className="w-28 h-auto"/>
+                                </div>
+                                {/* <div className="plugin_desktop">
                                     <Button color="secondary" variant="outline" className="Button py-2">
                                         <FcGoogle className="text-2xl plugin_icon" /> <span className="ml-1 plugin_type">Google</span>
                                     </Button>
@@ -136,7 +133,9 @@ function SignUp() {
                                         <FaFacebook className="text-2xl text-blue-500" /> <span className="ml-1 plugin_type">Facebook</span>
                                     </Button>
                                 </div>
-                                <p className="font-semibold text-zinc-500 text-sm text-center Separate">OR</p>
+                                <p className="font-semibold text-zinc-500 text-sm text-center Separate">OR</p> */}
+                                <h1 className="font-semibold text-6xl text-center text-amber-400 mt-6">Hi There!</h1>
+                                <div className="font-semibold text-xs text-center text-amber-400 mt-1">Welcome To NextBoarding! Dashboard</div>
                                 <form className="signup-form" onSubmit={handleSubmit}>
                                     <div className="input-with-icon">
                                         <CiUser className="icon" />
@@ -162,6 +161,12 @@ function SignUp() {
                                         )
                                     }
                                     </div>
+                                    <p className="text-zinc-400 text-sm font-semibold mt-2 text-center">
+                                        Already a member?{" "}
+                                        <NavLink className="text-orange-500 cursor-pointer no-underline" to="/SignIn">
+                                            Sign in
+                                        </NavLink>
+                                    </p>
                                 </form>
                             </section>
                         </main>

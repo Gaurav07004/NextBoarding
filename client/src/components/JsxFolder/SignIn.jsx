@@ -3,11 +3,12 @@ import signIn from "../../assets/book.png";
 import Container from "@mui/material/Container";
 import { useDispatch, useSelector } from "react-redux";
 import { TailSpin } from "react-loader-spinner";
-import { FcGoogle } from "react-icons/fc";
-import { FaFacebook } from "react-icons/fa";
+// import { FcGoogle } from "react-icons/fc";
+// import { FaFacebook } from "react-icons/fa";
 import { CiLock, CiMail, CiUnlock } from "react-icons/ci";
 import { Check, WarningCircle  } from 'phosphor-react'
 import { Button, Notification } from "keep-react";
+import NewLogo from "../../assets/Logo2.png";
 import "../CssFolder/SignIn.css";
 import { setConditionCheck, setShowPasswordModal, setShowPassword, setLoading, setPassengerLogin, setToken } from "../../redux/slices/booking/bookingslices.jsx";
 import { NavLink, useNavigate } from "react-router-dom";
@@ -131,16 +132,10 @@ function SignIn() {
                                 <img src={signIn} alt="signIn" className="Image_signIn" />
                             </section>
                             <section className="signIn_form_container">
-                                <h1 className="font-bold text-3xl mb-2" style={{ color: "#f8467a" }}>
-                                    Sign In
-                                </h1>
-                                <p className="text-zinc-400 text-sm font-semibold m-0 ">
-                                    Not a member?{" "}
-                                    <NavLink className="text-orange-500 cursor-pointer no-underline" to="/SignUp">
-                                        Sign up
-                                    </NavLink>
-                                </p>
-                                <div className="plugin_desktop">
+                                <div className="logo">
+                                    <img src={NewLogo} alt="logo" className="w-28 h-auto"/>
+                                </div>
+                                {/* <div className="plugin_desktop">
                                     <Button color="secondary" variant="outline" className="Button py-2">
                                         <FcGoogle className="text-2xl plugin_icon" /> <span className="ml-1 plugin_type">Google</span>
                                     </Button>
@@ -157,7 +152,9 @@ function SignIn() {
                                         <FaFacebook className="text-2xl text-blue-500" /> <span className="ml-1 plugin_type">Facebook</span>
                                     </Button>
                                 </div>
-                                <p className="font-semibold text-zinc-500 text-sm text-center Separate1">OR</p>
+                                <p className="font-semibold text-zinc-500 text-sm text-center Separate1">OR</p> */}
+                                <h1 className="font-semibold text-6xl text-center mt-6" style={{ color: "#f8467a" }}>Hi There!</h1>
+                                <div className="font-semibold text-xs text-center mt-1" style={{ color: "#f8467a" }}>Welcome To NextBoarding! Dashboard</div>
                                 <form className="signin-form" onSubmit={handleSubmit}>
                                     <div className="input-with-icon">
                                         <CiMail className="icon" />
@@ -188,10 +185,16 @@ function SignIn() {
                                         state.booking.conditionCheck === true ? (
                                             <Button type="submit" className="Sign_In_Button">Sign In</Button>
                                         ) : (
-                                            <Button className="Sign_In_Button" disabled>Sign In</Button>
+                                            <Button className="Sign_In_Button disabled:hover:bg-indigo-300" disabled>Sign In</Button>
                                         )
                                     }
                                 </form>
+                                <p className="text-zinc-400 text-sm font-semibold m-0 text-center">
+                                    Not a member?{" "}
+                                    <NavLink className="text-orange-500 cursor-pointer no-underline" to="/SignUp">
+                                        Sign up
+                                    </NavLink>
+                                </p>
                                 <Suspense fallback={<div>Loading...</div>}>
                                     <section><ForgetPassword/></section>
                                 </Suspense>
