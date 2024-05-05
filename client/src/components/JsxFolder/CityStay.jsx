@@ -1,16 +1,16 @@
 import Container from "@mui/material/Container";
 import { useDispatch, useSelector } from "react-redux";
 import { Button } from "keep-react";
-import Bund from "D:/Development/Web-development/ReactJs/NextBoarding/client/src/assets/Bund.png";
-import Sydney from "D:/Development/Web-development/ReactJs/NextBoarding/client/src/assets/Sydney.png";
-import Kyoto from "D:/Development/Web-development/ReactJs/NextBoarding/client/src/assets/kyoto.png";
-import bp_1 from "D:/Development/Web-development/ReactJs/NextBoarding/client/src/assets/bp_1.webp";
-import maldives from "D:/Development/Web-development/ReactJs/NextBoarding/client/src/assets/maldives.png";
-import Tokyo from "D:/Development/Web-development/ReactJs/NextBoarding/client/src/assets/Tokyo.webp";
-import Moroco from "D:/Development/Web-development/ReactJs/NextBoarding/client/src/assets/Moroco.png";
-import Paris from "D:/Development/Web-development/ReactJs/NextBoarding/client/src/assets/Paris.webp"
-import about_1 from "D:/Development/Web-development/ReactJs/NextBoarding/client/src/assets/about_1.webp";
-import about_2 from "D:/Development/Web-development/ReactJs/NextBoarding/client/src/assets/about_2.webp";
+import Bund from "../../assets/Bund.png";
+import Sydney from "../../assets/Sydney.png";
+import Kyoto from "../../assets/kyoto.png";
+import bp_1 from "../../assets/bp_1.webp";
+import maldives from "../../assets/maldives.png";
+import Tokyo from "../../assets/Tokyo.webp";
+import Moroco from "../../assets/Moroco.png";
+import Paris from "../../assets/Paris.webp"
+import about_1 from "../../assets/about_1.webp";
+import about_2 from "../../assets/about_2.webp";
 import { BsCalendar2Check } from "react-icons/bs";
 import { MdAirlineSeatReclineExtra } from "react-icons/md";
 import { AiOutlineSafety } from "react-icons/ai";

@@ -4,9 +4,9 @@ import { CloudArrowUp } from 'phosphor-react'
 import { Button, Modal, Typography, Alert  } from 'keep-react'
 import { useDispatch, useSelector } from "react-redux";
 import { FaCreditCard, FaGoogle } from "react-icons/fa6";
-import QRcode from "D:/Development/Web-development/ReactJs/NextBoarding/client/src/assets/Paytm_QRcode.png";
-import kotak from "D:/Development/Web-development/ReactJs/NextBoarding/client/src/assets/kotak.webp";
-import bags from "D:/Development/Web-development/ReactJs/NextBoarding/client/src/assets/bags.png";
+import QRcode from "../assets/Paytm_QRcode.png";
+import kotak from "../assets/kotak.webp";
+import bags from "../assets/bags.png";
 import "../components/CssFolder/Payment.css";
 import { setPaymentMethod, setLoading, setOfferContainer, setCardDetail, setCardError } from "../redux/slices/booking/bookingslices.jsx";
 import { TailSpin } from "react-loader-spinner";

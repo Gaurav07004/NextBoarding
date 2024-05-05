@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, Suspense } from "react";
 import signIn from "../../assets/book.png";
 import Container from "@mui/material/Container";
 import { useDispatch, useSelector } from "react-redux";
@@ -72,10 +72,11 @@ function SignIn() {
             });
 
             if (response.token) {
-                dispatch(setToken(response.token));
-                setShowNotification(true);
+                    dispatch(setToken(response.token));
+                    setShowNotification(true);
+                
                 setTimeout(() => {
-                    navigate("/"); 
+                    navigate("/");
                 }, 3000);
                 console.log("Login Successfully!");
             } else {
@@ -183,9 +184,17 @@ function SignIn() {
                                             Forget password ?
                                         </p>
                                     </div>
-                                    <Button type="submit" className="Sign_In_Button">Sign In</Button>
+                                    {
+                                        state.booking.conditionCheck === true ? (
+                                            <Button type="submit" className="Sign_In_Button">Sign In</Button>
+                                        ) : (
+                                            <Button className="Sign_In_Button" disabled>Sign In</Button>
+                                        )
+                                    }
                                 </form>
-                                <section><ForgetPassword/></section>
+                                <Suspense fallback={<div>Loading...</div>}>
+                                    <section><ForgetPassword/></section>
+                                </Suspense>
                             </section>
                         </main>
                         <NotificationComponent isOpen={showNotification} onClose={() => setShowNotification(false)} message="Login Successfully!" iconColor="success" icon={<Check size={40} />} />

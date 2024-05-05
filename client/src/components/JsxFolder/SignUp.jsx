@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import signUp from "D:/Development/Web-development/ReactJs/NextBoarding/client/src/assets/signUp_1.png";
+import signUp from "../../assets/signUp_1.png"
 import Container from "@mui/material/Container";
 import { useDispatch, useSelector } from "react-redux";
 import { FcGoogle } from "react-icons/fc";
@@ -154,7 +154,13 @@ function SignUp() {
                                         <label htmlFor="check1" className={`text-zinc-400 text-sm condition ${state.booking.conditionCheck ? "activeItem" : ""}`} onClick={handleCondition}>
                                             I agree to the <span className="terms-and-conditions">terms and conditions</span>
                                         </label>
-                                        <Button className="create_Account bg-amber-400 hover:bg-amber-300 active:bg-amber-200 text-white">Create Account</Button>
+                                        {
+                                        state.booking.conditionCheck === true ? (
+                                            <Button className="create_Account bg-amber-400 hover:bg-amber-300 active:bg-amber-200 text-white">Create Account</Button>
+                                        ) : (
+                                            <Button className="create_Account bg-amber-400 hover:bg-amber-300 active:bg-amber-200 text-white" disabled>Create Account</Button>
+                                        )
+                                    }
                                     </div>
                                 </form>
                             </section>

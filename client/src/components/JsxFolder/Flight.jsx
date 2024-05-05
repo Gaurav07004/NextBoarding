@@ -80,10 +80,10 @@ const Flight = () => {
     //     }, [state.booking.departureAirport?.iata, state.booking.arrivalAirport?.iata, state.booking.currentDate, dispatch]);
     const fetch_Airline_Data = useCallback(async () => {
         try {
-            // let departureIata = state.booking.departureAirport.iata;
-            // let arrivalIata = state.booking.arrivalAirport.iata;
-            let departureIata = state.booking.departureAirport.length > 0 ? state.booking.departureAirport[0].iata : "BOM";
-            let arrivalIata = state.booking.arrivalAirport.length > 0 ? state.booking.arrivalAirport[0].iata : "DEL";
+            let departureIata = state.booking.departureAirport.iata;
+            let arrivalIata = state.booking.arrivalAirport.iata;
+            // let departureIata = state.booking.departureAirport.length > 0 ? state.booking.departureAirport[0].iata : "BOM";
+            // let arrivalIata = state.booking.arrivalAirport.length > 0 ? state.booking.arrivalAirport[0].iata : "DEL";
 
             const airlineAction = await dispatch(
                 fetchAirlineData({
@@ -194,7 +194,8 @@ const Flight = () => {
 
         const suffix = getOrdinalSuffix(date);
 
-        const formattedDate = `${date}${suffix}`;
+        // Add leading zero if date is less than 10
+        const formattedDate = (date < 10 ? '0' : '') + date + suffix;
 
         return formattedDate;
     };

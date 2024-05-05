@@ -1,13 +1,13 @@
-import React, { Suspense, useEffect } from "react";
+import React, { Suspense, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { CloudArrowUp } from "phosphor-react";
-import { Button, Modal, Typography } from "keep-react";
+import { CloudArrowUp, WarningCircle } from "phosphor-react";
+import { Button, Modal, Typography, Notification } from "keep-react";
 import Container from "@mui/material/Container";
-import PlaneImage from "D:/Development/Web-development/ReactJs/NextBoarding/client/src/assets/PlaneImage_1.png";
-import PlaneImage_Mobile from "D:/Development/Web-development/ReactJs/NextBoarding/client/src/assets/PlaneImage_Mobile.png";
-import PlaneImage_Ipad from "D:/Development/Web-development/ReactJs/NextBoarding/client/src/assets/PlaneImage_Ipad.png";
-import EconomySeat from "D:/Development/Web-development/ReactJs/NextBoarding/client/src/assets/Economy_Seats.png";
-import BusinessSeat from "D:/Development/Web-development/ReactJs/NextBoarding/client/src/assets/Business_Seats.png";
+import PlaneImage from "../assets/PlaneImage_1.png";
+import PlaneImage_Mobile from "../assets/PlaneImage_Mobile.png";
+import PlaneImage_Ipad from "../assets/PlaneImage_Ipad.png";
+import EconomySeat from "../assets/Economy_Seats.png";
+import BusinessSeat from "../assets/Business_Seats.png";
 import { format } from "date-fns";
 import { FaCircle, FaCheck } from "react-icons/fa";
 import { FaArrowRightLong } from "react-icons/fa6";
@@ -22,6 +22,8 @@ const SelectSeat = () => {
     const dispatch = useDispatch();
     const state = useSelector((state) => state);
     const navigate = useNavigate();
+    const [showError, setShowError] = useState(false);
+
     useEffect(() => {
         dispatch(setLoading(true));
 
@@ -130,7 +132,7 @@ const SelectSeat = () => {
             const selectedSeat = state.booking.selectSeat?.[seatType];
 
             if (selectedSeat && selectedSeat.length !== 0) {
-                const seat = selectedSeat.join(", "); // Join multiple seats with comma
+                const seat = selectedSeat.join(", "); 
                 const morePassengers = selectedSeat.length > 1 ? ` & more ${selectedSeat.length - 1} passengers` : "";
                 return `${seat}${morePassengers}`;
             }
@@ -142,16 +144,16 @@ const SelectSeat = () => {
         const economySeatInfo = getSeatInfo("Economy");
 
         if (businessSeatInfo && economySeatInfo) {
-            // Display both Business and Economy seat information if both are available
+            
             return `${businessSeatInfo}, ${economySeatInfo}`;
         } else if (businessSeatInfo) {
-            // Display only Business seat information if available
+            
             return businessSeatInfo;
         } else if (economySeatInfo) {
-            // Display only Economy seat information if available
+            
             return economySeatInfo;
         } else {
-            // If no seat information is available for both classes
+            
             return "--";
         }
     };
@@ -209,29 +211,48 @@ const SelectSeat = () => {
         return Economy_rows;
     };
 
+    const NotificationComponent = () => (
+        <div className="px-5 py-3">
+            <Notification isOpen={showError} onClose={() => setShowError(false)} position="top-left">
+                <Notification.Body className="max-w-sm p-4 border-slate-300 border-2 rounded-lg bg-slate-100">
+                    <Notification.Content>
+                        <div className="flex items-center gap-2 justify-center">
+                            <div className={`h-14 w-14 p-1.5 bg-error-50 text-error-500 rounded-full border-2 border-error-300`}>
+                                <WarningCircle size={40}/>
+                            </div>
+                            <div className="max-w-[220px]">
+                                <p className="text-body-4 text-metal-700 m-0 font-semibold">You can only select up to {state.booking.selectedNoOfTravellers.Totalcount} seats.</p>
+                            </div>
+                        </div>
+                    </Notification.Content>
+                </Notification.Body>
+            </Notification>
+        </div>
+    );
+
     const handleSelectSeat = (seatId, seatClass) => {
         const selectedSeats = state.booking.selectSeat;
         const otherClass = seatClass === "Business" ? "Economy" : "Business";
 
-        // Calculate the total number of selected seats from both classes
+        
         const totalSelectedSeats = selectedSeats[seatClass].length + selectedSeats[otherClass].length;
 
-        // Check if selecting the seat would exceed the total number of allowed seats
+       
         if (totalSelectedSeats >= state.booking.selectedNoOfTravellers.Totalcount && !selectedSeats[seatClass].includes(seatId)) {
-            alert(`You can only select up to ${state.booking.selectedNoOfTravellers.Totalcount} seats.`);
+            setShowError(true);
             return;
         }
 
-        // Check if the selected seat is already present in the selected seats of the same class
+        
         if (selectedSeats[seatClass].includes(seatId)) {
-            // If the selected seat is already present, remove it
+            
             const updatedSelectSeat = {
                 ...selectedSeats,
                 [seatClass]: selectedSeats[seatClass].filter((selectedSeat) => selectedSeat !== seatId),
             };
             dispatch(setSelectSeat(updatedSelectSeat));
         } else {
-            // Add the selected seat to the corresponding class
+            
             const updatedSelectSeat = {
                 ...selectedSeats,
                 [seatClass]: [...selectedSeats[seatClass], seatId],
@@ -240,7 +261,7 @@ const SelectSeat = () => {
             dispatch(setSelectedUpgradeClass(seatClass));
             dispatch(setSelectSeat(updatedSelectSeat));
 
-            // If the selected travel class is not Business and the selected seat class is Business, show the upgrade modal
+            
             if (state.booking.selectedTravelClass !== "Business" && seatClass === "Business") {
                 dispatch(setShowModel(true));
             }
@@ -278,17 +299,17 @@ const SelectSeat = () => {
             const travellerData = state.booking.passengerForm.map((passenger, index) => {
             let seat = null;
 
-            // Check if there are available Business seats for the current passenger index
+            
             if (state.booking.selectSeat.Business.length > index) {
                 seat = state.booking.selectSeat.Business[index];
             } 
-            // If no Business seats are available for the current passenger, assign from Economy seats
+            
             else {
-                // Calculate the number of Business seats already assigned
+                
                 const numBusinessSeatsAssigned = state.booking.selectSeat.Business.length;
-                // Calculate the number of Economy seats to assign after assigning Business seats
+               
                 const numEconomySeatsToAssign = index - numBusinessSeatsAssigned;
-                // Assign Economy seats based on the index
+                
                 if (state.booking.selectSeat.Economy.length > numEconomySeatsToAssign) {
                     seat = state.booking.selectSeat.Economy[numEconomySeatsToAssign];
                 }
@@ -493,6 +514,7 @@ const SelectSeat = () => {
                                 </Modal>
                             </section>
                             </form>
+                            <NotificationComponent />
                         </main>
                     )}
                 </Container>

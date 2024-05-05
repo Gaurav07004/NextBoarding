@@ -1,5 +1,5 @@
 import { Link as ScrollLink } from "react-scroll";
-import NewLogo from "D:/Development/Web-development/ReactJs/NextBoarding/client/src/assets/Logo1.png";
+import NewLogo from "../../assets/Logo1.png";
 import "../CssFolder/Navbar.css";
 import { NavLink } from "react-router-dom";
 import { Avatar } from "keep-react"

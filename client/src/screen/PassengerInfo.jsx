@@ -3,7 +3,7 @@ import "../components/CssFolder/PassengerInfo.css";
 import Container from "@mui/material/Container";
 import { useDispatch, useSelector } from "react-redux";
 import { FaPlus, FaMinus } from "react-icons/fa6";
-import bags from "D:/Development/Web-development/ReactJs/NextBoarding/client/src/assets/bags.png";
+import bags from "../assets/bags.png";
 import { NavLink } from "react-router-dom";
 import { Button } from "keep-react";
 import { TailSpin } from "react-loader-spinner";
@@ -116,7 +116,6 @@ const handleChange = (e, passengerIndex, isEmergency = false) => {
                             <p className=" font-bold tracking-wider text-lg pt-3 text-amber-400 Passenger_info_label">Passenger information</p>
                             <p className="user_related_info">Enter the required information for each traveler and be sure that it exactly matches the government-issued ID presented at the airport.</p>
                                 <section className="passenger_info_form">
-                                    {/* <form onSubmit={handleSubmit}> */}
                                     {state.booking.passengerForm.map((passengerForm, index) => (
                                         <div key={index}>
                                             <p className="Passenger_no mb-4">Passenger {passengerForm.passengerNumber}</p>
@@ -199,7 +198,6 @@ const handleChange = (e, passengerIndex, isEmergency = false) => {
                                         <NavLink to="/SelectSeat">Select Seat</NavLink>
                                     </Button>
                                 )}
-                                    {/* </form> */}
                                 </section>
                         </section>
                         <section className="second_container p-2">
