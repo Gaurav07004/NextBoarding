@@ -130,11 +130,11 @@ const sendEmail = async (email) => {
         const otp = generateOTP();
         const emailContent = `<div style="max-width: 600px; margin: 0 auto; padding: 20px; background-color: #f0f0f0; border-radius: 1rem;">
             <h2 style="font-size: 24px; font-weight: bold; line-height: 28px;">Action Required: One-Time Verification Code</h2>
-            <p>You are receiving this email because a one-time verification code is required for your NextBoarding account.</p>
-            <p>Please use the following code to complete the verification process: <strong style="font-weight: bold; color: #007bff;">${otp}</strong></p>
-            <p>If you did not request this verification code, please ignore this email.</p>
-            <p>If you need any assistance or have questions, feel free to contact our support team at <a href="mailto:${process.env.EMAIL_USER}" style="color: #007bff; text-decoration: none;">NextBoarding Team</a>.</p>
-            <p>Thank you,<br>NextBoarding Team</p>
+            <p style="font-size: 14px;">You are receiving this email because a one-time verification code is required for your NextBoarding account.</p>
+            <p style="font-size: 14px;">Please use the following code to complete the verification process: <strong style="font-weight: bold; color: #007bff;">${otp}</strong></p>
+            <p style="font-size: 14px;">If you did not request this verification code, please ignore this email.</p>
+            <p style="font-size: 14px;">If you need any assistance or have questions, feel free to contact our support team at <a href="mailto:${process.env.EMAIL_USER}" style="color: #007bff; text-decoration: none;">NextBoarding Team</a>.</p>
+            <p style="font-size: 14px;">Thank you,<br>NextBoarding Team</p>
         </div>`;
 
         const info = await transporter.sendMail({
