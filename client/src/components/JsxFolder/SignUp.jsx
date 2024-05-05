@@ -135,7 +135,7 @@ function SignUp() {
                                 </div>
                                 <p className="font-semibold text-zinc-500 text-sm text-center Separate">OR</p> */}
                                 <h1 className="font-semibold text-6xl text-center text-amber-400 mt-6">Hi There!</h1>
-                                <div className="font-semibold text-xs text-center text-amber-400 mt-1">Welcome To NextBoarding! Dashboard</div>
+                               <div className="font-semibold text-xs text-center text-amber-400 mt-1">Welcome to NextBoarding! Get started by creating your account.</div>
                                 <form className="signup-form" onSubmit={handleSubmit}>
                                     <div className="input-with-icon">
                                         <CiUser className="icon" />
