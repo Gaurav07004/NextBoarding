@@ -2,10 +2,14 @@ NextBoarding is a web application that aims to streamline the flight planning pr
 
 Key Features:
 
-1. Intuitive User Interface: NextBoarding offers a clean and intuitive user interface to streamline the flight booking experience. Users can easily navigate the application to find and book their desired flights.
+1️⃣ Real-Time Flight Updates: Our platform harnesses the power of MongoDB and Node.js to provide users with instant access to real-time flight information from leading airlines worldwide. Stay informed and empowered to make the best travel decisions.
 
-2. Seat Selection: With FlyEase, users can select their preferred seats during the booking process. This feature enhances user satisfaction by allowing them to choose seats that best suit their preferences and needs.
+2️⃣ User-Friendly Interface: Designed with the user in mind, NextBoarding offers a sleek and intuitive interface built with React.js, ensuring a smooth and enjoyable booking process from start to finish.
 
-3. Secure Payment Processing: NextBoarding ensures the security of payment transactions by integrating with the Stripe API. Users can confidently make payments, knowing that their financial information is protected.
+3️⃣ Personalized Seat Selections: Say goodbye to compromise! NextBoarding allows users to personalize their travel experience by selecting their preferred seats with ease, guaranteeing comfort and convenience throughout their journey.
 
-4. Responsive Design: The application is built with a responsive design, ensuring compatibility across various devices and screen sizes. Whether users are accessing FlyEase on a desktop computer, tablet, or smartphone, they can enjoy a seamless booking experience.
+4️⃣ Instant Trip Confirmation: With NextBoarding, peace of mind comes standard. Users receive instant trip confirmations directly to their inbox, thanks to our integration of Express.js, eliminating any uncertainty and ensuring a seamless travel experience.
+
+5️⃣ Modern Password Recovery: We understand the importance of security and convenience. NextBoarding offers modern password recovery options via email, providing users with a hassle-free way to regain access to their accounts.
+
+6️⃣ Responsive Design: Whether you're accessing NextBoarding from your laptop, tablet, or smartphone, our platform adapts seamlessly to any device, ensuring a consistent and enjoyable user experience on the go.
