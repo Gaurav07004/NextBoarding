@@ -2,6 +2,7 @@
     --tw-bg-opacity: 1;
     background-color: rgb(255 214 210) !important;
 }
+
 .split_Screen {
     display: grid;
     grid-template-columns: 53% 30%;
@@ -17,17 +18,18 @@
     border: 1px solid #ecbf5d;
     border-radius: 4px;
     padding: 6px;
-    width: 40%;
+    width: 50%;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    gap: 0.5rem;
 }
 
 .Payment_method {
-    width: 45%;
     align-items: center;
-    justify-content: space-around;
+    justify-content: space-between;
     display: flex;
+    gap: 0.5rem;
 }
 
 .Active_method {
@@ -44,6 +46,7 @@
     font-size: 15px;
     font-weight: 600;
 }
+
 .cancel_points {
     font-size: medium;
 }
@@ -52,9 +55,11 @@
     color: var(--light-color);
     font-size: smaller;
 }
+
 .Upgrade_label {
     color: #6e7491;
 }
+
 .card_info {
     position: relative;
     width: 100%;
@@ -154,15 +159,25 @@
 }
 
 @keyframes horizontal-shaking {
-    0% {transform: translateX(0)}
+    0% {
+        transform: translateX(0)
+    }
 
-    25% {transform: translateX(15px)}
+    25% {
+        transform: translateX(15px)
+    }
 
-    50% {transform: translateX(-15px)}
+    50% {
+        transform: translateX(-15px)
+    }
 
-    75% {transform: translateX(15px)}
+    75% {
+        transform: translateX(15px)
+    }
 
-    100% {transform: translateX(0)}
+    100% {
+        transform: translateX(0)
+    }
 }
 
 .Confirm_And_Pay:hover {

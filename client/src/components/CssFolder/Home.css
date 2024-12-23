@@ -3,14 +3,16 @@
   padding: 0;
   box-sizing: border-box;
 }
+
 .MuiContainer-root.MuiContainer-maxWidthLg.css-1oqqzyl-MuiContainer-root {
   max-width: 1300px !important;
   padding-left: 0 !important;
   padding-right: 0 !important;
 
 }
+
 ::-webkit-scrollbar {
-  width: 10px;
+  width: 5px;
 }
 
 ::-webkit-scrollbar-track {
@@ -23,18 +25,21 @@
 ::-webkit-scrollbar-thumb {
   background: #cccccc82;
   border-radius: 8px;
-  height: 50px;
+  height: 20px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
   background: #ccccccab;
 }
+
 :root {
   --primary-color: #55575B;
   --secondary-color: #6e7491c4;
   --third-color: #6E7491;
   --light-color: #7C8DB0;
-};
+}
+
+;
 
 .banner {
   padding: 12px;
@@ -96,56 +101,56 @@
     margin-top: 5rem;
   }
 
-    .Text {
-      font-size: 30px;
-        line-height: 2rem;
-        padding: 2rem;
-    }
+  .Text {
+    font-size: 30px;
+    line-height: 2rem;
+    padding: 2rem;
+  }
 }
 
 /* Small devices (portrait tablets and large phones, 600px and up)  */
 @media only screen and (min-width: 481px) and (max-width: 767px) {
   .background-image {
-      width: 100%;
-      height: 22rem;
-      margin-top: 3.68rem;
-    }
-  
-    .Text {
-      font-size: 40px;
-      line-height: 2.8rem;
-      padding: 4rem;
-    }
+    width: 100%;
+    height: 22rem;
+    margin-top: 3.68rem;
+  }
+
+  .Text {
+    font-size: 40px;
+    line-height: 2.8rem;
+    padding: 4rem;
+  }
 }
 
 /* Medium devices (landscape tablets, 768px and up)  */
 @media only screen and (min-width: 768px) and (max-width: 991px) {
   .background-image {
-      width: 100%;
-      height: 27rem;
-      margin-top: 3.68rem;
-    }
-  
-    .Text {
-      font-size: 50px;
-      line-height: 3.5rem;
-      padding: 7rem;
-    }
+    width: 100%;
+    height: 27rem;
+    margin-top: 3.68rem;
+  }
+
+  .Text {
+    font-size: 50px;
+    line-height: 3.5rem;
+    padding: 7rem;
+  }
 }
 
 /* Large devices (laptops/desktops, 992px and up)  */
 @media only screen and (min-width: 992px) and (max-width: 1200px) {
   .background-image {
-      width: 100%;
-      height: 36rem;
-      margin-top: 3.68rem;
-    }
-  
-    .Text {
-      font-size: 56px;
-      line-height: 3.8rem;
-      padding: 7rem;
-    }
+    width: 100%;
+    height: 36rem;
+    margin-top: 3.68rem;
+  }
+
+  .Text {
+    font-size: 56px;
+    line-height: 3.8rem;
+    padding: 7rem;
+  }
 
 }
 
@@ -155,4 +160,3 @@
     display: none;
   }
 }
-

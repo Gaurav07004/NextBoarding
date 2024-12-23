@@ -9,7 +9,7 @@ import { RiCustomerService2Fill, RiDashboardLine } from "react-icons/ri";
 import { HiBars3CenterLeft } from "react-icons/hi2";
 import { IoClose } from "react-icons/io5";
 import { LuSendToBack } from "react-icons/lu";
-import { BsSuitcase2 } from "react-icons/bs";
+// import { BsSuitcase2 } from "react-icons/bs";
 import { useDispatch, useSelector } from "react-redux";
 import { setShowProfileModal, setShowSideNavbar } from "../../redux/slices/booking/bookingslices.jsx";
 
@@ -29,8 +29,8 @@ function Navbar() {
         <>
             <nav className={`navbar`}>
                 <div>
-                    <NavLink to="/" className="logo">
-                        <img src={NewLogo} alt="logo" className="w-32 h-auto"/>
+                    <NavLink to="/Home" className="logo">
+                        <img src={NewLogo} alt="logo" className="w-32 h-auto" />
                     </NavLink>
                 </div>
                 <div className="menu">
@@ -53,14 +53,14 @@ function Navbar() {
                             {dataUrl ? (
                                 <Avatar shape="circle" className="Profile_Image" size="lg" img={dataUrl} onClick={handleOpenModal} />
                             ) : (
-                                <Avatar shape="rounded" className="Profile_Image" size="lg" onClick={handleOpenModal}/>
+                                <Avatar shape="rounded" className="Profile_Image" size="lg" onClick={handleOpenModal} />
                             )}
                         </div>
                     ))}
                 </div>
                 <div className="Hamburger">
                     <div className="Hamburger_icon" onClick={handleSideNavbar}>
-                        <HiBars3CenterLeft className="rotate-180 text-3xl"/>
+                        <HiBars3CenterLeft className="rotate-180 text-3xl" />
                     </div>
                     {state.booking.showSideNavbar && (
                         <div className="Hamburger_menu">
@@ -70,7 +70,7 @@ function Navbar() {
                                         {dataUrl ? (
                                             <Avatar shape="circle" className="Profile_Image" size="lg" img={dataUrl} onClick={handleOpenModal} />
                                         ) : (
-                                            <Avatar shape="rounded" className="Profile_Image" size="lg" onClick={handleOpenModal}/>
+                                            <Avatar shape="rounded" className="Profile_Image" size="lg" onClick={handleOpenModal} />
                                         )}
                                     </div>
                                 ))}
@@ -78,7 +78,7 @@ function Navbar() {
                                     <div className="User_name">Gaurav Singh</div>
                                     <div className="User_status">gauravsingh07004@gmail.com</div>
                                 </div>
-                                <div className={`text-2xl text-amber-400 close`} onClick={handleSideNavbar}><IoClose/></div>
+                                <div className={`text-2xl text-amber-400 close`} onClick={handleSideNavbar}><IoClose /></div>
                             </div>
                             <div className="mt-4">
                                 <div className="hover:bg-amber-100 rounded-lg">
@@ -115,7 +115,7 @@ function Navbar() {
                     <p className="text-sm text-zinc-700 font-semibold mb-4">You are viewing your personal profile {state.booking.passengerAccInfo?.Fullname || ""}</p>
                     {[
                         { Icon: <FiUser />, title: "My Profile", description: "Manage your profile, traveller details, login details and password.", swtich: "Account" },
-                        { Icon: <BsSuitcase2 />, title: "My Trips", description: "See booking details, Print e-ticket, Cancel Booking, Check Refund Status & more.", swtich: "MyTrips" },
+                        // { Icon: <BsSuitcase2 />, title: "My Trips", description: "See booking details, Print e-ticket, Cancel Booking, Check Refund Status & more.", swtich: "MyTrips" },
                         { Icon: <FiLogOut />, title: "Log Out", description: "Click here to log out of your account.", swtich: "SignIn" },
                     ].map((level, index) => (
                         <NavLink className="profile_section" key={index} to={`/${level.swtich}`}>

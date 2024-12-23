@@ -6,7 +6,7 @@ import { TailSpin } from "react-loader-spinner";
 // import { FcGoogle } from "react-icons/fc";
 // import { FaFacebook } from "react-icons/fa";
 import { CiLock, CiMail, CiUnlock } from "react-icons/ci";
-import { Check, WarningCircle  } from 'phosphor-react'
+import { Check, WarningCircle } from 'phosphor-react'
 import { Button, Notification } from "keep-react";
 import NewLogo from "../../assets/Logo2.png";
 import "../CssFolder/SignIn.css";
@@ -73,11 +73,11 @@ function SignIn() {
             });
 
             if (response.token) {
-                    dispatch(setToken(response.token));
-                    setShowNotification(true);
-                
+                dispatch(setToken(response.token));
+                setShowNotification(true);
+
                 setTimeout(() => {
-                    navigate("/");
+                    navigate("/Home");
                 }, 3000);
                 console.log("Login Successfully!");
             } else {
@@ -133,7 +133,7 @@ function SignIn() {
                             </section>
                             <section className="signIn_form_container">
                                 <div className="logo">
-                                    <img src={NewLogo} alt="logo" className="w-28 h-auto"/>
+                                    <img src={NewLogo} alt="logo" className="w-28 h-auto" />
                                 </div>
                                 {/* <div className="plugin_desktop">
                                     <Button color="secondary" variant="outline" className="Button py-2">
@@ -196,7 +196,7 @@ function SignIn() {
                                     </NavLink>
                                 </p>
                                 <Suspense fallback={<div>Loading...</div>}>
-                                    <section><ForgetPassword/></section>
+                                    <section><ForgetPassword /></section>
                                 </Suspense>
                             </section>
                         </main>

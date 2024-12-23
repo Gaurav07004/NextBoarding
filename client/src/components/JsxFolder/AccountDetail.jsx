@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Button, Divider, Notification } from "keep-react";
-import { Check } from 'phosphor-react'
+import { Check } from "phosphor-react";
 import "../CssFolder/AccountDetail.css";
 import { setPassengerAccInfo, setDeleteModal, setShowPasswordModal } from "../../redux/slices/booking/bookingslices.jsx";
 
@@ -11,7 +11,7 @@ const DeleteAccount = React.lazy(() => import("../JsxFolder/DeleteAccount.jsx"))
 function Account() {
     const dispatch = useDispatch();
     const state = useSelector((state) => state);
-    const [showNotification, setShowNotification] = useState(false); 
+    const [showNotification, setShowNotification] = useState(false);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -39,7 +39,7 @@ function Account() {
         dispatch(setDeleteModal(!state.booking.ShowDeleteModal));
     };
 
-    console.log("passengerData", state.booking.flightBookingDetails)
+    console.log("passengerData", state.booking.flightBookingDetails);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -80,26 +80,27 @@ function Account() {
 
     console.log("passengerAccInfo", state.booking.passengerAccInfo);
 
-    const NotificationComponent = () => (
-        <div className="px-5 py-3">
-            <Notification isOpen={showNotification} onClose={() => setShowNotification(false)} position="top-right">
-                <Notification.Body className="max-w-sm p-4 border-slate-300 border-2 rounded-lg bg-slate-100">
-                    <Notification.Content>
-                        <div className="flex items-center gap-2 justify-center">
-                            <div className="h-14 w-14 p-1.5 bg-success-50 text-success-500 rounded-full border-2 border-success-300">
-                                <Check size={40} />
+    const NotificationComponent = () => {
+        return (
+            <div className="px-5 py-3">
+                <Notification isOpen={showNotification} onClose={() => setShowNotification(false)} position="top-right">
+                    <Notification.Body className="max-w-sm p-4 border-slate-300 border-2 rounded-lg bg-slate-100">
+                        <Notification.Content>
+                            <div className="flex items-center gap-2 justify-center">
+                                <div className="h-14 w-14 p-1.5 bg-success-50 text-success-500 rounded-full border-2 border-success-300">
+                                    <Check size={40} />
+                                </div>
+                                <div className="max-w-[220px]">
+                                    <p className="text-body-4  text-metal-700 m-0 font-semibold">Account Data is Update Successfully.</p>
+                                </div>
                             </div>
-                            <div className="max-w-[220px]">
-                                <p className="text-body-4  text-metal-700 m-0 font-semibold">
-                                    Account Data is Update Successfully.
-                                </p>
-                            </div>
-                        </div>
-                    </Notification.Content>
-                </Notification.Body>
-            </Notification>
-        </div>
-    );
+                        </Notification.Content>
+                    </Notification.Body>
+                </Notification>
+            </div>
+        );
+    };
+
 
     return (
         <main>
@@ -123,26 +124,24 @@ function Account() {
                             </div>
                         ))}
                     </div>
-                    <section>
-                        <ForgetPassword />
-                    </section>
-                    <Divider size="lg" className="mt-5" />
-                    <div className="mt-1 flex justify-between items-center">
-                        <div className="font-semibold text-gray-500 cursor-pointer" onClick={cancelModal}>
-                            Change Password
-                        </div>
-                        <Button type="submit" color="warning" className="mt-6">
-                            Update
-                        </Button>
+                    <Button type="submit" color="warning" className="Button">
+                        Update
+                    </Button>
+                </form>
+                <Divider size="lg" className="mt-5" />
+                <div className="mt-5 flex justify-between items-center">
+                    <div className="font-semibold text-gray-500 cursor-pointer" onClick={cancelModal}>
+                        Change Password
                     </div>
-                    <Divider size="lg" className="mt-6" />
-                    <section><DeleteAccount/></section>
                     <div className="font-semibold text-red-500 cursor-pointer" onClick={deleteModal}>
                         Delete Account
                     </div>
-                </form>
+                </div>
+                <Divider size="lg" className="mt-6" />
             </section>
-                    <NotificationComponent/>
+            <NotificationComponent />
+            <ForgetPassword />
+            <DeleteAccount />
         </main>
     );
 }

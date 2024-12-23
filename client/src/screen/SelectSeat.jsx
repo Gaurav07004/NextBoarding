@@ -422,7 +422,7 @@ const SelectSeat = () => {
                                         </div>
                                         <div className="Date_status_container">
                                             <span>{format(state.booking.currentDate, "MMM")} </span>
-                                            <span>{state.booking.flightDetail?.date}</span>
+                                            <span>{state.booking.flightDetail?.date} </span>
                                             <span>|</span>
                                             <span> {state.booking.flightDetail?.arrival || "--"}</span>
                                             <div className="departure_airport_city">Arriving</div>

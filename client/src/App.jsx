@@ -13,19 +13,19 @@ import Account from "./screen/Account";
 
 function App() {
   return (
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/SignUp" element={<SignUp />} />
-        <Route path="/SignIn" element={<SignIn />} />
-        <Route path="/Search" element={<Search />} />
-        <Route path="/PassengerInfo" element={<PassengerInfo />} />
-        <Route path="/SelectSeat" element={<SelectSeat />} />
-        <Route path="/Payment" element={<Payment />} />
-        <Route path="/ConfirmBooking" element={<ConfirmBooking />} />
-        <Route path="/Profile" element={<Profile />} />
-        <Route path="/MyTrips" element={<MyTrips />} />
-        <Route path="/Account" element={<Account />} />
-      </Routes>
+    <Routes>
+      <Route path="/" element={<SignIn />} />
+      <Route path="/SignUp" element={<SignUp />} />
+      <Route path="/Home" element={<Home />} />
+      <Route path="/Search" element={<Search />} />
+      <Route path="/PassengerInfo" element={<PassengerInfo />} />
+      <Route path="/SelectSeat" element={<SelectSeat />} />
+      <Route path="/Payment" element={<Payment />} />
+      <Route path="/ConfirmBooking" element={<ConfirmBooking />} />
+      <Route path="/Profile" element={<Profile />} />
+      <Route path="/MyTrips" element={<MyTrips />} />
+      <Route path="/Account" element={<Account />} />
+    </Routes>
   );
 }
 

@@ -7,7 +7,7 @@ const authMiddleware = require("../middlewares/auth-middleware.js");
 
 // Public Routes
 router.get("/", auth.home);
-router.post("/register", validate(signupSchema), auth.registration); 
+router.post("/register", validate(signupSchema), auth.registration);
 router.post("/login", auth.login);
 router.post("/forget-password", auth.emailController);
 router.post("/verify-otp", auth.OTP);
@@ -23,5 +23,7 @@ router.put("/AccountData", auth.AccountData);
 router.delete("/DeleteAccount", auth.DeleteAccount);
 router.put("/cancelTrips/:route_Id/:passengerId", auth.CancelTrip);
 router.post("/TripConfirmation", auth.TripConfirmation);
+router.post("/PaymentOrder", auth.PaymentCreateOrder);
+// router.post('/VerifyPayment', auth.PaymentverifyOrder);
 
 module.exports = router;

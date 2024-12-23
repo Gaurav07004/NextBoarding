@@ -86,7 +86,7 @@ const Bills = () => {
                 <div className="FlightBill">
                     <div className="departure_info">
                         <div>
-                            <img src={state.booking.departureAirline.logo_url} alt="logo" className="airline_logo" />
+                            <img src={state.booking.departureAirline?.logo_url} className="airline_logo" />
                         </div>
                         <div className="FlightInfo">
                             <div className="departure_airline">{state.booking.departureAirline.name}</div>
@@ -96,7 +96,7 @@ const Bills = () => {
                     <Divider size="lg" />
                     <div className="FlightTime">
                         <div className="duration">
-                            {state.booking.flightDetail?.departure || ""} - {state.booking.flightDetail?.arrival || ""}
+                            {state.booking.flightDetail?.departure || "Flight"} - {state.booking.flightDetail?.arrival || "Data"}
                         </div>
                         <div className="duration">{state.booking.flightDetail.time}</div>
                         <div className="flight_number"> {state.booking.flightDetail?.stop}</div>

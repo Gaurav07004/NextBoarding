@@ -137,7 +137,9 @@ const initialState = {
     routeInfo: [],
     flightBookingDetails: [],
     routeStatus: "Upcoming",
+    logoLoaded: false
 };
+
 export const fetch_API = createAsyncThunk("fetch_API", async (input) => {
     try {
         const response = await fetch(`https://api.api-ninjas.com/v1/airports?city=${input}`, {
@@ -478,6 +480,9 @@ const bookingSlice = createSlice({
         setRouteInfo(state, action) {
             state.routeInfo.push(action.payload);
         },
+        setLogoLoaded(state, action) {
+            state.logoLoaded.push(action.payload);
+        },
     },
     extraReducers: (builder) => {
         builder.addCase(fetch_API.fulfilled, (state, action) => {
@@ -594,6 +599,7 @@ export const {
     setFlightBookingDetails,
     setRouteStatus,
     setRouteInfo,
+    setLogoLoaded
 } = bookingSlice.actions;
 
 export default bookingSlice.reducer;

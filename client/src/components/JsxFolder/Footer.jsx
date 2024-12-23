@@ -1,6 +1,6 @@
 import Container from "@mui/material/Container";
 import { NavLink, Link } from "react-router-dom";
-import { FaFacebookSquare, FaInstagram, FaHeart, FaTwitter } from "react-icons/fa";
+import { FaFacebookSquare, FaInstagram, FaTwitter } from "react-icons/fa";
 import NewLogo from "D:/Development/Web-development/ReactJs/NextBoarding/client/src/assets/Logo1.png";
 import { PiCopyrightLight } from "react-icons/pi";
 import "../CssFolder/Footer.css";
@@ -28,9 +28,9 @@ function Footer() {
             <h4 className="contact-header">Contact Info</h4>
             <div className="Info">
               <p>
-                Address: Unit No. 6 & 7, Laxmi Plaza, <br />
-                Laxmi Industrial Estate, New Link Road, <br />
-                Andheri West, Mumbai, Maharashtra 400053.
+                Address: Unit No. 6 & 7, XXXX XXX, <br />
+                XXXXX XXXXX XXXXX, XXXX XXXX XXXXX, <br />
+                XXXXX XXXXX XXXX.
               </p>
             </div>
           </div>
@@ -43,12 +43,12 @@ function Footer() {
             </div>
             <div className="Links">
                 <Link exact to="tel:(212) 658-3916">Telephone No: (212) 658-3916</Link>
-                <Link exact to="mailto:info@flyEase.in">Email: info@flyEase.in</Link>
+                <Link exact to="mailto:info@flyEase.in">Email: info@NextBoarding.in</Link>
             </div>
           </div>
         </div>
         <div className="Copyright">
-            <span>Copyright <PiCopyrightLight className="inline"/> 2024 All rights reserved | This template is made with <FaHeart className="inline"/> by FlyEase</span>
+            <span>Copyright <PiCopyrightLight className="inline"/> 2024 All rights reserved </span>
         </div>
     </Container>
       </section>

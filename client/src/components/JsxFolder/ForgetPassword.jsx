@@ -36,7 +36,7 @@ function ForgetPassword() {
         setCurrentSlide((prevSlide) => {
             const nextSlide = prevSlide + 1;
             if (nextSlide === 3) {
-                navigate("/SignIn");
+                navigate("/");
             }
             return nextSlide;
         });
@@ -141,9 +141,9 @@ function ForgetPassword() {
         }
     };
 
-  return (
-    <div>
-        <Modal isOpen={state.booking.showPasswordModal} onClose={cancelModal}>
+    return (
+        <div>
+            <Modal isOpen={state.booking.showPasswordModal} onClose={cancelModal}>
                 <form
                     onSubmit={async (e) => {
                         e.preventDefault();
@@ -200,7 +200,7 @@ function ForgetPassword() {
                                 {slides[currentSlide].forget_label === "Set new password" && (
                                     <>
                                         {state.booking.showPassword === "password" ? <CiLock className="icon" onClick={handleShowPassword} /> : <CiUnlock className="icon" onClick={handleHidePassword} />}
-                                        <input className="forget_Password_field rounded-lg" type={state.booking.showPassword} placeholder="New Password" autoComplete="new-password" name="password" value={state.booking.forgetEmail.password} onChange={handleEmailChange}/>
+                                        <input className="forget_Password_field rounded-lg" type={state.booking.showPassword} placeholder="New Password" autoComplete="new-password" name="password" value={state.booking.forgetEmail.password} onChange={handleEmailChange} />
                                     </>
                                 )}
                                 {slides[currentSlide].forget_label === "Password reset" && (
@@ -223,8 +223,8 @@ function ForgetPassword() {
                     </Modal.Body>
                 </form>
             </Modal>
-    </div>
-  )
+        </div>
+    )
 }
 
 export default ForgetPassword

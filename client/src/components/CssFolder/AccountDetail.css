@@ -18,3 +18,9 @@
     color: #7c8db0;
     font-weight: lighter;
 }
+
+.Button {
+    margin: 2rem 0 1rem 56.2rem;
+    width: 12%;
+    height: auto;
+}

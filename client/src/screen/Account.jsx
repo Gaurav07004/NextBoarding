@@ -1,4 +1,4 @@
-import React, { Suspense, useEffect, startTransition  } from "react";
+import React, { Suspense, useEffect, startTransition } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Avatar } from "keep-react";
 import { HiBars3CenterLeft } from "react-icons/hi2";
@@ -37,7 +37,7 @@ function Account() {
     const handleSidebar = () => {
         dispatch(setShowSidebar(!state.booking.showSidebar));
     };
-    
+
     return (
         <main>
             <Suspense fallback={<div>Loading...</div>}>
@@ -70,7 +70,7 @@ function Account() {
                         {["Upcoming", "Cancelled", "Completed", "Account Details"].map((status, index) => (
                             <section key={index} className={`Account_info_section ${state.booking.selectedTripStatus === status ? "" : "hidden"} transition-all`}>
                                 <div className="font-semibold text-red-400 text-2xl mb-1 label">{status === "Account Details" ? "Account Detail" : status + " Trip"}</div>
-                                <div className="font-semibold text-gray-400 text-sm label_2">{status === "Account Details" ? "Manage Your FlyEase Profile" : ""}</div>
+                                <div className="font-semibold text-gray-400 text-sm label_2">{status === "Account Details" ? "Manage Your NextBoarding Profile" : ""}</div>
                                 <div className="flex gap-4 mt-12 user_id">
                                     {Array.isArray(state.booking.selectedImages) && state.booking.selectedImages.map((dataUrl, index) => (
                                         <div key={index}>
@@ -83,26 +83,26 @@ function Account() {
                                     </div>
                                 </div>
                                 {status === "Upcoming" ? (
+                                    <Suspense fallback={<div>Loading...</div>}>
+                                        <Upcoming />
+                                    </Suspense>
+                                ) : (
+                                    status === "Cancelled" ? (
                                         <Suspense fallback={<div>Loading...</div>}>
-                                            <Upcoming/>
+                                            <Cancelled />
                                         </Suspense>
                                     ) : (
-                                        status === "Cancelled" ? (
+                                        status === "Account Details" ? (
                                             <Suspense fallback={<div>Loading...</div>}>
-                                                <Cancelled/>
+                                                <AccountDetail />
                                             </Suspense>
                                         ) : (
-                                            status === "Account Details" ? (
-                                                <Suspense fallback={<div>Loading...</div>}>
-                                                    <AccountDetail/>
-                                                </Suspense>
-                                            ) : (
-                                                <Suspense fallback={<div>Loading...</div>}>
-                                                    <Completed/>
-                                                </Suspense>
-                                            )
+                                            <Suspense fallback={<div>Loading...</div>}>
+                                                <Completed />
+                                            </Suspense>
                                         )
-                                    )}
+                                    )
+                                )}
                             </section>
                         ))}
                     </section>

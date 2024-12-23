@@ -80,10 +80,10 @@ const Flight = () => {
     //     }, [state.booking.departureAirport?.iata, state.booking.arrivalAirport?.iata, state.booking.currentDate, dispatch]);
     const fetch_Airline_Data = useCallback(async () => {
         try {
-            let departureIata = state.booking.departureAirport.iata;
-            let arrivalIata = state.booking.arrivalAirport.iata;
-            // let departureIata = state.booking.departureAirport.length > 0 ? state.booking.departureAirport[0].iata : "BOM";
-            // let arrivalIata = state.booking.arrivalAirport.length > 0 ? state.booking.arrivalAirport[0].iata : "DEL";
+            // let departureIata = state.booking.departureAirport.iata;
+            // let arrivalIata = state.booking.arrivalAirport.iata;
+            let departureIata = state.booking.departureAirport.length > 0 ? state.booking.departureAirport[0].iata : "BOM";
+            let arrivalIata = state.booking.arrivalAirport.length > 0 ? state.booking.arrivalAirport[0].iata : "DEL";
 
             const airlineAction = await dispatch(
                 fetchAirlineData({
@@ -168,22 +168,22 @@ const Flight = () => {
         return stop;
     };
 
-    const getOrdinalSuffix = (date) => {
-        if (date >= 11 && date <= 13) {
-            return "th";
-        }
+    // const getOrdinalSuffix = (date) => {
+    //     if (date >= 11 && date <= 13) {
+    //         return "th";
+    //     }
 
-        switch (date % 10) {
-            case 1:
-                return "st";
-            case 2:
-                return "nd";
-            case 3:
-                return "rd";
-            default:
-                return "th";
-        }
-    };
+    //     switch (date % 10) {
+    //         case 1:
+    //             return "st";
+    //         case 2:
+    //             return "nd";
+    //         case 3:
+    //             return "rd";
+    //         default:
+    //             return "th";
+    //     }
+    // };
 
     const date_value = (Dept_country, Arr_country) => {
         let date = state.booking.currentDate.getDate();
@@ -192,10 +192,10 @@ const Flight = () => {
             date += 1;
         }
 
-        const suffix = getOrdinalSuffix(date);
+        // const suffix = getOrdinalSuffix(date);
 
         // Add leading zero if date is less than 10
-        const formattedDate = (date < 10 ? '0' : '') + date + suffix;
+        const formattedDate = (date < 10 ? '0' : '') + date;
 
         return formattedDate;
     };
@@ -231,7 +231,7 @@ const Flight = () => {
             <React.Fragment>
                 <Table.Row key={airlinelogo.iata} onClick={() => handleFlightClick(airline, airlinelogo)} className="bg-white">
                     <Table.Cell>
-                        <img src={airlinelogo.logo_url} alt="logo" className="airlinelogo" />
+                        <img src={airlinelogo?.logo_url} alt="logo" className="airlinelogo" />
                     </Table.Cell>
                     <Table.Cell className="airlineInfo">
                         <div className="duration">{toHoursAndMinutes(airline.duration)}</div>
@@ -287,6 +287,8 @@ const Flight = () => {
 
         return selectedAirline === airlinelogo.name;
     };
+
+    console.log("departureAirlineResult", state.booking.departureAirlineResult)
 
     return (
         <main className="flightpanel font-sans">

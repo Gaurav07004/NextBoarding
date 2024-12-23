@@ -5,7 +5,7 @@ const User = require("../models/user_model.js");
 const RouteData = require("../models/route_model.js");
 const PassengerData = require("../models/passenger_model.js");
 const Payment = require("../models/payment_model.js");
-//const razorpay = require("../middlewares/auth-payment.js");
+const razorpay = require("../middlewares/auth-payment.js");
 
 const home = async (req, res) => {
     try {
@@ -79,12 +79,12 @@ const user = async (req, res) => {
         passengerData = await Promise.all(
             passengerData.map(async (passengerRoute) => {
                 const routeId = passengerRoute.route_Id.toString(); // Convert ObjectId to string
-                
-                const route = routeData.find(route => route._id.toString() === routeId); // Convert route _id to string for comparison
-                
+
+                const route = routeData.find((route) => route._id.toString() === routeId); // Convert route _id to string for comparison
+
                 if (route) {
                     const travelDate = new Date(route.travel_Date);
-                    passengerRoute.passengers = passengerRoute.passengers.map(passenger => {
+                    passengerRoute.passengers = passengerRoute.passengers.map((passenger) => {
                         if (passenger.status !== "Cancelled") {
                             if (travelDate > currentDate) {
                                 passenger.status = "Upcoming";
@@ -224,22 +224,7 @@ const storeRouteData = async (req, res) => {
     try {
         const user_Id = req.user._id;
 
-        const {
-            departure_City,
-            departure_Airport,
-            arrival_City,
-            arrival_Airport,
-            travel_Date,
-            traveller_Number,
-            traveller_Class,
-            fare_Type,
-            airline_Name,
-            flight_Number,
-            departure_Time,
-            arrival_Time,
-            total_duration,
-            stop,
-        } = req.body;
+        const { departure_City, departure_Airport, arrival_City, arrival_Airport, travel_Date, traveller_Number, traveller_Class, fare_Type, airline_Name, flight_Number, departure_Time, arrival_Time, total_duration, stop } = req.body;
 
         const newRoute = new RouteData({
             user_Id,
@@ -270,9 +255,8 @@ const storeRouteData = async (req, res) => {
 
 const storePassengerData = async (req, res) => {
     try {
-
         const user_Id = req.user._id;
-        const route_Id = req.routeIds[req.routeIds.length - 1]
+        const route_Id = req.routeIds[req.routeIds.length - 1];
         const { passengers, emergencyContacts, checked_Bags } = req.body;
 
         // Create a new instance of Booking model
@@ -373,13 +357,13 @@ const CancelTrip = async (req, res) => {
         const { route_Id } = req.params;
         const { status } = req.body;
 
-        const passengerData = await PassengerData.findOne({route_Id});
+        const passengerData = await PassengerData.findOne({ route_Id });
 
         if (!passengerData) {
             return res.status(404).json({ error: "Passenger not found" });
         }
 
-        const passengerIndex = passengerData.passengers.findIndex(passenger => passenger._id.toString() === passengerId);
+        const passengerIndex = passengerData.passengers.findIndex((passenger) => passenger._id.toString() === passengerId);
 
         if (passengerIndex === -1) {
             return res.status(404).json({ error: "Passenger not found" });
@@ -407,27 +391,72 @@ const TripConfirmation = async (req) => {
             },
         });
 
-        const emailContent = `<div style="max-width: 600px; margin: 0 auto; font-family: sans-serif; padding: 20px; background-color: #f0f0f0; border-radius: 1rem;">
-            <h1 style="font-size: 24px; font-weight: 600; margin-bottom: 20px;">Flight Booking Confirmation</h1>
-            <p style="font-size: 16px; line-height: 1.6; margin-bottom: 10px;">Dear ${bookingDetails.passengerName},</p>
-            <p style="font-size: 16px; line-height: 1.6; margin-bottom: 10px;">We are pleased to confirm your flight booking with NextBoarding. Below are the details of your upcoming flight:</p>
-            <ul style="list-style-type: none; padding: 0; margin: 0;">
-                <li style="margin-bottom: 5px;"><strong>Flight Number:</strong> ${bookingDetails.flightNumber}</li>
-                <li style="margin-bottom: 5px;"><strong>Departure Date:</strong> ${bookingDetails.departureDate.slice(0, 10)}</li>
-                <li style="margin-bottom: 5px;"><strong>Departure Time:</strong> ${bookingDetails.departureTime}</li>
-                <li style="margin-bottom: 5px;"><strong>Departure Airport:</strong> ${bookingDetails.departureAirport}</li>
-                <li style="margin-bottom: 5px;"><strong>Arrival Airport:</strong> ${bookingDetails.arrivalAirport}</li>
-                <li style="margin-bottom: 5px;"><strong>Number of Travellers:</strong> ${bookingDetails.numTravelers}</li>
-                <li style="margin-bottom: 5px;"><strong>Travel Class:</strong> ${bookingDetails.travelClass}</li>
-            </ul>
-            <p style="font-size: 16px; line-height: 1.6; margin-bottom: 10px;">If you have any special requests or require assistance, please don't hesitate to contact our customer support team.</p>
-            <p style="font-size: 16px; line-height: 1.6; margin-bottom: 10px;">Thank you for choosing NextBoarding for your travel needs.</p>
-            <p style="font-size: 16px; line-height: 1.6; margin-bottom: 10px;">
-                If you need further assistance, feel free to reach out to our support team at <a href="mailto:${process.env.EMAIL_USER}" style="color: #007bff; text-decoration: none;">NextBoarding Team</a>.
-            </p>
-            <p style="font-size: 16px; line-height: 1.6; margin-bottom: 10px;">Safe travels,</p>
-            <p style="font-size: 16px; line-height: 1.6; margin-bottom: 10px;">NextBoarding Team</p>
-        </div>`;
+        const emailContent = `<div
+            style="
+                max-width: 600px;
+                margin: 0 auto;
+                font-family: 'Helvetica Neue', Arial, sans-serif;
+                padding: 20px;
+                background: url('https://yourcompany.com/background-image.jpg') no-repeat center center / cover;
+                border-radius: 1rem;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            "
+        >
+            <div style="background-color: #fbbf24; padding: 30px; border-radius: 1rem 1rem 0 0; text-align: center;">
+                <h1 style="color: #ffffff; font-size: 24px; font-weight: 700; margin: 0;">Flight Booking Confirmation</h1>
+            </div>
+            <div style="padding: 20px; background-color: rgba(255, 255, 255, 0.95); border-radius: 1rem;">
+                <p style="font-size: 16px; color: #333; line-height: 1.6; margin-bottom: 10px;">Dear <strong>${bookingDetails.passengerName}</strong>,</p>
+                <p style="font-size: 16px; color: #333; line-height: 1.6; margin-bottom: 10px;">We are excited to confirm your flight booking with <strong>NextBoarding</strong>. Below are the details of your upcoming flight:</p>
+                <table style="width: 100%; border-collapse: collapse; margin: 20px 0;">
+                    <tr style="background-color: #f7f7f7;">
+                        <td style="padding: 10px; border: 1px solid #ddd;"><strong>Flight Number:</strong></td>
+                        <td style="padding: 10px; border: 1px solid #ddd;">${bookingDetails.flightNumber}</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 10px; border: 1px solid #ddd;"><strong>Departure Date:</strong></td>
+                        <td style="padding: 10px; border: 1px solid #ddd;">${bookingDetails.departureDate.slice(0, 10)}</td>
+                    </tr>
+                    <tr style="background-color: #f7f7f7;">
+                        <td style="padding: 10px; border: 1px solid #ddd;"><strong>Departure Time:</strong></td>
+                        <td style="padding: 10px; border: 1px solid #ddd;">${bookingDetails.departureTime}</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 10px; border: 1px solid #ddd;"><strong>Departure Airport:</strong></td>
+                        <td style="padding: 10px; border: 1px solid #ddd;">${bookingDetails.departureAirport}</td>
+                    </tr>
+                    <tr style="background-color: #f7f7f7;">
+                        <td style="padding: 10px; border: 1px solid #ddd;"><strong>Arrival Airport:</strong></td>
+                        <td style="padding: 10px; border: 1px solid #ddd;">${bookingDetails.arrivalAirport}</td>
+                    </tr>
+                    <tr>
+                        <td style="padding: 10px; border: 1px solid #ddd;"><strong>Number of Travellers:</strong></td>
+                        <td style="padding: 10px; border: 1px solid #ddd;">${bookingDetails.numTravelers}</td>
+                    </tr>
+                    <tr style="background-color: #f7f7f7;">
+                        <td style="padding: 10px; border: 1px solid #ddd;"><strong>Travel Class:</strong></td>
+                        <td style="padding: 10px; border: 1px solid #ddd;">${bookingDetails.travelClass}</td>
+                    </tr>
+                </table>
+                <p style="font-size: 16px; color: #333; line-height: 1.6; margin-bottom: 10px;">
+                    If you have any special requests or need assistance, please contact our customer support team. We're here to make your journey as smooth as possible.
+                </p>
+                <p style="font-size: 16px; color: #333; line-height: 1.6; margin-bottom: 10px;">Thank you for choosing <strong>NextBoarding</strong> for your travel needs. We wish you a pleasant trip!</p>
+                <div style="text-align: center; margin-top: 20px;">
+                    <a href="mailto:${process.env.EMAIL_USER}" style="background-color: #fbbf24; color: #ffffff; text-decoration: none; padding: 10px 20px; border-radius: 5px; display: inline-block; font-size: 16px;">
+                        Contact Support
+                    </a>
+                </div>
+                <p style="font-size: 14px; color: #777; text-align: center; margin-top: 20px;">
+                    Safe travels,<br />
+                    <strong>NextBoarding Team</strong>
+                </p>
+            </div>
+            <div style="background-color: #f0f0f0; padding: 10px; border-radius: 0 0 1rem 1rem; text-align: center; font-size: 12px; color: #777;">
+                &copy; ${new Date().getFullYear()} NextBoarding. All rights reserved.
+            </div>
+        </div>
+        `;
 
         await transporter.sendMail({
             from: {
@@ -446,5 +475,34 @@ const TripConfirmation = async (req) => {
     }
 };
 
+const PaymentCreateOrder = async (req, res) => {
+    const options = {
+        amount: req.body.amount,
+        currency: "INR",
+        receipt: "receipt#1",
+        payment_capture: 1,
+    };
 
-module.exports = { home, registration, login, user, emailController, OTP, changePassword, storeRouteData, storePassengerData, paymentGateway, AccountData, DeleteAccount, CancelTrip, TripConfirmation };
+    try {
+        const response = await razorpay.orders.create(options);
+        res.json(response);
+    } catch (error) {
+        console.error(error);
+        res.status(500).send("Internal server error");
+    }
+};
+
+// const PaymentverifyOrder = (req, res) => {
+//     const crypto = require('crypto');
+//     const generatedSignature = crypto.createHmac('sha256', 'YOUR_KEY_SECRET')
+//         .update(`${req.body.razorpay_order_id}|${req.body.razorpay_payment_id}`)
+//         .digest('hex');
+
+//     if (generatedSignature === req.body.razorpay_signature) {
+//         res.json({ success: true });
+//     } else {
+//         res.status(400).json({ success: false });
+//     }
+// };
+
+module.exports = { home, registration, login, user, emailController, OTP, changePassword, storeRouteData, PaymentCreateOrder, storePassengerData, paymentGateway, AccountData, DeleteAccount, CancelTrip, TripConfirmation };

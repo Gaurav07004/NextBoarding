@@ -59,10 +59,10 @@ function ConfirmBooking() {
                     const errorMessage = errorData.error || "Something went wrong during trip confirmation";
                     throw new Error(errorMessage);
                 }
-                    } catch (error) {
-                        console.error("Error fetching user data:", error);
-                    }
-                };
+            } catch (error) {
+                console.error("Error fetching user data:", error);
+            }
+        };
         fetchUserData();
     }, []);
 
@@ -90,7 +90,7 @@ function ConfirmBooking() {
             <>
                 <p className="label_name p-0">
                     {State_value} <span>{format(state.booking.currentDate, "MMMM")} </span>
-                    <span>{State_value === "Departing" ? format(state.booking.currentDate, "Do") : state.booking.flightDetail?.date}, </span>
+                    <span>{State_value === "Departing" ? format(state.booking.currentDate, "dd") : state.booking.flightDetail?.date}, </span>
                     <span>{format(state.booking.currentDate, "yyy ")}</span>
                 </p>
                 <section className="Departure_info border-2 rounded mb-3">
@@ -135,7 +135,7 @@ function ConfirmBooking() {
                                 <Alert.Container className="flex items-start">
                                     <Alert.Icon />
                                     <Alert.Body className="flex flex-col items-start gap-3">
-                                    <Alert.Title className="text-body-2">Booking Confirmation</Alert.Title>
+                                        <Alert.Title className="text-body-2">Booking Confirmation</Alert.Title>
                                         <Alert.Description className="block w-full sm:line-clamp-none warning_message">
                                             Your booking has been confirmed! Thank you for choosing our service. We look forward to serving you. If you have any questions or need assistance, feel free to contact us.
                                         </Alert.Description>
@@ -144,7 +144,7 @@ function ConfirmBooking() {
                             </Alert>
                             <p className=" font-bold tracking-wider text-lg text-amber-400 pt-4 payment_label">Save Journey, {state.booking.passengerForm[0]?.firstName || "--"}!</p>
                             <p className="user_related_info mt-3">
-                                Thank you for booking your travel with FlyEase! Below is a summary of your trip to {state.booking.arrivalAirport?.iata || "DEl"} airport in {state.booking.arrivalAirport?.city || "New Delhi"},{" "}
+                                Thank you for booking your travel with NextBoarding! Below is a summary of your trip to {state.booking.arrivalAirport?.iata || "DEl"} airport in {state.booking.arrivalAirport?.city || "New Delhi"},{" "}
                                 {state.booking.arrivalAirport?.country || "India"}. We’ve sent a copy of your booking confirmation to your email address.
                             </p>
                             <section className="Flight summary mt-3">
