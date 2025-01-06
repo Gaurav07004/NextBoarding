@@ -2,7 +2,7 @@
 
 NextBoarding is a web application that aims to streamline the flight planning process, ensuring a seamless user experience. NextBoarding leverages the MERN (MongoDB, Express.js, React.js, Node.js) stack, providing users with an easy-to-use interface for checking in, selecting seats, and managing payments to handle it properly.
 
-Key Features:
+### Key Features:
 
 1️⃣ Real-Time Flight Updates: Our platform harnesses the power of MongoDB and Node.js to provide users with instant access to real-time flight information from leading airlines worldwide. Stay informed and empowered to make the best travel decisions.
 
