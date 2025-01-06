@@ -1,3 +1,5 @@
+### NextBoarding - A Flight Booking Website
+
 NextBoarding is a web application that aims to streamline the flight planning process, ensuring a seamless user experience. NextBoarding leverages the MERN (MongoDB, Express.js, React.js, Node.js) stack, providing users with an easy-to-use interface for checking in, selecting seats, and managing payments to handle it properly.
 
 Key Features:
